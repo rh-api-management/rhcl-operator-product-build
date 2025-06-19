@@ -26,6 +26,8 @@ spec:
     value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator:{{revision}}
   - name: dockerfile
     value: Containerfile.rhcl-operator
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
@@ -75,7 +77,7 @@ spec:
       description: Skip checks against built image
       name: skip-checks
       type: string
-    - default: "false"
+    - default: "true"
       description: Execute the build with network isolation
       name: hermetic
       type: string
@@ -179,6 +181,8 @@ spec:
         value: $(params.output-image).prefetch
       - name: ociArtifactExpiresAfter
         value: $(params.image-expires-after)
+      - name: dev-package-managers 
+        value: "true"
       runAfter:
       - clone-repository
       taskRef:
