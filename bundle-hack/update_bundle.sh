@@ -3,20 +3,19 @@
 # enables strict mode: `-e` fails if error, `-u` checks variable references, `-o pipefail`: prevents errors in a pipeline from being masked
 set -euo pipefail
 
-export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/api-management-tenant/rhcl-operator@sha256:de9542279effd6bb61c3dce48551e2768fff2b7e8bc9f6e39ee2c30e4505b147"
 export CSV_FILE=/manifests/kuadrant-operator.clusterserviceversion.yaml
-export CONSOLE_PLUGIN_PULLSPEC="quay.io/redhat-user-workloads/api-management-tenant/rhcl-console-plugin@sha256:ea9aca3202bb20816d2cb76abebaaba5488d9bc42b25721b2194f4762efc3577"
-export WASM_SHIM_PULLSPEC="quay.io/redhat-user-workloads/api-management-tenant/rhcl-wasm-shim@sha256:5b6002f6dd72ac0d9dec45d080b442effad8cb35759418baeff10d654357567a"
+export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-rhel9-operator"
+export CONSOLE_PLUGIN_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
+export WASM_SHIM_PULLSPEC="registry.redhat.io/rhcl-1/wasm-shim-rhel9"
 export DESCRIPTION=$(cat DESCRIPTION)
 export ICON=$(cat ICON)
 
-sed -i -e "s|quay.io/kuadrant/kuadrant-operator:latest|\"${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC}\"|g" \
+#Update the konflux quay repos to registry.redhat.io, we have to do this manually before release, since Konflux does not pin them for us like OSBS did.
+sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC}|g" \
 	"${CSV_FILE}"
-sed -i -e "s|quay.io/kuadrant/console-plugin:latest|\"${CONSOLE_PLUGIN_PULLSPEC}\"|g" \
+sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC}|g" \
    "${CSV_FILE}"
-sed -i -e "s|quay.io/kuadrant/kuadrant-console-plugin:latest|\"${CONSOLE_PLUGIN_PULLSPEC}\"|g" \
-   "${CSV_FILE}"
-sed -i -e "s|quay.io/kuadrant/wasm-shim:latest|\"${WASM_SHIM_PULLSPEC}\"|g" \
+sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim|${WASM_SHIM_PULLSPEC}|g" \
    "${CSV_FILE}"
 
 export EPOC_TIMESTAMP=$(date +%s)

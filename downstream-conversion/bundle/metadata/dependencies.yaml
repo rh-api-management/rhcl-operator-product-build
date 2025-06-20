@@ -1,0 +1,13 @@
+dependencies:
+  - type: olm.package
+    value:
+      packageName: authorino-operator
+      version: "1.2.2"
+  - type: olm.package
+    value:
+      packageName: limitador-operator
+      version: "1.1.1"
+  - type: olm.package
+    value:
+      packageName: dns-operator
+      version: "1.1.1"

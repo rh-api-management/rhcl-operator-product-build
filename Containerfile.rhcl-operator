@@ -28,6 +28,7 @@ COPY kuadrant-operator/go.sum go.sum
 # cache deps before building and copying source so that we don't need to re-download as much
 # and so that source changes don't invalidate our downloaded layer
 RUN go mod download
+COPY kuadrant-operator/LICENSE /licenses/LICENSE
 
 # Copy the go source
 COPY kuadrant-operator/cmd/main.go cmd/main.go
@@ -59,6 +60,7 @@ ENV OPERATOR_BINARY_NAME="manager" \
 USER root
 
 # install operator binary
+COPY --from=builder licenses/LICENSE /licenses/LICENSE
 COPY --from=builder /workspace/${OPERATOR_BINARY_NAME} /
 RUN chown ${USER_UID} /${OPERATOR_BINARY_NAME}
 
