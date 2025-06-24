@@ -5,9 +5,12 @@ FROM registry.redhat.io/ubi9/ubi:latest as builder
 RUN dnf install -y skopeo jq python3 python3-pip && \
       pip3 install ruamel.yaml
 
+# Automating bundle reference updates via Konflux requires us to maintain our own CSV file
 COPY ./bundle-hack/ .
 COPY kuadrant-operator/bundle/manifests /manifests/
-COPY kuadrant-operator/bundle/metadata /metadata/
+RUN rm /manifests/kuadrant-operator.clusterserviceversion.yaml
+COPY ./downstream-conversion/bundle/manifests/kuadrant-operator.clusterserviceversion.yaml /manifests
+COPY ./downstream-conversion/bundle/metadata /metadata/
 RUN chmod +x update_bundle.sh && ./update_bundle.sh
 
 FROM scratch

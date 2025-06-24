@@ -9,7 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
-      == "rhcl-1.1"
+      == "rhcl-1.1" && ( "./kuadrant-operator/".pathChanged() || "Containerfile.rhcl-operator".pathChanged() || "./downstream-conversion/".pathChanged() || "./rpms.lock.yaml".pathChanged() || "./downstream-conversion/".pathChanged() || "./config/".pathChanged() || "./.tekton/rhcl-1-1-rhcl-operator-pull-request.yaml".pathChanged() )
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: rhcl-1-1-rhcl-operator
@@ -93,7 +93,7 @@ spec:
         1h, 2d, 3w for hours, days, and weeks, respectively.
       name: image-expires-after
       type: string
-    - default: "false"
+    - default: "true"
       description: Build a source image.
       name: build-source-image
       type: string
