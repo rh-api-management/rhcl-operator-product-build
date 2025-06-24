@@ -9,7 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
-      == "rhcl-1.1"
+      == "rhcl-1.1" && ( "./kuadrant-operator/".pathChanged() || "Containerfile.rhcl-operator".pathChanged() || "./downstream-conversion/".pathChanged() || "./rpms.lock.yaml".pathChanged() || "./downstream-conversion/".pathChanged() || "./config/".pathChanged() || "./.tekton/rhcl-1-1-rhcl-operator-pull-request.yaml".pathChanged() )
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: rhcl-1-1-rhcl-operator
