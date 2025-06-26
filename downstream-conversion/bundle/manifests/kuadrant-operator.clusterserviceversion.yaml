@@ -462,7 +462,7 @@ spec:
                 - name: RELATED_IMAGE_WASMSHIM
                   value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:64bb7c2c7a9fa83ecbeae64d779ce286f26d3c2efc61fce51dd2fe500c24067a
                 - name: RELATED_IMAGE_CONSOLEPLUGIN
-                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:c2f6e017b6d764daa7aca4d9c7743563d3649107b9af201fab12ee1b5f37578c 
+                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:595f3fcb42feef63cca86a791143311cfaf5440cffdea157a83d04db2133d63e 
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
@@ -571,6 +571,6 @@ spec:
   relatedImages:
   - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:64bb7c2c7a9fa83ecbeae64d779ce286f26d3c2efc61fce51dd2fe500c24067a
     name: wasmshim
-  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:c2f6e017b6d764daa7aca4d9c7743563d3649107b9af201fab12ee1b5f37578c 
+  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:595f3fcb42feef63cca86a791143311cfaf5440cffdea157a83d04db2133d63e 
     name: consoleplugin
   version: 1.1.1
