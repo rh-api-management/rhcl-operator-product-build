@@ -1,5 +1,5 @@
 {
-    "extends": ["github>konflux-ci/mintmaker:config/renovate/renovate.json"],
+    "extends": ["github>konflux-ci/mintmaker//config/renovate/renovate.json"],
     "packageRules": [
         {
             "description": "Enable automerge for all image digest updates",
