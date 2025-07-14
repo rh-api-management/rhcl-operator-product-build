@@ -460,7 +460,7 @@ spec:
                 - /manager
                 env:
                 - name: RELATED_IMAGE_WASMSHIM
-                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:608da586cbdad7c4136131fa8d196248ef76edb86788b3a853cd4e026e886097
+                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:a9d5c4107fde7cc8e872311f1f618b93348142bf856cd21d82a9e4baab01ad12
                 - name: RELATED_IMAGE_CONSOLEPLUGIN
                   value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:d757a2d214fe235fe12f19a854c843daa1c1f67c5b02e14329740a7b7cf8537e 
                 - name: OPERATOR_NAMESPACE
@@ -569,7 +569,7 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:608da586cbdad7c4136131fa8d196248ef76edb86788b3a853cd4e026e886097
+  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:a9d5c4107fde7cc8e872311f1f618b93348142bf856cd21d82a9e4baab01ad12
     name: wasmshim
   - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:d757a2d214fe235fe12f19a854c843daa1c1f67c5b02e14329740a7b7cf8537e 
     name: consoleplugin
