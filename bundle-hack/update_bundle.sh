@@ -10,6 +10,7 @@ export WASM_SHIM_PULLSPEC="registry.redhat.io/rhcl-1/wasm-shim-rhel9"
 export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator"
 export CONSOLE_PLUGIN_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
 export WASM_SHIM_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/wasm-shim-rhel9"
+export GATEWAY_CONTROLLER_NAME="openshift.io/gateway-controller/v1"
 export DESCRIPTION=$(cat DESCRIPTION)
 export ICON=$(cat ICON)
 
@@ -58,6 +59,17 @@ def dump_manifest(pathn, manifest):
    with open(pathn, "w") as f:
       yaml.dump(manifest, f)
    return
+
+def update_or_append_to_env(l, name, value):
+   # l is a list of name/value pair objects [ { "name": "foo", "value": "bar" } ]
+   # If exists -> update with value
+   # If it does not exist -> create new env var with {name: value}
+   obj = next((x for x in l if x["name"] == name ), None)
+   if not obj:
+      obj = { "name": name }
+      l.append(obj)
+   obj["value"] = value
+
 timestamp = int(os.getenv('EPOC_TIMESTAMP'))
 datetime_time = datetime.fromtimestamp(timestamp)
 rhcl_operator_csv = load_manifest(os.getenv('CSV_FILE'))
@@ -83,6 +95,11 @@ rhcl_operator_csv['metadata']['annotations']['repository'] = 'https://github.com
 # Add description & icon
 rhcl_operator_csv['metadata']['annotations']['description'] = os.getenv('DESCRIPTION')
 rhcl_operator_csv['spec']['icon'][0]['base64data'] = os.getenv('ICON')
+
+# Patch container
+operator_container = rhcl_operator_csv['spec']['install']['spec']['deployments'][0]['spec']['template']['spec']['containers'][0]
+
+update_or_append_to_env(operator_container['env'], "ISTIO_GATEWAY_CONTROLLER_NAMES", os.getenv('GATEWAY_CONTROLLER_NAME'))
 
 dump_manifest(os.getenv('CSV_FILE'), rhcl_operator_csv)
 CSV_UPDATE
