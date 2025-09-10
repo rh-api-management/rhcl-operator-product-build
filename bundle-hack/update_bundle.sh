@@ -6,7 +6,7 @@ set -euo pipefail
 export CSV_FILE=/manifests/kuadrant-operator.clusterserviceversion.yaml
 export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-rhel9-operator"
 export CONSOLE_PLUGIN_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
-export WASM_SHIM_PULLSPEC="registry.redhat.io/rhcl-1/wasm-shim-rhel9"
+export WASM_SHIM_PULLSPEC="registry.access.redhat.com/rhcl-1/wasm-shim-rhel9"
 export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator"
 export CONSOLE_PLUGIN_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
 export WASM_SHIM_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/wasm-shim-rhel9"
