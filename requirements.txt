@@ -8,7 +8,7 @@ ruamel-yaml==0.17.9 \
     --hash=sha256:374373b4743aee9f6d9f40bea600fe020a7ac7ae36b838b4a6a93f72b584a14c \
     --hash=sha256:8873a6f5516e0d848c92418b0b006519c0566b6cd0dcee7deb9bf399e2bd204f
     # via rh-authorino-operator-bundle (pyproject.toml)
-ruamel-yaml-clib==0.1.2 \
+ruamel-yaml-clib==0.2.14 \
     --hash=sha256:0bbe19d3e099f8ba384e1846e6b54f245f58aeec8700edbbf9abb87afa54fd82 \
     --hash=sha256:2f38024592613f3a8772bbc2904be027d9abf463518ba145f2d0c8e6da27009f \
     --hash=sha256:44449b3764a3f75815eea8ae5930b98e8326be64a90b0f782747318f861abfe0 \
