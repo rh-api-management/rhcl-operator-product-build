@@ -108,7 +108,7 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator@sha256:bd75b44f31175ec45a32bb2947ee478596474dc53b0d59743c0acec8fe2be8c5
+    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator@sha256:46d98e445ddbb107b6d19562d9d4a1e0b29e58cadb18f97cfb15457d4254218d
     createdAt: "2025-04-23T14:42:57Z"
     description: Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
@@ -467,7 +467,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-                image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator@sha256:bd75b44f31175ec45a32bb2947ee478596474dc53b0d59743c0acec8fe2be8c5
+                image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator@sha256:46d98e445ddbb107b6d19562d9d4a1e0b29e58cadb18f97cfb15457d4254218d
                 livenessProbe:
                   httpGet:
                     path: /healthz
