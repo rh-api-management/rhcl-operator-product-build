@@ -34,7 +34,6 @@ COPY kuadrant-operator/LICENSE /licenses/LICENSE
 COPY kuadrant-operator/cmd/main.go cmd/main.go
 COPY kuadrant-operator/api/ api/
 COPY kuadrant-operator/internal/ internal/
-COPY kuadrant-operator/pkg/ pkg/
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "-X main.version=${VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}" -o ${BINARY_NAME} cmd/main.go
