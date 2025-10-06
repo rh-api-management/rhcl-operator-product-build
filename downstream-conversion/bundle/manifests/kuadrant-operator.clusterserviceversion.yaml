@@ -236,6 +236,14 @@ spec:
           - list
           - watch
         - apiGroups:
+          - config.openshift.io
+          resources:
+          - clusterversions
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
           - console.openshift.io
           resources:
           - consoleplugins
@@ -461,8 +469,6 @@ spec:
                 env:
                 - name: RELATED_IMAGE_WASMSHIM
                   value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:dac231c8c5b7e5da9482bbafd97c5e09fff5a2421af11284f2d57b8f831f07ef
-                - name: RELATED_IMAGE_CONSOLEPLUGIN
-                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:c693234c1dc0c3915a4cb306c4236c3d5cb194898b75c8313bec230d4ea5b90d 
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
@@ -571,6 +577,4 @@ spec:
   relatedImages:
   - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim@sha256:dac231c8c5b7e5da9482bbafd97c5e09fff5a2421af11284f2d57b8f831f07ef
     name: wasmshim
-  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:c693234c1dc0c3915a4cb306c4236c3d5cb194898b75c8313bec230d4ea5b90d 
-    name: consoleplugin
   version: 1.1.1
