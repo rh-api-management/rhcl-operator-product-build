@@ -4,6 +4,7 @@
 set -euo pipefail
 
 export CSV_FILE=/manifests/kuadrant-operator.clusterserviceversion.yaml
+export CONSOLE_PLUGIN_CM_FILE=/manifests/kuadrant-operator-console-plugin-images_v1_configmap.yaml
 export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-rhel9-operator"
 export CONSOLE_PLUGIN_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
 export WASM_SHIM_PULLSPEC="registry.access.redhat.com/rhcl-1/wasm-shim-rhel9"
@@ -21,7 +22,7 @@ if [[ "${development:-}" == "true" ]]; then
 elif [[ "${stage:-}" == "true" ]]; then
     # Use stage pullspecs
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE}|g" \
-        "${CSV_FILE}"
+       "${CONSOLE_PLUGIN_CM_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
        "${CSV_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim|${WASM_SHIM_PULLSPEC_STAGE}|g" \
@@ -31,7 +32,7 @@ else
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC}|g" \
         "${CSV_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC}|g" \
-       "${CSV_FILE}"
+        "${CONSOLE_PLUGIN_CM_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim|${WASM_SHIM_PULLSPEC}|g" \
        "${CSV_FILE}"
 fi
