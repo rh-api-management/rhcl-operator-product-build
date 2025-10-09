@@ -1,3 +1,5 @@
+#TODO Update for RHCL 1.2.0 once new builds exist
+
 apiVersion: v1
 data:
   "4.16": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin@sha256:0b3d41e21b75aecb9a387d1e6fe29eb90973790fe980fd8b28f2d5df09b2cea9

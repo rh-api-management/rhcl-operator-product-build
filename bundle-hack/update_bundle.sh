@@ -21,19 +21,19 @@ if [[ "${development:-}" == "true" ]]; then
     echo "Development bundle: leaving quay.io pullspecs unchanged"
 elif [[ "${stage:-}" == "true" ]]; then
     # Use stage pullspecs
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE}|g" \
        "${CONSOLE_PLUGIN_CM_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
        "${CSV_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim|${WASM_SHIM_PULLSPEC_STAGE}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim|${WASM_SHIM_PULLSPEC_STAGE}|g" \
        "${CSV_FILE}"
 else
     # Use production pullspecs
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC}|g" \
         "${CSV_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC}|g" \
         "${CONSOLE_PLUGIN_CM_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-wasm-shim|${WASM_SHIM_PULLSPEC}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim|${WASM_SHIM_PULLSPEC}|g" \
        "${CSV_FILE}"
 fi
 
