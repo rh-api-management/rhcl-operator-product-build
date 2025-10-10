@@ -20,6 +20,7 @@ FROM registry.redhat.io/ubi9/go-toolset:latest AS builder
 
 ENV LDFLAGS="-X main.version=${VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}"
 ENV BINARY_NAME="manager"
+ARG WITH_EXTENSIONS=true
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -31,13 +32,27 @@ RUN go mod download
 COPY kuadrant-operator/LICENSE /licenses/LICENSE
 
 # Copy the go source
-COPY kuadrant-operator/cmd/main.go cmd/main.go
+COPY kuadrant-operator/cmd/ cmd/
 COPY kuadrant-operator/api/ api/
 COPY kuadrant-operator/internal/ internal/
 COPY kuadrant-operator/pkg/ pkg/
 
-# Build
+# Build RHCL Operator
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "-X main.version=${VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}" -o ${BINARY_NAME} cmd/main.go
+
+# Conditionally build extensions
+RUN mkdir -p extensions
+RUN if [ "$WITH_EXTENSIONS" = "true" ]; then \
+    echo "Building extensions..." && \
+    mkdir -p extensions/oidc-policy && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -o extensions/oidc-policy/oidc-policy cmd/extensions/oidc-policy/main.go && \
+    mkdir -p extensions/plan-policy && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -o extensions/plan-policy/plan-policy cmd/extensions/plan-policy/main.go && \
+    mkdir -p extensions/telemetry-policy && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -o extensions/telemetry-policy/telemetry-policy cmd/extensions/telemetry-policy/main.go; \
+    else \
+    echo "Skipping extensions build"; \
+    fi
 
 FROM registry.redhat.io/ubi9/ubi-minimal:latest
 
