@@ -7,7 +7,8 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "rhcl-1.2" && ( "kuadrant-operator/*".pathChanged() || "Containerfile.rhcl-operator".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-push.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "rhcl-1.2" && ( "kuadrant-operator/*".pathChanged() || "Containerfile.rhcl-operator".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-push.yaml".pathChanged() || ".tekton/multi-arch-build-pipeline.yaml".pathChanged() )
+  creationTimestamp: null
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: rhcl-1-2-rhcl-operator
