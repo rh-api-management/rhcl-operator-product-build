@@ -2,12 +2,12 @@
 
 apiVersion: v1
 data:
-  "4.16": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
-  "4.17": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
-  "4.18": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
-  "4.19": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
-  "4.20": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
-  default: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cd1bed3b072ced00f455fcd7e96eec51023cfe906321bb5afe0a9bae94ba2c22
+  "4.16": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
+  "4.17": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
+  "4.18": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
+  "4.19": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
+  "4.20": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
+  default: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:ae975a23bdb15d25f501cf25bb39d392580f38d8c61ebfaa055241cff122b5cc
 kind: ConfigMap
 metadata:
   labels:
