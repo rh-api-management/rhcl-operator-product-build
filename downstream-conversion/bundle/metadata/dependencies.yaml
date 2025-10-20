@@ -2,7 +2,7 @@ dependencies:
   - type: olm.package
     value:
       packageName: authorino-operator
-      version: "1.2.2"
+      version: "1.2.4"
   - type: olm.package
     value:
       packageName: limitador-operator
