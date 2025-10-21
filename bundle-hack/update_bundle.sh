@@ -10,7 +10,7 @@ export CONSOLE_PLUGIN_PULLSPEC="registry.redhat.io/rhcl-1/rhcl-console-plugin-rh
 export WASM_SHIM_PULLSPEC="registry.access.redhat.com/rhcl-1/wasm-shim-rhel9"
 export CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator"
 export CONSOLE_PLUGIN_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9"
-export WASM_SHIM_PULLSPEC_STAGE="registry.stage.redhat.io/rhcl-1/wasm-shim-rhel9"
+export WASM_SHIM_PULLSPEC_STAGE="registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9"
 export GATEWAY_CONTROLLER_NAME="openshift.io/gateway-controller/v1"
 export DESCRIPTION=$(cat DESCRIPTION)
 export ICON=$(cat ICON)
@@ -22,9 +22,9 @@ if [[ "${development:-}" == "true" ]]; then
 elif [[ "${stage:-}" == "true" ]]; then
     # Use stage pullspecs
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE}|g" \
-       "${CONSOLE_PLUGIN_CM_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
        "${CSV_FILE}"
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
+       "${CONSOLE_PLUGIN_CM_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim|${WASM_SHIM_PULLSPEC_STAGE}|g" \
        "${CSV_FILE}"
 else
