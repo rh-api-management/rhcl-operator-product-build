@@ -85,6 +85,8 @@ spec:
         - $(params.build-platforms)
     name: build-images
     params:
+    - name: BUILDAH_FORMAT
+      value: $(params.buildah-format)
     - name: IMAGE
       value: $(params.output-image)
     - name: DOCKERFILE
@@ -128,6 +130,8 @@ spec:
       - "true"
   - name: build-image-index
     params:
+    - name: BUILDAH_FORMAT
+      value: $(params.buildah-format)
     - name: IMAGE
       value: $(params.output-image)
     - name: COMMIT_SHA
@@ -552,6 +556,10 @@ spec:
     description: List of platforms to build the container images on. The available set of values is determined by the configuration of the multi-platform-controller.
     name: build-platforms
     type: array
+  - default: docker
+    description: The format for the resulting image's mediaType. Valid values are oci (default) or docker.
+    name: buildah-format
+    type: string
   workspaces:
   - name: git-auth
     optional: true

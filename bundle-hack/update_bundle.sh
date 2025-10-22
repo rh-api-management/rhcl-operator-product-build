@@ -23,7 +23,7 @@ elif [[ "${stage:-}" == "true" ]]; then
     # Use stage pullspecs
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator|${CONNECTIVITY_LINK_OPERATOR_IMAGE_PULLSPEC_STAGE}|g" \
         "${CSV_FILE}"
-    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0.1.5|${CONSOLE_PLUGIN_PULLSPEC}|g" \
+    sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0.1.5|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
         "${CONSOLE_PLUGIN_CM_FILE}"
     sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin|${CONSOLE_PLUGIN_PULLSPEC_STAGE}|g" \
         "${CONSOLE_PLUGIN_CM_FILE}"
