@@ -77,6 +77,7 @@ USER root
 # install operator binary
 COPY --from=builder licenses/LICENSE /licenses/LICENSE
 COPY --from=builder /workspace/${OPERATOR_BINARY_NAME} /
+COPY --from=builder /workspace/extensions /extensions
 RUN chown ${USER_UID} /${OPERATOR_BINARY_NAME}
 
 # # TODO: Install licenses
