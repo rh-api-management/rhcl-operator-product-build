@@ -56,7 +56,7 @@ RUN if [ "$WITH_EXTENSIONS" = "true" ]; then \
 
 FROM registry.redhat.io/ubi9/ubi-minimal:latest
 
-LABEL version="1.2.0" \
+LABEL version="1.2.1" \
       summary="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
       name="Red Hat Connectivity Link Operator Bundle" \
       description="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
