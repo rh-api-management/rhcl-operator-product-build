@@ -19,9 +19,6 @@ packages:
   - llvm-toolset
   - gcc-c++
   - gcc-toolset-12-binutils-gold
-  - protobuf-devel
-  - protobuf-compiler
-  - rust-std-static-wasm32-unknown-unknown
   - openssl-devel
   - perl
   - git
