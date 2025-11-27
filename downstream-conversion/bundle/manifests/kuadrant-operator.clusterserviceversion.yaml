@@ -592,7 +592,7 @@ spec:
                 - name: EXTENSIONS_DIR
                   value: /extensions
                 - name: RELATED_IMAGE_WASMSHIM
-                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim@sha256:d957030802c627f1fdb690d01f7766bc529975eaed9e750dbed1f7b20bde5760
+                  value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim@sha256:aa524e9278976aa3ef0f2d3aeb981e28d2ea6ed6fc5fede05a5dd33db0bb3de2
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
@@ -709,6 +709,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim@sha256:d957030802c627f1fdb690d01f7766bc529975eaed9e750dbed1f7b20bde5760
+  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim@sha256:aa524e9278976aa3ef0f2d3aeb981e28d2ea6ed6fc5fede05a5dd33db0bb3de2
     name: wasmshim
   version: 1.2.1
