@@ -1,0 +1,6 @@
+[project]
+name = "rhcl-operator-product-build"
+version = "0.1.0"
+dependencies = [
+    "ruamel.yaml==0.18.6",
+]
