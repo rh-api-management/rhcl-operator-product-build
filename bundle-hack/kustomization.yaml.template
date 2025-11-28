@@ -1,0 +1,134 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - CSV_FILE_PATH
+  - CONSOLE_PLUGIN_CM_FILE_PATH
+
+patches:
+  # Update CSV metadata and spec
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: CSV_NAME_VALUE
+      - op: replace
+        path: /spec/version
+        value: CSV_VERSION_VALUE
+      - op: replace
+        path: /spec/displayName
+        value: DISPLAY_NAME_VALUE
+      - op: replace
+        path: /spec/description
+        value: DESCRIPTION_VALUE
+      - op: test
+        path: /spec/replaces
+      - op: remove
+        path: /spec/replaces
+      - op: test
+        path: /spec/skipRange
+      - op: remove
+        path: /spec/skipRange
+
+  # Update CSV annotations
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/containerImage
+        value: TARGET_OPERATOR_IMAGE_VALUE
+      - op: replace
+        path: /metadata/annotations/createdAt
+        value: CREATED_AT_VALUE
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1disconnected
+        value: "true"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1fips-compliant
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1proxy-aware
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1tls-profiles
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-aws
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-azure
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-gcp
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1cnf
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1cni
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1csi
+        value: "false"
+      - op: replace
+        path: /metadata/annotations/operators.openshift.io~1valid-subscription
+        value: VALID_SUBSCRIPTION_VALUE
+      - op: add
+        path: /metadata/annotations/repository
+        value: "https://github.com/kuadrant/kuadrant-operator"
+
+  # Add OS support label
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: add
+        path: /metadata/labels/operatorframework.io~1os.linux
+        value: supported
+
+  # Update icon
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/icon/0/base64data
+        value: ICON_VALUE
+
+  # Update container image in deployment
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/install/spec/deployments/0/spec/template/spec/containers/0/image
+        value: TARGET_OPERATOR_IMAGE_VALUE
+
+  # Update WASM shim image in relatedImages
+  # Note: This assumes wasm-shim is at index 0, adjust if needed
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/relatedImages/WASM_SHIM_INDEX/image
+        value: TARGET_WASM_SHIM_IMAGE_VALUE
+
+  # Update ISTIO_GATEWAY_CONTROLLER_NAMES env var
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: add
+        path: /spec/install/spec/deployments/0/spec/template/spec/containers/0/env/-
+        value:
+          name: ISTIO_GATEWAY_CONTROLLER_NAMES
+          value: GATEWAY_CONTROLLER_NAME_VALUE
+
+  # Replace image references in Console Plugin ConfigMap
+  - target:
+      kind: ConfigMap
+      name: kuadrant-operator-console-plugin-images
+    patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: kuadrant-operator-console-plugin-images
+      $patch: replace
+      data: CONSOLE_PLUGIN_DATA_VALUE

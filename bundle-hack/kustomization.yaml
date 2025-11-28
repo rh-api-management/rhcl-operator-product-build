@@ -1,0 +1,127 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Resources to patch - these paths will be set at runtime
+resources: []
+
+# Patches for CSV metadata, annotations, and spec
+patches:
+  # Update CSV metadata name and version
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: REPLACE_CSV_NAME
+      - op: replace
+        path: /spec/version
+        value: REPLACE_CSV_VERSION
+      - op: replace
+        path: /spec/displayName
+        value: REPLACE_DISPLAY_NAME
+      - op: replace
+        path: /spec/description
+        value: REPLACE_DESCRIPTION
+
+  # Update CSV annotations
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: add
+        path: /metadata/annotations/containerImage
+        value: REPLACE_OPERATOR_IMAGE
+      - op: add
+        path: /metadata/annotations/createdAt
+        value: REPLACE_CREATED_AT
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1disconnected
+        value: "true"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1fips-compliant
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1proxy-aware
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1tls-profiles
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-aws
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-azure
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1token-auth-gcp
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1cnf
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1cni
+        value: "false"
+      - op: add
+        path: /metadata/annotations/features.operators.openshift.io~1csi
+        value: "false"
+      - op: add
+        path: /metadata/annotations/operators.openshift.io~1valid-subscription
+        value: REPLACE_VALID_SUBSCRIPTION
+      - op: add
+        path: /metadata/annotations/repository
+        value: "https://github.com/kuadrant/kuadrant-operator"
+
+  # Add OS support label
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: add
+        path: /metadata/labels
+        value:
+          operatorframework.io/os.linux: supported
+
+  # Remove replaces and skipRange fields
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: remove
+        path: /spec/replaces
+      - op: remove
+        path: /spec/skipRange
+
+  # Update icon
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/icon/0/base64data
+        value: REPLACE_ICON
+
+  # Update container image in deployment
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/install/spec/deployments/0/spec/template/spec/containers/0/image
+        value: REPLACE_OPERATOR_IMAGE
+
+  # Update WASM shim image in relatedImages
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: replace
+        path: /spec/relatedImages/0/image
+        value: REPLACE_WASM_SHIM_IMAGE
+
+  # Update/add ISTIO_GATEWAY_CONTROLLER_NAMES env var
+  - target:
+      kind: ClusterServiceVersion
+    patch: |-
+      - op: add
+        path: /spec/install/spec/deployments/0/spec/template/spec/containers/0/env/-
+        value:
+          name: ISTIO_GATEWAY_CONTROLLER_NAMES
+          value: REPLACE_GATEWAY_CONTROLLER_NAME
+
+# This will be used to replace image references throughout the manifests
+# Will be configured at runtime based on environment (dev/stage/prod)
+images: []
