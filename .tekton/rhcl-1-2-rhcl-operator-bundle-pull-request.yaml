@@ -8,7 +8,7 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.2" && ( "bundle-hack/*".pathChanged() || "Containerfile.rhcl-operator-bundle".pathChanged() || "downstream-conversion/*".pathChanged() || "rpms.lock.yaml".pathChanged() ||  "requirements-build.in".pathChanged() || "requirements-build.txt".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-bundle-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.2" && ( "bundle-generation/*".pathChanged() || "Containerfile.rhcl-operator-bundle".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-bundle-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
   creationTimestamp: null
   labels:
