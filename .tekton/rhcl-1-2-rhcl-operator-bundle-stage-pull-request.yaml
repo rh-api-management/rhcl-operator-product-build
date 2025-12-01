@@ -8,7 +8,7 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.2" && ( "bundle-generation/*".pathChanged() || "Containerfile.rhcl-operator-bundle-stage".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-bundle-stage-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.2" && ( "bundle-stage/*".pathChanged() || "Containerfile.rhcl-operator-bundle-stage".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-2-rhcl-operator-bundle-stage-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
   creationTimestamp: null
   labels:
@@ -30,7 +30,7 @@ spec:
   - name: dockerfile
     value: Containerfile.rhcl-operator-bundle-stage
   - name: prefetch-input
-    value: '[{"type": "rpm", "path": "."}, {"type": "pip", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
+    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   pipelineRef:
     name: bundle-build-pipeline
   taskRunTemplate:
