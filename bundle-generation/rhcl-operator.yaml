@@ -1,0 +1,80 @@
+# RHCL Operator Bundle Configuration
+# This file contains all RHCL-specific strings and configuration values
+# that are injected into the bundle during generation.
+
+# CSV metadata
+csv:
+  name: rhcl-operator.v1.2.1
+  version: "1.2.1"
+  displayName: Red Hat Connectivity Link
+  description: |
+    Red Hat Connectivity Link enables you to secure, protect, and connect
+    your APIs and applications in multicluster, multicloud, and hybrid cloud environments.
+
+# OLM channel configuration
+channel: stable
+
+# Documentation and support links
+links:
+  documentation: https://docs.redhat.com/en/documentation/red_hat_connectivity_link
+  repository: https://github.com/Kuadrant/kuadrant-operator
+
+# Valid subscription for marketplace
+validSubscription:
+  - Red Hat Connectivity Link
+
+# OpenShift operator feature annotations
+features:
+  disconnected: "true"
+  fips-compliant: "false"
+  proxy-aware: "false"
+  tls-profiles: "false"
+  token-auth-aws: "false"
+  token-auth-azure: "false"
+  token-auth-gcp: "false"
+  cnf: "false"
+  cni: "false"
+  csi: "false"
+
+# Architecture support labels
+architectures:
+  amd64: supported
+  arm64: supported
+  os.linux: supported
+
+# Istio gateway controller configuration for OpenShift
+istio:
+  gatewayControllerName: openshift.io/gateway-controller/v1
+
+# Console plugin version mapping (OpenShift version -> console plugin version key)
+# The actual image references come from image-pullspecs.yaml
+consolePluginVersions:
+  "4.16": console_plugin_0_1_5
+  "4.17": console_plugin_0_1_5
+  "4.18": console_plugin_0_1_5
+  "4.19": console_plugin
+  "4.20": console_plugin
+  default: console_plugin
+
+# Registry mappings for each environment
+# SHAs are extracted from the dev images in image-pullspecs.yaml
+registries:
+  dev:
+    # Uses images directly from image-pullspecs.yaml
+    operator: null
+    wasm_shim: null
+    console_plugin: null
+  stage:
+    operator: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator
+    wasm_shim: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9
+    console_plugin: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
+  prod:
+    operator: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
+    wasm_shim: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
+    console_plugin: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
+
+# Output directory mapping
+outputDirs:
+  dev: bundle-dev
+  stage: bundle-stage
+  prod: bundle
