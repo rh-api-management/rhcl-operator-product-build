@@ -19,7 +19,7 @@ jobs:
   generate-bundle:
     runs-on: ubuntu-latest
     container:
-      image: registry.redhat.io/openshift4/ose-cli-rhel9:latest
+      image: quay.io/konflux-ci/yq:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
