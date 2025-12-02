@@ -61,10 +61,12 @@ CONSOLE_PLUGIN_0_1_5_SHA="${CONSOLE_PLUGIN_0_1_5_IMAGE##*@}"
 CSV_NAME=$(yq '.csv.name' "$RHCL_CONFIG")
 CSV_VERSION=$(yq '.csv.version' "$RHCL_CONFIG")
 DISPLAY_NAME=$(yq '.csv.displayName' "$RHCL_CONFIG")
-export DESCRIPTION=$(yq '.csv.description' "$RHCL_CONFIG")
+DESCRIPTION=$(yq '.csv.description' "$RHCL_CONFIG")
+ICON_BASE64=$(yq '.csv.icon[0].base64data' "$RHCL_CONFIG")
+ICON_MEDIATYPE=$(yq '.csv.icon[0].mediatype' "$RHCL_CONFIG")
 DOC_URL=$(yq '.links.documentation' "$RHCL_CONFIG")
 REPO_URL=$(yq '.links.repository' "$RHCL_CONFIG")
-export VALID_SUBSCRIPTION=$(yq -o=json -I=0 '.validSubscription' "$RHCL_CONFIG")
+VALID_SUBSCRIPTION=$(yq '.validSubscription' "$RHCL_CONFIG")
 ISTIO_GATEWAY_CONTROLLER=$(yq '.istio.gatewayControllerName' "$RHCL_CONFIG")
 
 echo ""
@@ -168,16 +170,18 @@ for env in dev stage prod; do
     yq -i '.metadata.annotations["features.operators.openshift.io/csi"] = "'"$(yq '.features.csi' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
 
     # Update CSV: valid subscription
-    yq -i '.metadata.annotations["operators.openshift.io/valid-subscription"] = strenv(VALID_SUBSCRIPTION)' "${CSV_FILE}"
+    yq -i '.metadata.annotations["operators.openshift.io/valid-subscription"] = "[\"'"${VALID_SUBSCRIPTION}"'\"]"' "${CSV_FILE}"
 
     # Update CSV: Add architecture labels from config
     yq -i '.metadata.labels["operatorframework.io/os.linux"] = "'"$(yq '.architectures."os.linux"' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
     yq -i '.metadata.labels["operatorframework.io/arch.amd64"] = "'"$(yq '.architectures.amd64' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
     yq -i '.metadata.labels["operatorframework.io/arch.arm64"] = "'"$(yq '.architectures.arm64' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
 
-    # Update CSV: Set display name and description
+    # Update CSV: Set display name, description, and icon
     yq -i ".spec.displayName = \"${DISPLAY_NAME}\"" "${CSV_FILE}"
-    yq -i ".spec.description = strenv(DESCRIPTION)" "${CSV_FILE}"
+    yq -i ".spec.description = \"${DESCRIPTION}\"" "${CSV_FILE}"
+    yq -i ".spec.icon[0].base64data = \"${ICON_BASE64}\"" "${CSV_FILE}"
+    yq -i ".spec.icon[0].mediatype = \"${ICON_MEDIATYPE}\"" "${CSV_FILE}"
 
     # Update CSV: Set documentation and repository links
     yq -i '.metadata.annotations.repository = "'"${REPO_URL}"'"' "${CSV_FILE}"
