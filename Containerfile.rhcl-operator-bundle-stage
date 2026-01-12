@@ -19,7 +19,8 @@ LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
 LABEL version="1.2.1" \
       summary="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
-      name="Red Hat Connectivity Link Operator Bundle" \
+      name="rhcl-1/rhcl-operator-bundle" \
+      cpe="cpe:/a:redhat:connectivity_link:1::el9" \
       description="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
       io.k8s.display-name="Red Hat Connectivity Link Operator metadata" \
       io.k8s.description="Red Hat Connnectivity Link Operator" \
