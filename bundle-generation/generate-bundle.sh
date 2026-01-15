@@ -202,6 +202,15 @@ for env in dev stage prod; do
         echo "  Console plugin (${ocp_version}): ${plugin_image}"
     done
 
+    # Update dependencies.yaml with downstream versions
+    DEPENDENCIES_FILE="${metadata_dir}/dependencies.yaml"
+    echo "  Updating dependencies.yaml..."
+    for package in $(yq '.dependencies | keys | .[]' "$RHCL_CONFIG"); do
+        version=$(yq ".dependencies.\"${package}\"" "$RHCL_CONFIG")
+        yq -i '(.dependencies[] | select(.value.packageName == "'"${package}"'") | .value.version) = "'"${version}"'"' "${DEPENDENCIES_FILE}"
+        echo "    ${package}: ${version}"
+    done
+
     echo "  Done!"
 done
 
