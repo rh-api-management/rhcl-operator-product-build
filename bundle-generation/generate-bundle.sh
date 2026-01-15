@@ -135,6 +135,9 @@ for env in dev stage prod; do
     cp "${UPSTREAM_BUNDLE}/manifests/"*.yaml "${manifests_dir}/"
     cp "${UPSTREAM_BUNDLE}/metadata/"*.yaml "${metadata_dir}/"
 
+    # Use downstream annotations.yaml instead of upstream
+    cp "${SCRIPT_DIR}/annotations.yaml" "${metadata_dir}/annotations.yaml"
+
     CSV_FILE="${manifests_dir}/kuadrant-operator.clusterserviceversion.yaml"
     CONFIGMAP_FILE="${manifests_dir}/kuadrant-operator-console-plugin-images_v1_configmap.yaml"
 
