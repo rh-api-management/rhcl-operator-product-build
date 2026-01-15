@@ -78,3 +78,9 @@ outputDirs:
   dev: bundle-dev
   stage: bundle-stage
   prod: bundle
+
+# OLM package dependencies (downstream versions differ from upstream)
+dependencies:
+  authorino-operator: "1.2.4"
+  limitador-operator: "1.2.0"
+  dns-operator: "1.2.0"
