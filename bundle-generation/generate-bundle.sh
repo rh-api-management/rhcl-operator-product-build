@@ -13,6 +13,7 @@ PROJECT_ROOT="${SCRIPT_DIR}/.."
 UPSTREAM_BUNDLE="${PROJECT_ROOT}/kuadrant-operator/bundle"
 IMAGE_PULLSPECS="${PROJECT_ROOT}/image-pullspecs.yaml"
 RHCL_CONFIG="${SCRIPT_DIR}/rhcl-operator.yaml"
+ANNOTATIONS_FILE="${SCRIPT_DIR}/annotations.yaml"
 
 # Check dependencies
 if ! command -v yq &> /dev/null; then
@@ -131,9 +132,10 @@ for env in dev stage prod; do
     rm -rf "${output_dir}"
     mkdir -p "${manifests_dir}" "${metadata_dir}"
 
-    # Copy all manifests from upstream
+    # Copy all manifests from upstream, and downstream metadata
     cp "${UPSTREAM_BUNDLE}/manifests/"*.yaml "${manifests_dir}/"
-    cp "${UPSTREAM_BUNDLE}/metadata/"*.yaml "${metadata_dir}/"
+    cp "${UPSTREAM_BUNDLE}/metadata/dependencies.yaml" "${metadata_dir}/"
+    cp "${ANNOTATIONS_FILE}" "${metadata_dir}/"
 
     # Use downstream annotations.yaml instead of upstream
     cp "${SCRIPT_DIR}/annotations.yaml" "${metadata_dir}/annotations.yaml"
