@@ -43,7 +43,7 @@ The RHCL build process takes the upstream Kuadrant operator and:
    - Creates UBI9-based container images
    - Supports both AMD64 and ARM64 architectures
    - **Build arguments** (aligned with upstream):
-     - `VERSION` - Current release version (e.g., 1.2.1) - **must be updated per release** in both Containerfile and pipeline files
+     - `VERSION` - Current release version (e.g., 1.3.0) - **must be updated per release** in both Containerfile and pipeline files
      - `GIT_SHA` - Git commit SHA - passed dynamically from pipeline using `{{revision}}`
      - `DIRTY` - Build cleanliness flag - set to `false` in pipeline for clean builds
      - `TARGETARCH` - Target architecture for cross-compilation (amd64/arm64)
