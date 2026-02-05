@@ -5,6 +5,68 @@ metadata:
     alm-examples: |-
       [
         {
+          "apiVersion": "extensions.kuadrant.io/v1alpha1",
+          "kind": "OIDCPolicy",
+          "metadata": {
+            "name": "oidcpolicy-sample"
+          },
+          "spec": {
+            "provider": {
+              "cliendID": "exampleID",
+              "issuerURL": "https://idp.example.org/"
+            },
+            "targetRef": {
+              "group": "gateway.networking.k8s.io",
+              "kind": "HTTPRoute",
+              "name": "example-route"
+            }
+          }
+        },
+        {
+          "apiVersion": "extensions.kuadrant.io/v1alpha1",
+          "kind": "PlanPolicy",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kuadrant-operator",
+              "app.kubernetes.io/instance": "planpolicy-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "planpolicy",
+              "app.kubernetes.io/part-of": "kuadrant-operator"
+            },
+            "name": "planpolicy-sample"
+          },
+          "spec": {
+            "plans": [
+              {
+                "limits": {
+                  "daily": 5
+                },
+                "predicate": "has(auth.identity) \u0026\u0026 auth.identity.metadata.annotations[\"secret.kuadrant.io/plan-id\"] == \"gold\"\n",
+                "tier": "gold"
+              },
+              {
+                "limits": {
+                  "daily": 2
+                },
+                "predicate": "has(auth.identity) \u0026\u0026 auth.identity.metadata.annotations[\"secret.kuadrant.io/plan-id\"] == \"silver\"\n",
+                "tier": "silver"
+              },
+              {
+                "limits": {
+                  "daily": 1
+                },
+                "predicate": "has(auth.identity) \u0026\u0026 auth.identity.metadata.annotations[\"secret.kuadrant.io/plan-id\"] == \"bronze\"\n",
+                "tier": "bronze"
+              }
+            ],
+            "targetRef": {
+              "group": "gateway.networking.k8s.io",
+              "kind": "HTTPRoute",
+              "name": "example-route"
+            }
+          }
+        },
+        {
           "apiVersion": "kuadrant.io/v1",
           "kind": "AuthPolicy",
           "metadata": {
@@ -161,8 +223,9 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
+    console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:22189e4ed351fb4e5796199a79364b025ce0bbd540ae1bb6f0216d5430927785
-    createdAt: "2025-11-12T19:09:17Z"
+    createdAt: "2026-02-05T17:14:12Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -179,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: kuadrant-operator.v1.3.1
+  name: kuadrant-operator.v1.4.0-rc1
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -189,6 +252,12 @@ spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
+      - kind: APIKey
+        name: apikeys.devportal.kuadrant.io
+        version: v1alpha1
+      - kind: APIProduct
+        name: apiproducts.devportal.kuadrant.io
+        version: v1alpha1
       - description: AuthPolicy enables authentication and authorization for service workloads in a Gateway API network
         displayName: AuthPolicy
         kind: AuthPolicy
@@ -234,6 +303,91 @@ spec:
   install:
     spec:
       clusterPermissions:
+        - rules:
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - devportal.kuadrant.io
+              resources:
+                - apikeys
+                - apiproducts
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - devportal.kuadrant.io
+              resources:
+                - apikeys/finalizers
+                - apiproducts/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - devportal.kuadrant.io
+              resources:
+                - apikeys/status
+                - apiproducts/status
+              verbs:
+                - get
+                - patch
+                - update
+            - apiGroups:
+                - extensions.kuadrant.io
+              resources:
+                - planpolicies
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - extensions.kuadrant.io
+              resources:
+                - planpolicies/status
+              verbs:
+                - get
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - httproutes
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - httproutes/status
+              verbs:
+                - get
+            - apiGroups:
+                - kuadrant.io
+              resources:
+                - authpolicies
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - kuadrant.io
+              resources:
+                - authpolicies/status
+              verbs:
+                - get
+          serviceAccountName: developer-portal-controller-manager
         - rules:
             - apiGroups:
                 - ""
@@ -599,6 +753,12 @@ spec:
                         value: /extensions
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:a9c3be37a03e79a3f7bb962a610cc87dac884d763f9d6bfe672a0afecd76d4ff
+                      - name: RELATED_IMAGE_DEVELOPERPORTAL
+                        value: quay.io/kuadrant/developer-portal-controller:v0.1.0
+                      - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
+                        value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
+                      - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
+                        value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -678,6 +838,39 @@ spec:
               verbs:
                 - create
                 - patch
+          serviceAccountName: developer-portal-controller-manager
+        - rules:
+            - apiGroups:
+                - ""
+              resources:
+                - configmaps
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - update
+                - patch
+                - delete
+            - apiGroups:
+                - coordination.k8s.io
+              resources:
+                - leases
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - update
+                - patch
+                - delete
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
           serviceAccountName: kuadrant-operator-controller-manager
     strategy: deployment
   installModes:
@@ -719,4 +912,10 @@ spec:
   relatedImages:
     - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:a9c3be37a03e79a3f7bb962a610cc87dac884d763f9d6bfe672a0afecd76d4ff
       name: wasmshim
-  version: 1.3.1
+    - image: quay.io/kuadrant/developer-portal-controller:v0.1.0
+      name: developerportal
+    - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
+      name: console-plugin-latest
+    - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
+      name: console-plugin-pf5
+  version: 1.4.0-rc1
