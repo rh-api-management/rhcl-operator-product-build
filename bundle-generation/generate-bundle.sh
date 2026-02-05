@@ -99,20 +99,21 @@ get_wasm_shim_image() {
 
 get_console_plugin_image() {
     local env=$1
-    local version_key=$2
     if [[ "$env" == "dev" ]]; then
-        if [[ "$version_key" == "console_plugin_0_1_5" ]]; then
-            echo "$CONSOLE_PLUGIN_0_1_5_IMAGE"
-        else
-            echo "$CONSOLE_PLUGIN_IMAGE"
-        fi
+        echo "$CONSOLE_PLUGIN_IMAGE"
     else
-        local registry=$(yq ".registries.${env}.console_plugin" "$RHCL_CONFIG")
-        if [[ "$version_key" == "console_plugin_0_1_5" ]]; then
-            echo "${registry}@${CONSOLE_PLUGIN_0_1_5_SHA}"
-        else
-            echo "${registry}@${CONSOLE_PLUGIN_SHA}"
-        fi
+        local registry=$(yq ".registries.${env}.wasm_shim" "$RHCL_CONFIG")
+        echo "${registry}@${CONSOLE_PLUGIN_SHA}"
+    fi
+}
+
+get_console_plugin_0_1_5_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$CONSOLE_PLUGIN_0_1_5_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.wasm_shim" "$RHCL_CONFIG")
+        echo "${registry}@${CONSOLE_PLUGIN_0_1_5_SHA}"
     fi
 }
 
@@ -146,6 +147,8 @@ for env in dev stage prod; do
     # Get the image references for this environment
     operator_image=$(get_operator_image "$env")
     wasm_shim_image=$(get_wasm_shim_image "$env")
+    console_plugin_image=$(get_console_plugin_image "$env")
+    console_plugin_0_1_5_image=$(get_console_plugin_0_1_5_image "$env")
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
@@ -161,6 +164,18 @@ for env in dev stage prod; do
 
     # Update CSV: wasm-shim in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "wasmshim") | .image) = "'"${wasm_shim_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: console-plugin in RELATED_IMAGE_WASMSHIM env var
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_CONSOLE_PLUGIN_LATEST") | .value) = "'"${console_plugin_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: console-plugin in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "console-plugin-latest") | .image) = "'"${console_plugin_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: console-plugin in RELATED_IMAGE_WASMSHIM env var
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_CONSOLE_PLUGIN_PF5") | .value) = "'"${console_plugin_0_1_5_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: console-plugin in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "console-plugin-pf5") | .image) = "'"${console_plugin_0_1_5_image}"'"' "${CSV_FILE}"
 
     # Update CSV: Add RHCL-specific feature annotations from config
     yq -i '.metadata.annotations["features.operators.openshift.io/disconnected"] = "'"$(yq '.features.disconnected' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
@@ -198,14 +213,6 @@ for env in dev stage prod; do
     # Update CSV: Remove replaces and skipRange (managed in catalog repo)
     yq -i 'del(.spec.replaces)' "${CSV_FILE}"
     yq -i 'del(.spec.skipRange)' "${CSV_FILE}"
-
-    # Update ConfigMap: console plugin images for each OpenShift version
-    for ocp_version in $(yq '.consolePluginVersions | keys | .[]' "$RHCL_CONFIG"); do
-        version_key=$(yq ".consolePluginVersions.\"${ocp_version}\"" "$RHCL_CONFIG")
-        plugin_image=$(get_console_plugin_image "$env" "$version_key")
-        yq -i '.data["'"${ocp_version}"'"] = "'"${plugin_image}"'"' "${CONFIGMAP_FILE}"
-        echo "  Console plugin (${ocp_version}): ${plugin_image}"
-    done
 
     # Update dependencies.yaml with downstream versions
     DEPENDENCIES_FILE="${metadata_dir}/dependencies.yaml"
