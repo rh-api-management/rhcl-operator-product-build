@@ -44,6 +44,7 @@ OPERATOR_IMAGE=$(yq '.images.operator' "$IMAGE_PULLSPECS")
 WASM_SHIM_IMAGE=$(yq '.images.wasm_shim' "$IMAGE_PULLSPECS")
 CONSOLE_PLUGIN_IMAGE=$(yq '.images.console_plugin' "$IMAGE_PULLSPECS")
 CONSOLE_PLUGIN_0_1_5_IMAGE=$(yq '.images."console_plugin_0.1.5"' "$IMAGE_PULLSPECS")
+DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.images."developer_portal_controller"' "$IMAGE_PULLSPECS")
 
 echo ""
 echo "Image pullspecs:"
@@ -57,7 +58,7 @@ OPERATOR_SHA="${OPERATOR_IMAGE##*@}"
 WASM_SHIM_SHA="${WASM_SHIM_IMAGE##*@}"
 CONSOLE_PLUGIN_SHA="${CONSOLE_PLUGIN_IMAGE##*@}"
 CONSOLE_PLUGIN_0_1_5_SHA="${CONSOLE_PLUGIN_0_1_5_IMAGE##*@}"
-
+DEVELOPER_PORTAL_CONTROLLER_SHA="${DEVELOPER_PORTAL_CONTROLLER_IMAGE##*@}"
 # Read RHCL configuration values
 CSV_NAME=$(yq '.csv.name' "$RHCL_CONFIG")
 CSV_VERSION=$(yq '.csv.version' "$RHCL_CONFIG")
@@ -117,6 +118,16 @@ get_console_plugin_0_1_5_image() {
     fi
 }
 
+get_developer_portal_controller_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$DEVELOPER_PORTAL_CONTROLLER_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.developer_portal_controller" "$RHCL_CONFIG")
+        echo "${registry}@${DEVELOPER_PORTAL_CONTROLLER_SHA}"
+    fi
+}
+
 # Generate bundle for each environment
 for env in dev stage prod; do
     output_dir="${PROJECT_ROOT}/$(yq ".outputDirs.${env}" "$RHCL_CONFIG")"
@@ -148,6 +159,7 @@ for env in dev stage prod; do
     wasm_shim_image=$(get_wasm_shim_image "$env")
     console_plugin_image=$(get_console_plugin_image "$env")
     console_plugin_0_1_5_image=$(get_console_plugin_0_1_5_image "$env")
+    developer_portal_controller_image=$(get_developer_portal_controller_image "$env")
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
@@ -166,17 +178,23 @@ for env in dev stage prod; do
     # Update CSV: wasm-shim in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "wasmshim") | .image) = "'"${wasm_shim_image}"'"' "${CSV_FILE}"
 
-    # Update CSV: console-plugin in RELATED_IMAGE_WASMSHIM env var
+    # Update CSV: console-plugin in RELATED_IMAGE_CONSOLE_PLUGIN env var
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_CONSOLE_PLUGIN_LATEST") | .value) = "'"${console_plugin_image}"'"' "${CSV_FILE}"
 
     # Update CSV: console-plugin in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "console-plugin-latest") | .image) = "'"${console_plugin_image}"'"' "${CSV_FILE}"
 
-    # Update CSV: console-plugin in RELATED_IMAGE_WASMSHIM env var
+    # Update CSV: console-plugin in RELATED_IMAGE_CONSOLE_PLUGIN_PF5 env var
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_CONSOLE_PLUGIN_PF5") | .value) = "'"${console_plugin_0_1_5_image}"'"' "${CSV_FILE}"
 
     # Update CSV: console-plugin in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "console-plugin-pf5") | .image) = "'"${console_plugin_0_1_5_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Developer Portal Controller in RELATED_IMAGE_DEVELOPERPORTAL env var
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_DEVELOPERPORTAL") | .value) = "'"${developer_portal_controller_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: wasm-shim in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "developerportal") | .image) = "'"${developer_portal_controller_image}"'"' "${CSV_FILE}"
 
     # Update CSV: Add RHCL-specific feature annotations from config
     yq -i '.metadata.annotations["features.operators.openshift.io/disconnected"] = "'"$(yq '.features.disconnected' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
