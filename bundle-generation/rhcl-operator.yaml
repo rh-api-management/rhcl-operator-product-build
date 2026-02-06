@@ -68,10 +68,12 @@ registries:
     operator: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator
     wasm_shim: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9
     console_plugin: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
+    developer_portal_controller: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9
   prod:
     operator: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
     wasm_shim: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
     console_plugin: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
+    developer_portal_controller: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9
 
 # Output directory mapping
 outputDirs:
