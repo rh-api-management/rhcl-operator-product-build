@@ -151,6 +151,8 @@ for env in dev stage prod; do
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
+    echo "  Console Plugin:       ${console_plugin_image}"
+    echo "  Console Plugin 0.1.5:      ${console_plugin_0_1_5_image}"
 
     # Update CSV: operator container image
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .image) = "'"${operator_image}"'"' "${CSV_FILE}"
