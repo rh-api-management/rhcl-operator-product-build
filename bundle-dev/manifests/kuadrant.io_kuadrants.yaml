@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.19.0
   creationTimestamp: null
   labels:
     app: kuadrant
@@ -56,6 +56,17 @@ spec:
           spec:
             description: KuadrantSpec defines the desired state of Kuadrant
             properties:
+              components:
+                description: Components configures optional Kuadrant components
+                properties:
+                  developerPortal:
+                    description: DeveloperPortal enables the developer portal integration
+                      including APIProduct and APIKeyRequest CRDs
+                    properties:
+                      enabled:
+                        type: boolean
+                    type: object
+                type: object
               mtls:
                 description: |-
                   MTLS is an optional entry which when enabled is set to true, kuadrant-operator
@@ -70,9 +81,68 @@ spec:
                     type: boolean
                 type: object
               observability:
+                description: |-
+                  Observability configures telemetry and monitoring settings for Kuadrant components.
+                  When enabled, it configures logging, tracing, and other observability features for both
+                  the control plane and data plane components.
                 properties:
+                  dataPlane:
+                    description: DataPlane configures observability settings for the
+                      data plane components.
+                    properties:
+                      defaultLevels:
+                        description: |-
+                          DefaultLevels specifies the default logging levels and their activation predicates.
+                          Each entry defines a log level (debug, info, warn, error) and an optional CEL expression
+                          that determines when that level should be active for a given request.
+                        items:
+                          description: |-
+                            LogLevel defines a logging level with its activation predicate
+                            Only one field should be set per LogLevel entry
+                          properties:
+                            debug:
+                              description: Debug level - highest verbosity
+                              type: string
+                            error:
+                              description: Error level - lowest verbosity
+                              type: string
+                            info:
+                              description: Info level
+                              type: string
+                            warn:
+                              description: Warn level
+                              type: string
+                          type: object
+                        type: array
+                      httpHeaderIdentifier:
+                        description: |-
+                          HTTPHeaderIdentifier specifies the HTTP header name used to identify and correlate
+                          requests in logs and traces (e.g., "x-request-id", "x-correlation-id").
+                          If set, this header value will be included in log output for request correlation.
+                        type: string
+                    type: object
                   enable:
+                    description: |-
+                      Enable controls whether observability features are active.
+                      When false, no additional logging or tracing configuration is applied.
                     type: boolean
+                  tracing:
+                    description: Tracing configures distributed tracing for request
+                      flows through the system.
+                    properties:
+                      defaultEndpoint:
+                        description: |-
+                          DefaultEndpoint is the default URL of the tracing collector backend where spans should be sent.
+                          This endpoint is used by Auth (Authorino), RateLimiting (Limitador) and WASM services for exporting trace data.
+                          If tracing endpoints have been configured directly in Authorino or Limitador CRs, those take precedence
+                          over this default value.
+                          Note: Per-gateway overrides are not currently supported.
+                        type: string
+                      insecure:
+                        description: Insecure controls whether to skip TLS certificate
+                          verification.
+                        type: boolean
+                    type: object
                 type: object
             type: object
           status:
