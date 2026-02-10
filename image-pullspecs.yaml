@@ -5,4 +5,4 @@ images:
   wasm_shim: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-3-wasm-shim@sha256:3ba5a94f15f2792ec30b47f6d14016b88b7bbde8c4e46881177e1e9c73faee04
   console_plugin: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin@sha256:66ddf8bafd7302d07ac1b5eceb1b8597fe450889f353ba6c33913f5aeed905e4
   console_plugin_0.1.5: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin-0-1-5@sha256:fbd0b39da4cb6b835903dce3c7ec24d1bb828130c43c8a74b411b7499fc4d599
-  developer_portal_controller: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-3-developer-portal-controller@sha256:00a9754ab156bd55108d8561cb10291a269abb02b1057d682b319903581ec415
+  developer_portal_controller: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-3-developer-portal-controller@sha256:4cf51426181c81f15f807c345dd4c650ba079aa0379af27fa98b82bd00d89e29
