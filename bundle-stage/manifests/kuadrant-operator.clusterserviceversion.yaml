@@ -754,11 +754,11 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:3ba5a94f15f2792ec30b47f6d14016b88b7bbde8c4e46881177e1e9c73faee04
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4cf51426181c81f15f807c345dd4c650ba079aa0379af27fa98b82bd00d89e29
+                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:66ddf8bafd7302d07ac1b5eceb1b8597fe450889f353ba6c33913f5aeed905e4
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:fbd0b39da4cb6b835903dce3c7ec24d1bb828130c43c8a74b411b7499fc4d599
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -912,10 +912,10 @@ spec:
   relatedImages:
     - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:3ba5a94f15f2792ec30b47f6d14016b88b7bbde8c4e46881177e1e9c73faee04
       name: wasmshim
-    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4cf51426181c81f15f807c345dd4c650ba079aa0379af27fa98b82bd00d89e29
+    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
       name: developerportal
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:66ddf8bafd7302d07ac1b5eceb1b8597fe450889f353ba6c33913f5aeed905e4
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
       name: console-plugin-latest
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:fbd0b39da4cb6b835903dce3c7ec24d1bb828130c43c8a74b411b7499fc4d599
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
       name: console-plugin-pf5
   version: 1.4.0-rc1
