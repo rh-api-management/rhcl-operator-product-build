@@ -103,7 +103,7 @@ get_console_plugin_image() {
     if [[ "$env" == "dev" ]]; then
         echo "$CONSOLE_PLUGIN_IMAGE"
     else
-        local registry=$(yq ".registries.${env}.wasm_shim" "$RHCL_CONFIG")
+        local registry=$(yq ".registries.${env}.console_plugin" "$RHCL_CONFIG")
         echo "${registry}@${CONSOLE_PLUGIN_SHA}"
     fi
 }
@@ -113,7 +113,7 @@ get_console_plugin_0_1_5_image() {
     if [[ "$env" == "dev" ]]; then
         echo "$CONSOLE_PLUGIN_0_1_5_IMAGE"
     else
-        local registry=$(yq ".registries.${env}.wasm_shim" "$RHCL_CONFIG")
+        local registry=$(yq ".registries.${env}.console_plugin" "$RHCL_CONFIG")
         echo "${registry}@${CONSOLE_PLUGIN_0_1_5_SHA}"
     fi
 }
