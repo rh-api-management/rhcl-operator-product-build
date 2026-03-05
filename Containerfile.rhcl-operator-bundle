@@ -1,18 +1,3 @@
-# # Based on ./gatekeeper-operator/bundle.Dockerfile
-# FROM builder-runner as builder
-FROM registry.redhat.io/ubi9/ubi:latest as builder
-
-RUN dnf install -y skopeo jq python3 python3-pip && \
-      pip3 install ruamel.yaml
-
-# Automating bundle reference updates via Konflux requires us to maintain our own CSV file
-COPY ./bundle-hack/ .
-COPY kuadrant-operator/bundle/manifests /manifests/
-COPY ./downstream-conversion/bundle/manifests/kuadrant-operator.clusterserviceversion.yaml /manifests/
-COPY ./downstream-conversion/bundle/manifests/kuadrant-operator-console-plugin-images_v1_configmap.yaml /manifests/
-COPY ./downstream-conversion/bundle/metadata /metadata/
-RUN chmod +x update_bundle.sh && ./update_bundle.sh
-
 FROM scratch
 
 # Core bundle labels.
@@ -32,9 +17,10 @@ LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
 
-LABEL version="1.2.0" \
+LABEL version="1.2.1" \
       summary="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
-      name="Red Hat Connectivity Link Operator Bundle" \
+      name="rhcl-1/rhcl-operator-bundle" \
+      cpe="cpe:/a:redhat:connectivity_link:1::el9" \
       description="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
       io.k8s.display-name="Red Hat Connectivity Link Operator metadata" \
       io.k8s.description="Red Hat Connnectivity Link Operator" \
@@ -42,12 +28,12 @@ LABEL version="1.2.0" \
       io.openshift.tags="api" \
       url="redhat.com" \
       distribution-scope="public" \
-      release="0.0.1" \
+      release="1.2.1" \
       url="" \
       com.redhat.component="Red Hat Connectivity Link Operator Bundle" \
       vendor="Red Hat, Inc."
 
 # Copy files to locations specified by labels.
-COPY --from=builder /manifests /manifests/
-COPY --from=builder /metadata /metadata/
+COPY /bundle/manifests /manifests/
+COPY /bundle/metadata /metadata/
 COPY kuadrant-operator/bundle/tests/scorecard /tests/scorecard/

@@ -1,0 +1,67 @@
+name: Generate Bundle
+
+on:
+  pull_request:
+    paths:
+      - 'image-pullspecs.yaml'
+      - 'bundle-generation/**'
+      - 'kuadrant-operator/bundle'
+    branches:
+      - 'rhcl-*'
+  push:
+    paths:
+      - 'image-pullspecs.yaml'
+      - 'bundle-generation/**'
+      - 'kuadrant-operator/bundle'
+    branches:
+      - 'rhcl-*'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  # Give the default GITHUB_TOKEN write permission to commit and push the
+  # added or changed files to the repository.
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate bundles
+        run: make bundle
+
+      - name: Check if the generated output differs from what's already committed
+        id: changes
+        run: |
+          if git diff --quiet ./bundle ./bundle-dev ./bundle-stage && \
+             [ -z "$(git ls-files --other --exclude-standard --directory --no-empty-directory ./bundle ./bundle-dev ./bundle-stage)" ]; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: Generate Bundles after change to image-pullspecs.yaml or rhcl-operator.yaml
+
+      - name: Validate bundles
+        run: make validate-bundle
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.changes.outputs.changes == 'true'
+              && '✅ Bundles have been regenerated, committed, and validated successfully.'
+              || '✅ Bundles are already up to date and validated successfully.' }}

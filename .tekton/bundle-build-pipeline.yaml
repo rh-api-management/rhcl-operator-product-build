@@ -100,6 +100,10 @@ spec:
       value: $(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)
     - name: IMAGE_APPEND_PLATFORM
       value: "true"
+    - name: HTTP_PROXY
+      value: $(tasks.init.results.http-proxy)
+    - name: NO_PROXY
+      value: $(tasks.init.results.no-proxy)
     runAfter:
     - prefetch-dependencies
     taskRef:
@@ -223,7 +227,7 @@ spec:
       - name: name
         value: ecosystem-cert-preflight-checks
       - name: bundle
-        value: quay.io/konflux-ci/tekton-catalog/task-ecosystem-cert-preflight-checks:0.2@sha256:9568c51a5158d534248908b9b561cf67d2826ed4ea164ffd95628bb42380e6ec
+        value: quay.io/konflux-ci/tekton-catalog/task-ecosystem-cert-preflight-checks:0.2@sha256:945f8ba72381402ce6b00efa24a6eeb19a27ba68b445474c28ebfbfb21bb365f
       - name: kind
         value: task
       resolver: bundles
@@ -343,7 +347,7 @@ spec:
       - name: name
         value: rpms-signature-scan
       - name: bundle
-        value: quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2@sha256:bff03feaaeb54b7e185606abf80a187290b2b749364f1c331d79b45af35651b5
+        value: quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2@sha256:2f3015ac7a642ea7f104d2194a8cb45921570f9539c6604ddcb5f62796f22a53
       - name: kind
         value: task
       resolver: bundles
@@ -529,6 +533,10 @@ spec:
     description: The format for the resulting image's mediaType. Valid values are oci (default) or docker.
     name: buildah-format
     type: string
+  - name: enable-cache-proxy
+    default: 'false'
+    description: Enable cache proxy configuration
+    type: string
   workspaces:
   - name: git-auth
     optional: true
@@ -557,7 +565,7 @@ spec:
       - name: name
         value: show-sbom
       - name: bundle
-        value: quay.io/konflux-ci/tekton-catalog/task-show-sbom:0.1@sha256:beb0616db051952b4b861dd8c3e00fa1c0eccbd926feddf71194d3bb3ace9ce7
+        value: quay.io/konflux-ci/tekton-catalog/task-show-sbom:0.1@sha256:e119aa864b094715cb8dd01d44d2752658f1a1b83a3417e92456f26a06a3c1d8
       - name: kind
         value: task
       resolver: bundles

@@ -1,0 +1,7 @@
+# Image pullspecs for RHCL bundle
+# This file is updated automatically by Konflux
+images:
+  operator: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator@sha256:22189e4ed351fb4e5796199a79364b025ce0bbd540ae1bb6f0216d5430927785
+  wasm_shim: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-wasm-shim@sha256:a9c3be37a03e79a3f7bb962a610cc87dac884d763f9d6bfe672a0afecd76d4ff
+  console_plugin: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
+  console_plugin_0.1.5: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
