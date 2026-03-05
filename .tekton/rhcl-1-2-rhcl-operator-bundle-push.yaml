@@ -25,8 +25,6 @@ spec:
     value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-operator-bundle:{{revision}}
   - name: dockerfile
     value: Containerfile.rhcl-operator-bundle
-  - name: prefetch-input
-    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   pipelineRef:
     name: bundle-build-pipeline
   taskRunTemplate:
