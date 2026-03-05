@@ -29,8 +29,6 @@ spec:
     value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   pipelineRef:
     name: bundle-build-pipeline
-  taskRunTemplate:
-    serviceAccountName: build-pipeline-rhcl-1-2-rhcl-operator-bundle-dev
   workspaces:
   - name: git-auth
     secret:

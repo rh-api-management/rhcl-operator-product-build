@@ -28,8 +28,6 @@ spec:
     value: 5d
   - name: dockerfile
     value: Containerfile.rhcl-operator-bundle
-  - name: prefetch-input
-    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   pipelineRef:
     name: bundle-build-pipeline
   taskRunTemplate:
