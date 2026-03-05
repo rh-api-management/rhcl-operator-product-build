@@ -183,6 +183,8 @@ for env in dev stage prod; do
     yq -i '.metadata.labels["operatorframework.io/arch.arm64"] = "'"$(yq '.architectures.arm64' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
 
     # Update CSV: Set display name, description, and icon
+    yq -i ".metadata.name = \"${CSV_NAME}\"" "${CSV_FILE}"
+    yq -i ".spec.version = \"${CSV_VERSION}\"" "${CSV_FILE}"
     yq -i ".spec.displayName = \"${DISPLAY_NAME}\"" "${CSV_FILE}"
     yq -i ".spec.description = \"${DESCRIPTION}\"" "${CSV_FILE}"
     yq -i ".spec.icon[0].base64data = \"${ICON_BASE64}\"" "${CSV_FILE}"
