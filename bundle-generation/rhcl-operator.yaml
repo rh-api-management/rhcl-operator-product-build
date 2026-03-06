@@ -4,8 +4,8 @@
 
 # CSV metadata
 csv:
-  name: rhcl-operator.v1.2.1
-  version: "1.2.1"
+  name: rhcl-operator.v1.2.0
+  version: "1.2.0"
   displayName: Red Hat Connectivity Link
   description: "Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments."
   icon:
