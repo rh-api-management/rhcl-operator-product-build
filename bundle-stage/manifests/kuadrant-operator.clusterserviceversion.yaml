@@ -161,7 +161,7 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:1afb2fe0fe38bb0ef02c4b8cb9edb83f7847da47f8ddad766223664dc05ce272
+    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:7fafdf5269a5fae097072314e8d60f60af9a6b214f3d67b37001b6684fc48757
     createdAt: "2025-11-12T19:09:17Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
@@ -179,7 +179,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.2.1
+  name: rhcl-operator.v1.2.0
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -598,14 +598,14 @@ spec:
                       - name: EXTENSIONS_DIR
                         value: /extensions
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:aa524e9278976aa3ef0f2d3aeb981e28d2ea6ed6fc5fede05a5dd33db0bb3de2
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:6c8bbd989e532bc5ed629fc235b7da9eb3a4949b7caf9615bc282ef682ba9221
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:1afb2fe0fe38bb0ef02c4b8cb9edb83f7847da47f8ddad766223664dc05ce272
+                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:7fafdf5269a5fae097072314e8d60f60af9a6b214f3d67b37001b6684fc48757
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -717,6 +717,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:aa524e9278976aa3ef0f2d3aeb981e28d2ea6ed6fc5fede05a5dd33db0bb3de2
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:6c8bbd989e532bc5ed629fc235b7da9eb3a4949b7caf9615bc282ef682ba9221
       name: wasmshim
-  version: 1.2.1
+  version: 1.2.0
