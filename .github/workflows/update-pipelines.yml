@@ -33,7 +33,21 @@ jobs:
         with:
           submodules: recursive  # Include kuadrant-operator submodule
 
-      # Step 2: Run konflux-pipeline-patcher to update task references
+      # Step 2: Install oras CLI
+      # Required by konflux-pipeline-patcher to fetch task bundle information
+      - name: Install oras
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/oras-project/oras/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+          echo "Installing oras version ${VERSION}"
+          curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
+          tar -zxf oras_${VERSION}_linux_amd64.tar.gz
+          mkdir -p "${HOME}/.local/bin"
+          mv oras "${HOME}/.local/bin/"
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
+          rm -rf oras_${VERSION}_*.tar.gz
+          oras version
+
+      # Step 3: Run konflux-pipeline-patcher to update task references
       # The pipeline-patcher script analyzes Tekton pipeline files and updates
       # task references (e.g., git-clone, buildah) to their latest available versions
       # Note: The tool always updates ALL pipelines; we filter which ones to commit in the next step
@@ -47,7 +61,7 @@ jobs:
           echo "Running pipeline-patcher on all pipelines in .tekton/"
           curl -sL https://github.com/simonbaird/konflux-pipeline-patcher/raw/main/pipeline-patcher | bash -s bump-task-refs .
 
-      # Step 3: Filter changes based on user selection and check if there are updates to commit
+      # Step 4: Filter changes based on user selection and check if there are updates to commit
       # If a specific pipeline was selected, discard changes to other files
       - name: Check for changes
         id: check
@@ -94,7 +108,7 @@ jobs:
             fi
           fi
 
-      # Step 4: Create a pull request with the updated pipeline files
+      # Step 5: Create a pull request with the updated pipeline files
       # This step only runs if changes were detected in the previous step
       - name: Create Pull Request
         if: steps.check.outputs.changes == 'true'
@@ -146,7 +160,7 @@ jobs:
           reviewers: |
             ${{ github.actor }}
 
-      # Step 5: Print a summary of what happened
+      # Step 6: Print a summary of what happened
       - name: Summary
         run: |
           if [ "${{ steps.check.outputs.changes }}" == "true" ]; then
