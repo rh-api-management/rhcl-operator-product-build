@@ -72,6 +72,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          add: '.tekton/'  # Only stage pipeline files, ignore ORAS artifacts
           # Commit message for the changes
           commit-message: |
             Update Konflux pipeline task references
