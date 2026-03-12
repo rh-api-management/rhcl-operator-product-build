@@ -114,12 +114,22 @@ filter_changes() {
     local selected_file="$TEKTON_DIR/$PIPELINE_NAME"
 
     # Get list of changed files in .tekton/ and restore all except the selected one
-    git diff --name-only "$TEKTON_DIR/" 2>/dev/null | while IFS= read -r file; do
+    # Store files in an array to avoid issues with piped while loops
+    local files_to_restore=()
+    while IFS= read -r file; do
         if [ "$file" != "$selected_file" ]; then
-            info "  Discarding changes in $file"
-            git restore "$file"
+            files_to_restore+=("$file")
         fi
+    done < <(git diff --name-only "$TEKTON_DIR/" 2>/dev/null)
+
+    # Restore files outside of the while loop
+    for file in "${files_to_restore[@]}"; do
+        info "  Discarding changes in $file"
+        git restore "$file" || warn "Failed to restore $file (may have been deleted)"
     done
+
+    # Ensure all git operations are complete
+    sync
 }
 
 # Check if there are changes to commit
@@ -174,6 +184,8 @@ main() {
             info "Changes ready to commit"
             info "Run 'git diff $TEKTON_DIR/' to review changes"
         fi
+        # Ensure all git operations are complete before exiting
+        sync
         # Set GitHub Actions output if running in CI
         if [ -n "$GITHUB_OUTPUT" ]; then
             echo "changes=true" >> "$GITHUB_OUTPUT"

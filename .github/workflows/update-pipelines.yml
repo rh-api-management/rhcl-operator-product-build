@@ -55,7 +55,17 @@ jobs:
           chmod +x .github/scripts/update-pipeline-tasks.sh
           .github/scripts/update-pipeline-tasks.sh "${{ inputs.pipeline_name }}"
 
-      # Step 4: Create a pull request with the updated pipeline files
+      # Step 4: Clean up any stale git locks before creating PR
+      # Ensures no lock files from previous git operations interfere
+      - name: Clean up git locks
+        if: steps.update.outputs.changes == 'true'
+        run: |
+          # Remove stale git lock files if they exist
+          rm -f .git/index.lock
+          rm -f .git/refs/heads/*.lock
+          rm -f .git/refs/remotes/*/*.lock
+
+      # Step 5: Create a pull request with the updated pipeline files
       # This step only runs if changes were detected by the update script
       - name: Create Pull Request
         if: steps.update.outputs.changes == 'true'
@@ -107,7 +117,7 @@ jobs:
           reviewers: |
             ${{ github.actor }}
 
-      # Step 5: Print a summary of what happened
+      # Step 6: Print a summary of what happened
       - name: Summary
         run: |
           if [ "${{ steps.update.outputs.changes }}" == "true" ]; then
