@@ -47,71 +47,18 @@ jobs:
           rm -rf oras_${VERSION}_*.tar.gz
           oras version
 
-      # Step 3: Run konflux-pipeline-patcher to update task references
-      # The pipeline-patcher script analyzes Tekton pipeline files and updates
-      # task references (e.g., git-clone, buildah) to their latest available versions
-      # Note: The tool always updates ALL pipelines; we filter which ones to commit in the next step
+      # Step 3: Run the update script to check and update pipeline task references
+      # The script handles validation, updating, filtering, and checking for changes
       - name: Update pipeline task references
         id: update
         run: |
-          cd .tekton
+          chmod +x .github/scripts/update-pipeline-tasks.sh
+          .github/scripts/update-pipeline-tasks.sh "${{ inputs.pipeline_name }}"
 
-          # The 'bump-task-refs' command updates task bundle references to latest versions
-          # It operates on the entire directory (no option to target a single file)
-          echo "Running pipeline-patcher on all pipelines in .tekton/"
-          curl -sL https://github.com/simonbaird/konflux-pipeline-patcher/raw/main/pipeline-patcher | bash -s bump-task-refs .
-
-      # Step 4: Filter changes based on user selection and check if there are updates to commit
-      # If a specific pipeline was selected, discard changes to other files
-      - name: Check for changes
-        id: check
-        run: |
-          if [ "${{ inputs.pipeline_name }}" != "all" ]; then
-            # Only keep changes to the selected pipeline file
-            SELECTED_FILE=".tekton/${{ inputs.pipeline_name }}"
-
-            # Verify the file exists
-            if [ ! -f "$SELECTED_FILE" ]; then
-              echo "Error: Pipeline file '$SELECTED_FILE' not found"
-              exit 1
-            fi
-
-            echo "Filtering to only keep changes in $SELECTED_FILE"
-
-            # Get list of all changed files in .tekton/ except the selected one
-            # and restore them to discard the changes
-            git diff --name-only .tekton/ | while read -r file; do
-              if [ "$file" != "$SELECTED_FILE" ]; then
-                echo "  Discarding changes in $file"
-                git restore "$file"
-              fi
-            done
-
-            # Now check if the selected file has changes
-            if git diff --quiet "$SELECTED_FILE"; then
-              echo "changes=false" >> $GITHUB_OUTPUT
-              echo "No changes detected in $SELECTED_FILE"
-            else
-              echo "changes=true" >> $GITHUB_OUTPUT
-              echo "Changes detected in $SELECTED_FILE:"
-              git diff --stat "$SELECTED_FILE"
-            fi
-          else
-            # Check if any pipeline files changed
-            if git diff --quiet .tekton/; then
-              echo "changes=false" >> $GITHUB_OUTPUT
-              echo "No changes detected"
-            else
-              echo "changes=true" >> $GITHUB_OUTPUT
-              echo "Changes detected:"
-              git diff --stat .tekton/
-            fi
-          fi
-
-      # Step 5: Create a pull request with the updated pipeline files
-      # This step only runs if changes were detected in the previous step
+      # Step 4: Create a pull request with the updated pipeline files
+      # This step only runs if changes were detected by the update script
       - name: Create Pull Request
-        if: steps.check.outputs.changes == 'true'
+        if: steps.update.outputs.changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -160,10 +107,10 @@ jobs:
           reviewers: |
             ${{ github.actor }}
 
-      # Step 6: Print a summary of what happened
+      # Step 5: Print a summary of what happened
       - name: Summary
         run: |
-          if [ "${{ steps.check.outputs.changes }}" == "true" ]; then
+          if [ "${{ steps.update.outputs.changes }}" == "true" ]; then
             echo "✅ Pipeline task references updated and PR created"
           else
             echo "ℹ️ No updates needed - all task references are current"
