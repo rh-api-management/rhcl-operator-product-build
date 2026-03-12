@@ -40,11 +40,13 @@ jobs:
           VERSION=$(curl -s https://api.github.com/repos/oras-project/oras/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
           echo "Installing oras version ${VERSION}"
           curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
-          tar -zxf oras_${VERSION}_linux_amd64.tar.gz
+          # Extract to temp directory to avoid polluting working directory with LICENSE/README
+          mkdir -p /tmp/oras-install
+          tar -zxf oras_${VERSION}_linux_amd64.tar.gz -C /tmp/oras-install
           mkdir -p "${HOME}/.local/bin"
-          mv oras "${HOME}/.local/bin/"
+          mv /tmp/oras-install/oras "${HOME}/.local/bin/"
           echo "${HOME}/.local/bin" >> $GITHUB_PATH
-          rm -rf oras_${VERSION}_*.tar.gz
+          rm -rf oras_${VERSION}_*.tar.gz /tmp/oras-install
           oras version
 
       # Step 3: Run the update script to check and update pipeline task references
