@@ -174,9 +174,17 @@ main() {
             info "Changes ready to commit"
             info "Run 'git diff $TEKTON_DIR/' to review changes"
         fi
+        # Set GitHub Actions output if running in CI
+        if [ -n "$GITHUB_OUTPUT" ]; then
+            echo "changes=true" >> "$GITHUB_OUTPUT"
+        fi
         exit 0
     else
         info "No updates needed"
+        # Set GitHub Actions output if running in CI
+        if [ -n "$GITHUB_OUTPUT" ]; then
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+        fi
         exit 0
     fi
 }
