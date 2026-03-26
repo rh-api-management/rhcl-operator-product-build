@@ -9,7 +9,6 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "rhcl-1.3" && ( "bundle-dev/*".pathChanged() || "Containerfile.rhcl-operator-bundle-dev".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-3-rhcl-operator-bundle-dev-push.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
-  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: rhcl-1-3-rhcl-operator
     appstudio.openshift.io/component: rhcl-1-3-rhcl-operator-bundle-dev
