@@ -354,11 +354,11 @@ spec:
       - name: kind
         value: task
       resolver: bundles
-      when:
-      - input: $(params.skip-checks)
-        operator: in
-        values:
-        - "false"
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values:
+      - "false"
   - name: coverity-availability-check
     runAfter:
     - build-image-index
@@ -371,11 +371,11 @@ spec:
       - name: kind
         value: task
       resolver: bundles
-      when:
-      - input: $(params.skip-checks)
-        operator: in
-        values:
-        - "false"
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values:
+      - "false"
   - name: sast-coverity-check
     params:
     - name: image-digest
