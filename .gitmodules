@@ -1,4 +1,4 @@
 [submodule "kuadrant-operator"]
 	path = kuadrant-operator
 	url = https://github.com/kuadrant/kuadrant-operator
-	branch = release-v1.3
+	branch = release-v1.4
