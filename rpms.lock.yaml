@@ -81,13 +81,13 @@ arches:
     name: criu-libs
     evr: 3.19-3.el9
     sourcerpm: criu-3.19-3.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/c/crun-1.26-1.el9_7.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/c/crun-1.27-1.el9_7.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 265054
-    checksum: sha256:ff2ab3dc93536b676ffc3dce8113a037a1cc30d9b92cd3a3802339fd3aa100f4
+    size: 268352
+    checksum: sha256:61b1d11863da6f3c0854fe7d83e97fb32e76569c64eaa413b6146b22beacf49a
     name: crun
-    evr: 1.26-1.el9_7
-    sourcerpm: crun-1.26-1.el9_7.src.rpm
+    evr: 1.27-1.el9_7
+    sourcerpm: crun-1.27-1.el9_7.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/d/dwz-0.16-1.el9.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
     size: 137661
@@ -263,13 +263,13 @@ arches:
     name: go-srpm-macros
     evr: 3.6.0-13.el9_7
     sourcerpm: go-rpm-macros-3.6.0-13.el9_7.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-headers-5.14.0-611.45.1.el9_7.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-headers-5.14.0-611.47.1.el9_7.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 3025189
-    checksum: sha256:eb6aafff64717dc24622c8990dfd50c2a5778b6ec71fac8360d28a524d22bc41
+    size: 3025981
+    checksum: sha256:551f1d5cb5981a364fd119aaeacaad54e69c886308a7aaba3b4fa2e507b58d5d
     name: kernel-headers
-    evr: 5.14.0-611.45.1.el9_7
-    sourcerpm: kernel-5.14.0-611.45.1.el9_7.src.rpm
+    evr: 5.14.0-611.47.1.el9_7
+    sourcerpm: kernel-5.14.0-611.47.1.el9_7.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-srpm-macros-1.0-14.el9.noarch.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
     size: 14098
@@ -2563,12 +2563,12 @@ arches:
     checksum: sha256:935cde45890eee106b48c5a17fcce9a359bbc33e5867c7433012a28fdc095e90
     name: criu
     evr: 3.19-3.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/c/crun-1.26-1.el9_7.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/c/crun-1.27-1.el9_7.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
-    size: 902955
-    checksum: sha256:801bce95ac6159f0fae104bdf21024be72bd1fb00655081ec2ca30b240856da0
+    size: 908477
+    checksum: sha256:0b6d37252bb27dedbc9770b7f968e1b903d8d8a2f0fa4cc0d6d201cb1a00d189
     name: crun
-    evr: 1.26-1.el9_7
+    evr: 1.27-1.el9_7
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/d/dwz-0.16-1.el9.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
     size: 162245
