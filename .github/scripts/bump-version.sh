@@ -7,7 +7,7 @@ set -e
 #   kuadrant-version: Optional. Upstream Kuadrant version (e.g., 0.10.0). Defaults to rhcl-version if not provided.
 
 RHCL_VERSION="$1"
-KUADRANT_VERSION="${2:-$1}"  # Default to RHCL version if not provided
+KUADRANT_VERSION="$2"  # Optional - leave unchanged if not provided
 
 # Validation
 if [ -z "$RHCL_VERSION" ]; then
@@ -21,9 +21,11 @@ if ! echo "$RHCL_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
   exit 1
 fi
 
-if ! echo "$KUADRANT_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-  echo "Error: Kuadrant version must be in X.Y.Z format (e.g., 0.10.0)"
-  exit 1
+if [ -n "$KUADRANT_VERSION" ]; then
+  if ! echo "$KUADRANT_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+    echo "Error: Kuadrant version must be in X.Y.Z format (e.g., 0.10.0)"
+    exit 1
+  fi
 fi
 
 # Detect current RHCL version from bundle-generation/rhcl-operator.yaml
@@ -39,7 +41,11 @@ echo "RHCL Version Bump"
 echo "========================================"
 echo "Current RHCL version: $CURRENT_RHCL_VERSION"
 echo "New RHCL version: $RHCL_VERSION"
-echo "Kuadrant version: $KUADRANT_VERSION"
+if [ -n "$KUADRANT_VERSION" ]; then
+  echo "Kuadrant version: $KUADRANT_VERSION"
+else
+  echo "Kuadrant version: (unchanged)"
+fi
 echo "========================================"
 echo ""
 
@@ -70,41 +76,46 @@ sed -i "s/rhcl-operator\.v$CURRENT_RHCL_VERSION/rhcl-operator.v$RHCL_VERSION/g" 
 sed -i "s/version: \"$CURRENT_RHCL_VERSION\"/version: \"$RHCL_VERSION\"/g" bundle-generation/rhcl-operator.yaml
 echo ""
 
-# Step 4: Update KUADRANT_VERSION in Tekton pipelines
-echo "Updating Tekton pipelines..."
+# Step 4: Update KUADRANT_VERSION in Tekton pipelines (if provided)
+if [ -n "$KUADRANT_VERSION" ]; then
+  echo "Updating Tekton pipelines..."
 
-# Find the operator pipeline files (branch-agnostic)
-PUSH_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-push.yaml' | head -n1)
-PR_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-pull-request.yaml' | head -n1)
+  # Find the operator pipeline files (branch-agnostic)
+  PUSH_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-push.yaml' | head -n1)
+  PR_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-pull-request.yaml' | head -n1)
 
-if [ -z "$PUSH_PIPELINE" ] || [ -z "$PR_PIPELINE" ]; then
-  echo "Error: Could not find operator pipeline files in .tekton/"
-  echo "Expected files matching: rhcl-*-rhcl-operator-push.yaml and rhcl-*-rhcl-operator-pull-request.yaml"
-  exit 1
-fi
+  if [ -z "$PUSH_PIPELINE" ] || [ -z "$PR_PIPELINE" ]; then
+    echo "Error: Could not find operator pipeline files in .tekton/"
+    echo "Expected files matching: rhcl-*-rhcl-operator-push.yaml and rhcl-*-rhcl-operator-pull-request.yaml"
+    exit 1
+  fi
 
-echo "  - Found push pipeline: $PUSH_PIPELINE"
-echo "  - Found PR pipeline: $PR_PIPELINE"
+  echo "  - Found push pipeline: $PUSH_PIPELINE"
+  echo "  - Found PR pipeline: $PR_PIPELINE"
 
-# Detect current KUADRANT_VERSION from pipeline files (may still be named RHCL_VERSION)
-if grep -q 'KUADRANT_VERSION=' "$PUSH_PIPELINE"; then
-  CURRENT_KUADRANT_VERSION=$(grep -m1 'KUADRANT_VERSION=' "$PUSH_PIPELINE" | sed 's/.*KUADRANT_VERSION=\(.*\)/\1/')
-  OLD_VAR_NAME="KUADRANT_VERSION"
-elif grep -q 'RHCL_VERSION=' "$PUSH_PIPELINE"; then
-  CURRENT_KUADRANT_VERSION=$(grep -m1 'RHCL_VERSION=' "$PUSH_PIPELINE" | sed 's/.*RHCL_VERSION=\(.*\)/\1/')
-  OLD_VAR_NAME="RHCL_VERSION"
+  # Detect current KUADRANT_VERSION from pipeline files (may still be named RHCL_VERSION)
+  if grep -q 'KUADRANT_VERSION=' "$PUSH_PIPELINE"; then
+    CURRENT_KUADRANT_VERSION=$(grep -m1 'KUADRANT_VERSION=' "$PUSH_PIPELINE" | sed 's/.*KUADRANT_VERSION=\(.*\)/\1/')
+    OLD_VAR_NAME="KUADRANT_VERSION"
+  elif grep -q 'RHCL_VERSION=' "$PUSH_PIPELINE"; then
+    CURRENT_KUADRANT_VERSION=$(grep -m1 'RHCL_VERSION=' "$PUSH_PIPELINE" | sed 's/.*RHCL_VERSION=\(.*\)/\1/')
+    OLD_VAR_NAME="RHCL_VERSION"
+  else
+    echo "Error: Could not find KUADRANT_VERSION or RHCL_VERSION in $PUSH_PIPELINE"
+    exit 1
+  fi
+
+  echo "  - Current ${OLD_VAR_NAME}: $CURRENT_KUADRANT_VERSION"
+  echo "  - Updating to KUADRANT_VERSION=$KUADRANT_VERSION"
+
+  # Update to KUADRANT_VERSION in both pipeline files
+  sed -i "s/${OLD_VAR_NAME}=$CURRENT_KUADRANT_VERSION/KUADRANT_VERSION=$KUADRANT_VERSION/g" "$PUSH_PIPELINE"
+  sed -i "s/${OLD_VAR_NAME}=$CURRENT_KUADRANT_VERSION/KUADRANT_VERSION=$KUADRANT_VERSION/g" "$PR_PIPELINE"
+  echo ""
 else
-  echo "Error: Could not find KUADRANT_VERSION or RHCL_VERSION in $PUSH_PIPELINE"
-  exit 1
+  echo "Skipping Kuadrant version update (not provided)"
+  echo ""
 fi
-
-echo "  - Current ${OLD_VAR_NAME}: $CURRENT_KUADRANT_VERSION"
-echo "  - Updating to KUADRANT_VERSION=$KUADRANT_VERSION"
-
-# Update to KUADRANT_VERSION in both pipeline files
-sed -i "s/${OLD_VAR_NAME}=$CURRENT_KUADRANT_VERSION/KUADRANT_VERSION=$KUADRANT_VERSION/g" "$PUSH_PIPELINE"
-sed -i "s/${OLD_VAR_NAME}=$CURRENT_KUADRANT_VERSION/KUADRANT_VERSION=$KUADRANT_VERSION/g" "$PR_PIPELINE"
-echo ""
 
 echo "========================================"
 echo "✅ Version bump complete!"
@@ -116,8 +127,10 @@ echo "  - Containerfile.rhcl-operator-bundle"
 echo "  - Containerfile.rhcl-operator-bundle-dev"
 echo "  - Containerfile.rhcl-operator-bundle-stage"
 echo "  - bundle-generation/rhcl-operator.yaml"
-echo "  - $PUSH_PIPELINE"
-echo "  - $PR_PIPELINE"
+if [ -n "$KUADRANT_VERSION" ]; then
+  echo "  - $PUSH_PIPELINE"
+  echo "  - $PR_PIPELINE"
+fi
 echo ""
 echo "Next steps:"
 echo "  1. Review changes: git diff"

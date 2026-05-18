@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       kuadrant_version:
-        description: 'Upstream Kuadrant version (e.g., 0.10.0) - defaults to RHCL version if not provided'
+        description: 'Upstream Kuadrant version (e.g., 1.4.0) - leave empty to keep current version unchanged'
         required: false
         type: string
 
@@ -54,25 +54,25 @@ jobs:
           commit-message: |
             Prepare RHCL ${{ inputs.version }} release
 
-            Update RHCL version from ${{ steps.detect.outputs.current }} to ${{ inputs.version }}
-            Update Kuadrant version to ${{ inputs.kuadrant_version != '' && inputs.kuadrant_version || inputs.version }}
+            Update RHCL version from ${{ steps.detect.outputs.current }} to ${{ inputs.version }}${{ inputs.kuadrant_version != '' && format('
+            Update Kuadrant version to {0}', inputs.kuadrant_version) || '' }}
 
             Files updated:
             - Containerfile.rhcl-operator (if release label exists)
             - Containerfile.rhcl-operator-bundle
             - Containerfile.rhcl-operator-bundle-dev
             - Containerfile.rhcl-operator-bundle-stage
-            - bundle-generation/rhcl-operator.yaml
-            - ${{ steps.bump.outputs.push_pipeline }}
-            - ${{ steps.bump.outputs.pr_pipeline }}
+            - bundle-generation/rhcl-operator.yaml${{ inputs.kuadrant_version != '' && format('
+            - {0}
+            - {1}', steps.bump.outputs.push_pipeline, steps.bump.outputs.pr_pipeline) || '' }}
           branch: prep-${{ inputs.version }}
           delete-branch: true
           title: Prepare RHCL ${{ inputs.version }} release
           body: |
             ## Version Bump
 
-            - **RHCL version**: ${{ steps.detect.outputs.current }} → ${{ inputs.version }}
-            - **Kuadrant version**: ${{ inputs.kuadrant_version != '' && inputs.kuadrant_version || inputs.version }}${{ inputs.kuadrant_version == '' && ' (defaulted to RHCL version)' || '' }}
+            - **RHCL version**: ${{ steps.detect.outputs.current }} → ${{ inputs.version }}${{ inputs.kuadrant_version != '' && format('
+            - **Kuadrant version**: {0}', inputs.kuadrant_version) || '' }}
 
             This PR prepares the RHCL ${{ inputs.version }} patch release by updating version strings across the build infrastructure.
 
@@ -88,11 +88,11 @@ jobs:
               - Updated `version` and `release` labels
             - **bundle-generation/rhcl-operator.yaml** (lines 7-8)
               - Updated `csv.name`: `rhcl-operator.v${{ steps.detect.outputs.current }}` → `rhcl-operator.v${{ inputs.version }}`
-              - Updated `csv.version`: `"${{ steps.detect.outputs.current }}"` → `"${{ inputs.version }}"`
-            - **${{ steps.bump.outputs.push_pipeline }}**
-              - Updated `KUADRANT_VERSION` build arg
-            - **${{ steps.bump.outputs.pr_pipeline }}**
-              - Updated `KUADRANT_VERSION` build arg
+              - Updated `csv.version`: `"${{ steps.detect.outputs.current }}"` → `"${{ inputs.version }}"`${{ inputs.kuadrant_version != '' && format('
+            - **{0}**
+              - Updated `KUADRANT_VERSION` build arg to `{1}`
+            - **{2}**
+              - Updated `KUADRANT_VERSION` build arg to `{1}`', steps.bump.outputs.push_pipeline, inputs.kuadrant_version, steps.bump.outputs.pr_pipeline) || '' }}
 
             ### Next Steps
 
@@ -116,6 +116,6 @@ jobs:
           if [ -n "${{ inputs.kuadrant_version }}" ]; then
             echo "Kuadrant version: ${{ inputs.kuadrant_version }}"
           else
-            echo "Kuadrant version: ${{ inputs.version }} (defaulted to RHCL version)"
+            echo "Kuadrant version: (unchanged)"
           fi
           echo "Branch: prep-${{ inputs.version }}"

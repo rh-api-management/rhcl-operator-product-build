@@ -9,10 +9,10 @@ Automates version bumping for RHCL releases.
 ### Usage
 
 ```bash
-# Basic usage - bumps both RHCL and Kuadrant to the same version
+# Update only RHCL version (leaves Kuadrant version unchanged)
 ./bump-version.sh 1.3.4
 
-# Specify different Kuadrant version
+# Update both RHCL and Kuadrant versions
 ./bump-version.sh 1.3.4 1.4.0
 ```
 
@@ -36,8 +36,11 @@ Automates version bumping for RHCL releases.
 ```bash
 cd /path/to/rhcl-operator-product-build
 
-# Bump to 1.3.4 (both RHCL and Kuadrant)
+# Bump only RHCL version to 1.3.4 (leaves Kuadrant unchanged)
 .github/scripts/bump-version.sh 1.3.4
+
+# Or bump both RHCL and Kuadrant versions
+.github/scripts/bump-version.sh 1.3.4 1.4.0
 
 # Review changes
 git diff
