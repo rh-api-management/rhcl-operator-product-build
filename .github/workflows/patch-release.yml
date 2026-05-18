@@ -1,0 +1,121 @@
+name: Patch Release Version Bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New RHCL version (e.g., 1.3.4)'
+        required: true
+        type: string
+      kuadrant_version:
+        description: 'Upstream Kuadrant version (e.g., 0.10.0) - defaults to RHCL version if not provided'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Detect current version
+        id: detect
+        run: |
+          CURRENT_VERSION=$(grep '^  version:' bundle-generation/rhcl-operator.yaml | sed 's/.*"\(.*\)".*/\1/')
+          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Bump versions
+        id: bump
+        run: |
+          chmod +x .github/scripts/bump-version.sh
+          if [ -n "${{ inputs.kuadrant_version }}" ]; then
+            .github/scripts/bump-version.sh "${{ inputs.version }}" "${{ inputs.kuadrant_version }}"
+          else
+            .github/scripts/bump-version.sh "${{ inputs.version }}"
+          fi
+
+          # Capture pipeline file paths for later use
+          PUSH_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-push.yaml' | head -n1)
+          PR_PIPELINE=$(find .tekton -name 'rhcl-*-rhcl-operator-pull-request.yaml' | head -n1)
+          echo "push_pipeline=$PUSH_PIPELINE" >> $GITHUB_OUTPUT
+          echo "pr_pipeline=$PR_PIPELINE" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Prepare RHCL ${{ inputs.version }} release
+
+            Update RHCL version from ${{ steps.detect.outputs.current }} to ${{ inputs.version }}
+            Update Kuadrant version to ${{ inputs.kuadrant_version != '' && inputs.kuadrant_version || inputs.version }}
+
+            Files updated:
+            - Containerfile.rhcl-operator (if release label exists)
+            - Containerfile.rhcl-operator-bundle
+            - Containerfile.rhcl-operator-bundle-dev
+            - Containerfile.rhcl-operator-bundle-stage
+            - bundle-generation/rhcl-operator.yaml
+            - ${{ steps.bump.outputs.push_pipeline }}
+            - ${{ steps.bump.outputs.pr_pipeline }}
+          branch: prep-${{ inputs.version }}
+          delete-branch: true
+          title: Prepare RHCL ${{ inputs.version }} release
+          body: |
+            ## Version Bump
+
+            - **RHCL version**: ${{ steps.detect.outputs.current }} → ${{ inputs.version }}
+            - **Kuadrant version**: ${{ inputs.kuadrant_version != '' && inputs.kuadrant_version || inputs.version }}${{ inputs.kuadrant_version == '' && ' (defaulted to RHCL version)' || '' }}
+
+            This PR prepares the RHCL ${{ inputs.version }} patch release by updating version strings across the build infrastructure.
+
+            ### Files Updated
+
+            - **Containerfile.rhcl-operator** (if release label exists)
+              - Updated `release` label
+            - **Containerfile.rhcl-operator-bundle** (lines 20, 31)
+              - Updated `version` and `release` labels
+            - **Containerfile.rhcl-operator-bundle-dev** (lines 20, 31)
+              - Updated `version` and `release` labels
+            - **Containerfile.rhcl-operator-bundle-stage** (lines 20, 31)
+              - Updated `version` and `release` labels
+            - **bundle-generation/rhcl-operator.yaml** (lines 7-8)
+              - Updated `csv.name`: `rhcl-operator.v${{ steps.detect.outputs.current }}` → `rhcl-operator.v${{ inputs.version }}`
+              - Updated `csv.version`: `"${{ steps.detect.outputs.current }}"` → `"${{ inputs.version }}"`
+            - **${{ steps.bump.outputs.push_pipeline }}**
+              - Updated `KUADRANT_VERSION` build arg
+            - **${{ steps.bump.outputs.pr_pipeline }}**
+              - Updated `KUADRANT_VERSION` build arg
+
+            ### Next Steps
+
+            - [ ] Review version changes
+            - [ ] Verify bundle generation still works (`make bundle`)
+            - [ ] Merge to trigger Konflux builds
+
+            ---
+
+            *This PR was automatically created by the [patch-release workflow](.github/workflows/patch-release.yml).*
+          labels: |
+            release
+            automated
+          reviewers: |
+            ${{ github.actor }}
+
+      - name: Summary
+        run: |
+          echo "✅ Version bump PR created"
+          echo "RHCL version: ${{ steps.detect.outputs.current }} → ${{ inputs.version }}"
+          if [ -n "${{ inputs.kuadrant_version }}" ]; then
+            echo "Kuadrant version: ${{ inputs.kuadrant_version }}"
+          else
+            echo "Kuadrant version: ${{ inputs.version }} (defaulted to RHCL version)"
+          fi
+          echo "Branch: prep-${{ inputs.version }}"
