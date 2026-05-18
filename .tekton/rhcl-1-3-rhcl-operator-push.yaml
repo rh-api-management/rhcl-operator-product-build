@@ -29,7 +29,7 @@ spec:
     value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
   - name: build-args
     value:
-    - RHCL_VERSION=1.3.0
+    - KUADRANT_VERSION=1.3.0
     - GIT_SHA={{revision}}
     - DIRTY=false
   pipelineRef:
