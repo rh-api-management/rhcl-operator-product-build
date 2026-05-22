@@ -754,11 +754,11 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:c5b3a7612b771f1f3d434da9059152bfb8164296a09aee23093445c9e7e75cbc
+                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3147e7804d71fa6bd5559b56e82e1f2a2279924f1f5752ab3d7824a052bfcbb7
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -912,10 +912,10 @@ spec:
   relatedImages:
     - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
       name: wasmshim
-    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:c5b3a7612b771f1f3d434da9059152bfb8164296a09aee23093445c9e7e75cbc
+    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
       name: developerportal
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3147e7804d71fa6bd5559b56e82e1f2a2279924f1f5752ab3d7824a052bfcbb7
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
       name: console-plugin-latest
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
       name: console-plugin-pf5
   version: 1.3.3
