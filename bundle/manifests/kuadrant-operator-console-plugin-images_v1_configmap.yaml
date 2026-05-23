@@ -3,9 +3,9 @@ data:
   "4.16": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
   "4.17": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
   "4.18": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
-  "4.19": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
-  "4.20": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
-  default: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
+  "4.19": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
+  "4.20": registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
+  default: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
 kind: ConfigMap
 metadata:
   labels:
