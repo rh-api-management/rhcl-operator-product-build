@@ -1,8 +1,8 @@
 apiVersion: v1
 data:
-  "4.16": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
-  "4.17": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
-  "4.18": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:27783803b6c94237682fc24365cc6f5c556599d417309bd2807c28fee53d0f32
+  "4.16": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
+  "4.17": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
+  "4.18": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin-0-1-5@sha256:b567b8f5aa949d6d27d3b3e3105dc66c7bfcf30e453916a1c0f930489d516ae4
   "4.19": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
   "4.20": quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
   default: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-2-rhcl-console-plugin@sha256:cdc9274c9efebf51bc016e60f3ae172566b59934b769ef3d591506b018af42b8
