@@ -224,7 +224,7 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
-    containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:51727ae3761926ce9d855a7c7fab125694deaf0f95cccd51c858c8b110498bbc
+    containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:50c2183676d64ff3d561d86bebf312a7adf0a7a7d718a7d73a0cba833c3a8fc7
     createdAt: "2026-02-05T17:14:12Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
@@ -242,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.3.3
+  name: rhcl-operator.v1.3.4
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -758,14 +758,14 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:51727ae3761926ce9d855a7c7fab125694deaf0f95cccd51c858c8b110498bbc
+                    image: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:50c2183676d64ff3d561d86bebf312a7adf0a7a7d718a7d73a0cba833c3a8fc7
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -916,6 +916,6 @@ spec:
       name: developerportal
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
       name: console-plugin-latest
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
       name: console-plugin-pf5
-  version: 1.3.3
+  version: 1.3.4
