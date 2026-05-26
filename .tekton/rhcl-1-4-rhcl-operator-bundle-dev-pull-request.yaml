@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  annotations:
+    build.appstudio.openshift.io/repo: https://github.com/rh-api-management/rhcl-operator-product-build?rev={{revision}}
+    build.appstudio.redhat.com/commit_sha: '{{revision}}'
+    build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
+    build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    pipelinesascode.tekton.dev/cancel-in-progress: "true"
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.4" && ( "bundle-dev/*".pathChanged() || "Containerfile.rhcl-operator-bundle-dev".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-4-rhcl-operator-bundle-dev-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
+  creationTimestamp: null
+  labels:
+    appstudio.openshift.io/application: rhcl-1-4-rhcl-operator
+    appstudio.openshift.io/component: rhcl-1-4-rhcl-operator-bundle-dev
+    pipelines.appstudio.openshift.io/type: build
+  name: rhcl-1-4-rhcl-operator-bundle-dev-on-pull-request
+  namespace: api-management-tenant
+spec:
+  params:
+  - name: git-url
+    value: '{{source_url}}'
+  - name: revision
+    value: '{{revision}}'
+  - name: output-image
+    value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator-bundle-dev:on-pr-{{revision}}
+  - name: image-expires-after
+    value: 5d
+  - name: dockerfile
+    value: Containerfile.rhcl-operator-bundle-dev
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "kuadrant-operator/"}]'
+  pipelineRef:
+    name: bundle-build-pipeline
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-rhcl-1-4-rhcl-operator-bundle-dev
+  workspaces:
+  - name: git-auth
+    secret:
+      secretName: '{{ git_auth_secret }}'
+status: {}
