@@ -40,6 +40,8 @@ features:
 architectures:
   amd64: supported
   arm64: supported
+  s390x: supported
+  ppc64le: supported
   os.linux: supported
 
 # Istio gateway controller configuration for OpenShift
