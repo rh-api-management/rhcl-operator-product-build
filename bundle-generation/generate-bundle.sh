@@ -11,7 +11,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/.."
 UPSTREAM_BUNDLE="${PROJECT_ROOT}/kuadrant-operator/bundle"
-IMAGE_PULLSPECS="${PROJECT_ROOT}/image-pullspecs.yaml"
+IMAGE_PULLSPECS_DIR="${SCRIPT_DIR}/image-pullspecs"
 RHCL_CONFIG="${SCRIPT_DIR}/rhcl-operator.yaml"
 ANNOTATIONS_FILE="${SCRIPT_DIR}/annotations.yaml"
 
@@ -28,23 +28,23 @@ if [[ ! -f "$RHCL_CONFIG" ]]; then
     exit 1
 fi
 
-if [[ ! -f "$IMAGE_PULLSPECS" ]]; then
-    echo "Error: Image pullspecs not found at $IMAGE_PULLSPECS"
+if [[ ! -d "$IMAGE_PULLSPECS_DIR" ]]; then
+    echo "Error: Image pullspecs directory not found at $IMAGE_PULLSPECS_DIR"
     exit 1
 fi
 
 echo "========================================"
 echo "Loading configuration from:"
 echo "  Config:      $RHCL_CONFIG"
-echo "  Pullspecs:   $IMAGE_PULLSPECS"
+echo "  Pullspecs:   $IMAGE_PULLSPECS_DIR"
 echo "========================================"
 
-# Read image pullspecs
-OPERATOR_IMAGE=$(yq '.images.operator' "$IMAGE_PULLSPECS")
-WASM_SHIM_IMAGE=$(yq '.images.wasm_shim' "$IMAGE_PULLSPECS")
-CONSOLE_PLUGIN_IMAGE=$(yq '.images.console_plugin' "$IMAGE_PULLSPECS")
-CONSOLE_PLUGIN_0_1_5_IMAGE=$(yq '.images."console_plugin_0.1.5"' "$IMAGE_PULLSPECS")
-DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.images."developer_portal_controller"' "$IMAGE_PULLSPECS")
+# Read image pullspecs from individual files
+OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/operator.yaml")
+WASM_SHIM_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/wasm-shim.yaml")
+CONSOLE_PLUGIN_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin.yaml")
+CONSOLE_PLUGIN_0_1_5_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin-0.1.5.yaml")
+DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/developer-portal-controller.yaml")
 
 echo ""
 echo "Image pullspecs:"

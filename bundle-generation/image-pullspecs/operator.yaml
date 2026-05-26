@@ -1,0 +1,3 @@
+# RHCL Operator image pullspec
+# This file is updated automatically by Konflux
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151

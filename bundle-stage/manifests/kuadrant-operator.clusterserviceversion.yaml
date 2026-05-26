@@ -224,8 +224,8 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
-    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:7aa6d6dbbde488260789adb94fa232a06d1e635cc2aaf86af24f8cf14a17eef8
-    createdAt: "2026-02-05T17:14:12Z"
+    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151
+    createdAt: "2026-05-22T10:26:17Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -242,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.3.3
+  name: rhcl-operator.v1.3.4
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -754,18 +754,18 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
+                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:7aa6d6dbbde488260789adb94fa232a06d1e635cc2aaf86af24f8cf14a17eef8
+                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -912,10 +912,10 @@ spec:
   relatedImages:
     - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
       name: wasmshim
-    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:4ab654849ee3ffb6b2ae64386380ea2344031f9a21fdaecfdd8090836e9e8ba2
+    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
       name: developerportal
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41755d5e16ee5409cfe8888cf5883b262820baea4eae449fcf61f06ab1756f57
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
       name: console-plugin-latest
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c72f23284033de1032e2b209cd2c6087ad0f1aacb8c7312fd324df3d8fee49b9
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3ff41a5829ad44f84aa13a1cf698ed4fb6db9aba70e5609e495af07cc3f4b47
       name: console-plugin-pf5
-  version: 1.3.3
+  version: 1.3.4

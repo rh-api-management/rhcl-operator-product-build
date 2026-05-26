@@ -4,17 +4,16 @@ metadata:
   annotations:
     build.appstudio.openshift.io/repo: https://github.com/rh-api-management/rhcl-operator-product-build?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
-    build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
-    pipelinesascode.tekton.dev/cancel-in-progress: "true"
+    pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.3" && ( "bundle/*".pathChanged() || "Containerfile.rhcl-operator-bundle".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-3-rhcl-operator-bundle-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "rhcl-1.4" && ( "bundle/*".pathChanged() || "Containerfile.rhcl-operator-bundle".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-4-rhcl-operator-bundle-push.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: rhcl-1-3-rhcl-operator
-    appstudio.openshift.io/component: rhcl-1-3-rhcl-operator-bundle
+    appstudio.openshift.io/application: rhcl-1-4-rhcl-operator
+    appstudio.openshift.io/component: rhcl-1-4-rhcl-operator-bundle
     pipelines.appstudio.openshift.io/type: build
-  name: rhcl-1-3-rhcl-operator-bundle-on-pull-request
+  name: rhcl-1-4-rhcl-operator-bundle-on-push
   namespace: api-management-tenant
 spec:
   params:
@@ -23,9 +22,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator-bundle:on-pr-{{revision}}
-  - name: image-expires-after
-    value: 5d
+    value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator-bundle:{{revision}}
   - name: dockerfile
     value: Containerfile.rhcl-operator-bundle
   - name: prefetch-input
@@ -33,7 +30,7 @@ spec:
   pipelineRef:
     name: bundle-build-pipeline
   taskRunTemplate:
-    serviceAccountName: build-pipeline-rhcl-1-3-rhcl-operator-bundle
+    serviceAccountName: build-pipeline-rhcl-1-4-rhcl-operator-bundle
   workspaces:
   - name: git-auth
     secret:
