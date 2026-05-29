@@ -259,3 +259,27 @@ echo "  - bundle/       (production)"
 echo "  - bundle-dev/   (development)"
 echo "  - bundle-stage/ (staging)"
 echo ""
+
+# Update Containerfile.rhcl-operator with current wasm-shim image
+echo "========================================"
+echo "Updating Containerfile.rhcl-operator"
+echo "========================================"
+CONTAINERFILE="${PROJECT_ROOT}/Containerfile.rhcl-operator"
+
+if [[ ! -f "$CONTAINERFILE" ]]; then
+    echo "Warning: Containerfile not found at $CONTAINERFILE, skipping update"
+else
+    echo "Updating WASM_SHIM_IMAGE default to: ${WASM_SHIM_IMAGE}"
+
+    # Update the ARG WASM_SHIM_IMAGE line with the current image
+    # This uses sed to replace the line that starts with "ARG WASM_SHIM_IMAGE="
+    if grep -q "^ARG WASM_SHIM_IMAGE=" "$CONTAINERFILE"; then
+        # Use a temporary file for atomic update
+        sed "s|^ARG WASM_SHIM_IMAGE=.*|ARG WASM_SHIM_IMAGE=${WASM_SHIM_IMAGE}|" "$CONTAINERFILE" > "${CONTAINERFILE}.tmp"
+        mv "${CONTAINERFILE}.tmp" "$CONTAINERFILE"
+        echo "✓ Updated WASM_SHIM_IMAGE in Containerfile"
+    else
+        echo "Warning: Could not find 'ARG WASM_SHIM_IMAGE=' in Containerfile"
+    fi
+fi
+echo ""
