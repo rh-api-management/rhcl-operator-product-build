@@ -1,3 +1,10 @@
+# Extract the wasm-shim binary (platform-independent) from the OCI image
+# This default value is automatically updated by bundle-generation/generate-bundle.sh
+# which reads the current image from bundle-generation/image-pullspecs/wasm-shim.yaml
+# The WASM_SHIM_IMAGE can be overridden via build args if needed
+ARG WASM_SHIM_IMAGE=quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-wasm-shim@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
+FROM ${WASM_SHIM_IMAGE} AS wasm-shim
+
 # Build the manager binary
 FROM registry.redhat.io/ubi9/go-toolset:latest AS builder
 
@@ -76,6 +83,7 @@ USER root
 COPY --from=builder licenses/LICENSE /licenses/LICENSE
 COPY --from=builder /workspace/${OPERATOR_BINARY_NAME} /
 COPY --from=builder /workspace/extensions /extensions
+COPY --from=wasm-shim /plugin.wasm /wasm/plugin.wasm
 RUN chown ${USER_UID} /${OPERATOR_BINARY_NAME}
 
 # # TODO: Install licenses
