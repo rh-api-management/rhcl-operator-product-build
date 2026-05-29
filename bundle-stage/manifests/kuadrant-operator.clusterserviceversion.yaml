@@ -224,8 +224,8 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
-    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151
-    createdAt: "2026-05-22T10:26:17Z"
+    containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:ea5553315d36bb6dfe69bc09a5f3df159d0ec57b0c5eb8980f65ac463b26e8f4
+    createdAt: "2026-05-28T10:15:08Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -754,9 +754,9 @@ spec:
                       - name: EXTENSIONS_DIR
                         value: /extensions
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c2b1cfcbd4aee9ccb517ac35eb2aebb29c82d01afcb216e94503ed9bd6fafbe3
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
+                        value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6534d5132c1bc3d5096c597b7dfd6026ca71082bdbac2ce37eb79c8d1cd8077f
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
@@ -767,7 +767,7 @@ spec:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151
+                    image: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:ea5553315d36bb6dfe69bc09a5f3df159d0ec57b0c5eb8980f65ac463b26e8f4
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -912,9 +912,9 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:4b8cd7dea4d9cd3c7170af872c229e206155691e7dbb4a90c64699ccecc7ccbb
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c2b1cfcbd4aee9ccb517ac35eb2aebb29c82d01afcb216e94503ed9bd6fafbe3
       name: wasmshim
-    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
+    - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6534d5132c1bc3d5096c597b7dfd6026ca71082bdbac2ce37eb79c8d1cd8077f
       name: developerportal
     - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
       name: console-plugin-latest
