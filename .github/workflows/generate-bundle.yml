@@ -40,7 +40,7 @@ jobs:
       - name: Check if the generated output differs from what's already committed
         id: changes
         run: |
-          if git diff --quiet ./bundle ./bundle-dev ./bundle-stage && \
+          if git diff --quiet ./bundle ./bundle-dev ./bundle-stage ./Containerfile.rhcl-operator && \
              [ -z "$(git ls-files --other --exclude-standard --directory --no-empty-directory ./bundle ./bundle-dev ./bundle-stage)" ]; then
             echo "changes=false" >> $GITHUB_OUTPUT
           else
@@ -51,7 +51,8 @@ jobs:
         if: steps.changes.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Generate Bundles after change to image-pullspecs.yaml or rhcl-operator.yaml
+          commit_message: Generate Bundles and update Containerfile after change to image-pullspecs or rhcl-operator.yaml
+          file_pattern: 'bundle/ bundle-dev/ bundle-stage/ Containerfile.rhcl-operator'
 
       - name: Validate bundles
         run: make validate-bundle
