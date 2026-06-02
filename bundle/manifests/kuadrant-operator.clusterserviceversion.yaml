@@ -764,13 +764,13 @@ spec:
                       - name: EXTENSIONS_DESCRIPTOR_SERVICE_PORT
                         value: "50051"
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c2b1cfcbd4aee9ccb517ac35eb2aebb29c82d01afcb216e94503ed9bd6fafbe3
+                        value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:b8d5d038c270e3828fdd4cd1081a5e9a03ebb5df9b006cb03e9ac7385361a116
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6534d5132c1bc3d5096c597b7dfd6026ca71082bdbac2ce37eb79c8d1cd8077f
+                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:b3c03e4e214bf829ef72352eadf780ebdf8d66f9aaf42d71a8564c4ed2a62db9
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:25888921ae4e14dca06b6c125fed01e6f4195575ca2772015e45967cc30d2367
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98cecd4791545a3b58a712f4d1c1c3af737683438aca29290053cb12106029cc
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -928,12 +928,12 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:c2b1cfcbd4aee9ccb517ac35eb2aebb29c82d01afcb216e94503ed9bd6fafbe3
+    - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:b8d5d038c270e3828fdd4cd1081a5e9a03ebb5df9b006cb03e9ac7385361a116
       name: wasmshim
-    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6534d5132c1bc3d5096c597b7dfd6026ca71082bdbac2ce37eb79c8d1cd8077f
+    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:b3c03e4e214bf829ef72352eadf780ebdf8d66f9aaf42d71a8564c4ed2a62db9
       name: developerportal
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:25888921ae4e14dca06b6c125fed01e6f4195575ca2772015e45967cc30d2367
       name: console-plugin-latest
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98cecd4791545a3b58a712f4d1c1c3af737683438aca29290053cb12106029cc
       name: console-plugin-pf5
   version: 1.4.0
