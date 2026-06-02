@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:ded2ba3a2d24c6750774363ff3c4dedacd47ec64f92847513965f3bf0a80cb8f
-    createdAt: "2026-05-28T10:15:08Z"
+    createdAt: "2026-05-29T12:45:48Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -254,6 +254,12 @@ spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
+      - kind: APIKeyApproval
+        name: apikeyapprovals.devportal.kuadrant.io
+        version: v1alpha1
+      - kind: APIKeyRequest
+        name: apikeyrequests.devportal.kuadrant.io
+        version: v1alpha1
       - kind: APIKey
         name: apikeys.devportal.kuadrant.io
         version: v1alpha1
@@ -315,13 +321,12 @@ spec:
                 - delete
                 - get
                 - list
-                - patch
-                - update
                 - watch
             - apiGroups:
                 - devportal.kuadrant.io
               resources:
-                - apikeys
+                - apikeyapprovals
+                - apikeyrequests
                 - apiproducts
               verbs:
                 - create
@@ -334,19 +339,28 @@ spec:
             - apiGroups:
                 - devportal.kuadrant.io
               resources:
-                - apikeys/finalizers
-                - apiproducts/finalizers
-              verbs:
-                - update
-            - apiGroups:
-                - devportal.kuadrant.io
-              resources:
+                - apikeyapprovals/status
+                - apikeyrequests/status
                 - apikeys/status
                 - apiproducts/status
               verbs:
                 - get
                 - patch
                 - update
+            - apiGroups:
+                - devportal.kuadrant.io
+              resources:
+                - apikeyrequests/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - devportal.kuadrant.io
+              resources:
+                - apikeys
+              verbs:
+                - get
+                - list
+                - watch
             - apiGroups:
                 - extensions.kuadrant.io
               resources:
@@ -379,6 +393,7 @@ spec:
                 - kuadrant.io
               resources:
                 - authpolicies
+                - kuadrants
               verbs:
                 - get
                 - list
@@ -500,23 +515,12 @@ spec:
                 - update
                 - watch
             - apiGroups:
-                - extensions.istio.io
-              resources:
-                - wasmplugins
-              verbs:
-                - create
-                - delete
-                - get
-                - list
-                - patch
-                - update
-                - watch
-            - apiGroups:
                 - extensions.kuadrant.io
               resources:
                 - oidcpolicies
                 - planpolicies
                 - telemetrypolicies
+                - threatpolicies
               verbs:
                 - get
                 - list
@@ -529,6 +533,7 @@ spec:
                 - oidcpolicies/finalizers
                 - planpolicies/finalizers
                 - telemetrypolicies/finalizers
+                - threatpolicies/finalizers
               verbs:
                 - update
             - apiGroups:
@@ -537,6 +542,7 @@ spec:
                 - oidcpolicies/status
                 - planpolicies/status
                 - telemetrypolicies/status
+                - threatpolicies/status
               verbs:
                 - get
                 - patch
@@ -558,6 +564,7 @@ spec:
                 - gateway.networking.k8s.io
               resources:
                 - gatewayclasses
+                - grpcroutes
               verbs:
                 - get
                 - list
@@ -582,6 +589,7 @@ spec:
                 - gateway.networking.k8s.io
               resources:
                 - gateways/status
+                - grpcroutes/status
                 - httproutes/status
               verbs:
                 - get
@@ -753,6 +761,8 @@ spec:
                     env:
                       - name: EXTENSIONS_DIR
                         value: /extensions
+                      - name: EXTENSIONS_DESCRIPTOR_SERVICE_PORT
+                        value: "50051"
                       - name: RELATED_IMAGE_WASMSHIM
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:c2b1cfcbd4aee9ccb517ac35eb2aebb29c82d01afcb216e94503ed9bd6fafbe3
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
@@ -778,6 +788,12 @@ spec:
                     ports:
                       - containerPort: 8080
                         name: metrics
+                      - containerPort: 50051
+                        name: grpc
+                        protocol: TCP
+                      - containerPort: 8082
+                        name: wasm
+                        protocol: TCP
                     readinessProbe:
                       httpGet:
                         path: /readyz
