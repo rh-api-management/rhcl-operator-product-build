@@ -1,3 +1,3 @@
 # Console Plugin (latest) image pullspec
 # This file is updated automatically by Konflux
-image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:25888921ae4e14dca06b6c125fed01e6f4195575ca2772015e45967cc30d2367
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:ac34df7eac3b77e2fed64cc45a9d80c1313002096af2d5578da90b757bd17f33
