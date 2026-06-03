@@ -766,7 +766,7 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:bd9b3a3b554a91f55c9a1fb9d7c00ced43784ddfa549ae3d85563402e2c307b2
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:b3c03e4e214bf829ef72352eadf780ebdf8d66f9aaf42d71a8564c4ed2a62db9
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:79eee32ab3412ba38e0fe0923f6b0f1eb78fd0d2ed27ac7089ebc2a19755f4dc
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:25888921ae4e14dca06b6c125fed01e6f4195575ca2772015e45967cc30d2367
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
@@ -930,7 +930,7 @@ spec:
   relatedImages:
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:bd9b3a3b554a91f55c9a1fb9d7c00ced43784ddfa549ae3d85563402e2c307b2
       name: wasmshim
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:b3c03e4e214bf829ef72352eadf780ebdf8d66f9aaf42d71a8564c4ed2a62db9
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:79eee32ab3412ba38e0fe0923f6b0f1eb78fd0d2ed27ac7089ebc2a19755f4dc
       name: developerportal
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:25888921ae4e14dca06b6c125fed01e6f4195575ca2772015e45967cc30d2367
       name: console-plugin-latest
