@@ -768,9 +768,9 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:79eee32ab3412ba38e0fe0923f6b0f1eb78fd0d2ed27ac7089ebc2a19755f4dc
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:ac34df7eac3b77e2fed64cc45a9d80c1313002096af2d5578da90b757bd17f33
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:00e355f0ca6c08ef2866398e0f3d448353f6332ea61eb952c17d3ad41811862b
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98cecd4791545a3b58a712f4d1c1c3af737683438aca29290053cb12106029cc
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:00e355f0ca6c08ef2866398e0f3d448353f6332ea61eb952c17d3ad41811862b
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -932,8 +932,8 @@ spec:
       name: wasmshim
     - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:79eee32ab3412ba38e0fe0923f6b0f1eb78fd0d2ed27ac7089ebc2a19755f4dc
       name: developerportal
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:ac34df7eac3b77e2fed64cc45a9d80c1313002096af2d5578da90b757bd17f33
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:00e355f0ca6c08ef2866398e0f3d448353f6332ea61eb952c17d3ad41811862b
       name: console-plugin-latest
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98cecd4791545a3b58a712f4d1c1c3af737683438aca29290053cb12106029cc
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:00e355f0ca6c08ef2866398e0f3d448353f6332ea61eb952c17d3ad41811862b
       name: console-plugin-pf5
   version: 1.4.0
