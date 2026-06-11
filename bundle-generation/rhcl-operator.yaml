@@ -85,6 +85,21 @@ outputDirs:
   stage: bundle-stage
   prod: bundle
 
+# Additional clusterPermission rules to append to the CSV
+# These are RHCL-specific RBAC rules not present in the upstream bundle
+additionalClusterPermissionRules:
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - networkpolicies
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+
 # OLM package dependencies (downstream versions differ from upstream)
 # NOTE: dns-operator is no longer a separate OLM package dependency. It was
 # consolidated into the kuadrant-operator (see upstream "feat: consolidate
