@@ -215,8 +215,8 @@ for env in dev stage prod; do
     yq -i '.metadata.labels["operatorframework.io/os.linux"] = "'"$(yq '.architectures."os.linux"' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
     yq -i '.metadata.labels["operatorframework.io/arch.amd64"] = "'"$(yq '.architectures.amd64' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
     yq -i '.metadata.labels["operatorframework.io/arch.arm64"] = "'"$(yq '.architectures.arm64' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
-    yq -i '.metadata.labels["operatorframework.io/arch.s390x"] = "'"$(yq '.architectures.s390x' "$LIMITADOR_CONFIG")"'"' "${CSV_FILE}"
-    yq -i '.metadata.labels["operatorframework.io/arch.ppc64le"] = "'"$(yq '.architectures.ppc64le' "$LIMITADOR_CONFIG")"'"' "${CSV_FILE}"
+    yq -i '.metadata.labels["operatorframework.io/arch.s390x"] = "'"$(yq '.architectures.s390x' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
+    yq -i '.metadata.labels["operatorframework.io/arch.ppc64le"] = "'"$(yq '.architectures.ppc64le' "$RHCL_CONFIG")"'"' "${CSV_FILE}"
 
     # Update CSV: Set name, display name, description, and icon
     yq -i ".metadata.name = \"${CSV_NAME}\"" "${CSV_FILE}"
