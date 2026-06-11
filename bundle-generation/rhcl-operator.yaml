@@ -83,6 +83,27 @@ outputDirs:
   stage: bundle-stage
   prod: bundle
 
+# Additional clusterPermission rules to append to the CSV
+# These are RHCL-specific RBAC rules not present in the upstream bundle
+additionalClusterPermissionRules:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+      - clusterroles
+      - rolebindings
+      - roles
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+      - bind
+      - escalate
+
 # OLM package dependencies (downstream versions differ from upstream)
 dependencies:
   authorino-operator: "1.4.0"
