@@ -237,6 +237,13 @@ for env in dev stage prod; do
     yq -i 'del(.spec.replaces)' "${CSV_FILE}"
     yq -i 'del(.spec.skipRange)' "${CSV_FILE}"
 
+    # Update CSV: Append additional clusterPermission rules from config
+    additional_rules_count=$(yq '.additionalClusterPermissionRules | length' "$RHCL_CONFIG")
+    if [[ "$additional_rules_count" -gt 0 ]]; then
+        echo "  Adding ${additional_rules_count} additional clusterPermission rule(s)..."
+        yq -i '.spec.install.spec.clusterPermissions[0].rules += (load("'"${RHCL_CONFIG}"'") | .additionalClusterPermissionRules)' "${CSV_FILE}"
+    fi
+
     # Update dependencies.yaml with downstream versions
     DEPENDENCIES_FILE="${metadata_dir}/dependencies.yaml"
     echo "  Updating dependencies.yaml..."
