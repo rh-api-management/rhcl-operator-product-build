@@ -17,7 +17,7 @@ LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
 
-LABEL version="1.3.4" \
+LABEL version="1.3.5" \
       summary="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
       name="rhcl-1/rhcl-operator-bundle" \
       cpe="cpe:/a:redhat:connectivity_link:1::el9" \
@@ -28,7 +28,7 @@ LABEL version="1.3.4" \
       io.openshift.tags="api" \
       url="redhat.com" \
       distribution-scope="public" \
-      release="1.3.4" \
+      release="1.3.5" \
       url="" \
       com.redhat.component="Red Hat Connectivity Link Operator Bundle" \
       vendor="Red Hat, Inc."
