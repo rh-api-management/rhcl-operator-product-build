@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:616eecf0a21a6df97d442802ecc75c86e1275ecf4fc45601060fff42e8e52865
-    createdAt: "2026-06-02T08:04:09Z"
+    createdAt: "2026-06-26T08:32:19Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -242,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.4.0
+  name: rhcl-operator.v1.4.1
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -514,6 +514,12 @@ spec:
                 - patch
                 - update
                 - watch
+            - apiGroups:
+                - extensions.istio.io
+              resources:
+                - wasmplugins
+              verbs:
+                - delete
             - apiGroups:
                 - extensions.kuadrant.io
               resources:
@@ -936,4 +942,4 @@ spec:
       name: console-plugin-latest
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:a001dec938379c30d9c24b32c85259bb43ad22c18b7a907beaa9445aa14b60c7
       name: console-plugin-pf5
-  version: 1.4.0
+  version: 1.4.1
