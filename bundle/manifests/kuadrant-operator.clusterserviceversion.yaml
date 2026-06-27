@@ -772,7 +772,7 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:8384a01623b5593bb12086edb3baacf41cd7521456b36d18ca7c1ee1ce1b5fc6
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:5fe421d8686b7d1adf5fe210eec62bc2d07ab831bfbf3e0e0f4688ec81deda77
+                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:20bb9ec89f4144070f9ab7dac0fb5acbd68f4ea92c2423ce48deca9590727b05
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
@@ -936,7 +936,7 @@ spec:
   relatedImages:
     - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:8384a01623b5593bb12086edb3baacf41cd7521456b36d18ca7c1ee1ce1b5fc6
       name: wasmshim
-    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:5fe421d8686b7d1adf5fe210eec62bc2d07ab831bfbf3e0e0f4688ec81deda77
+    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:20bb9ec89f4144070f9ab7dac0fb5acbd68f4ea92c2423ce48deca9590727b05
       name: developerportal
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
       name: console-plugin-latest
