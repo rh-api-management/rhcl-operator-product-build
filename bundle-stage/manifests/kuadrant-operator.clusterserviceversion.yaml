@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:abdf3e87fb3d6a60bd0da5fed33916cc064b376fc1a6514d2621d9763dcba151
-    createdAt: "2026-06-22T17:00:01Z"
+    createdAt: "2026-06-23T08:33:51Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -756,7 +756,7 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:e307e1bc90fa25dc6f77ff32b855f39e4a60dde45ea2ce9cc78d4597e158cd6a
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
                         value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
                       - name: OPERATOR_NAMESPACE
@@ -914,7 +914,7 @@ spec:
       name: wasmshim
     - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:434a6d1471a8cbe62b80b1ba077ac5b041561bd3d652ac1391a011f91b2b1ec2
       name: developerportal
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:3ce32a816eca502581d45f4346ac81e5751b1c6a471c5dc439405f07b1db2c69
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:e307e1bc90fa25dc6f77ff32b855f39e4a60dde45ea2ce9cc78d4597e158cd6a
       name: console-plugin-latest
     - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:be66268555a8d7043ceb6099ff02306e5a5455201dd46ff69c9c2eca9b93f760
       name: console-plugin-pf5
