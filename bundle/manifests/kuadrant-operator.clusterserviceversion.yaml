@@ -776,7 +776,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1c21095144bcc462fefddd10051a75fdc1bd3d0407af7723b97308bea2f64959
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1c21095144bcc462fefddd10051a75fdc1bd3d0407af7723b97308bea2f64959
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -940,6 +940,6 @@ spec:
       name: developerportal
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1c21095144bcc462fefddd10051a75fdc1bd3d0407af7723b97308bea2f64959
       name: console-plugin-latest
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1c21095144bcc462fefddd10051a75fdc1bd3d0407af7723b97308bea2f64959
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
       name: console-plugin-pf5
   version: 1.4.1
