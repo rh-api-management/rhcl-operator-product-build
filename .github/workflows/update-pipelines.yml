@@ -29,7 +29,7 @@ jobs:
     steps:
       # Step 1: Checkout the repository with submodules
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive  # Include kuadrant-operator submodule
 
@@ -71,7 +71,7 @@ jobs:
       # This step only runs if changes were detected by the update script
       - name: Create Pull Request
         if: steps.update.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           add: '.tekton/'  # Only stage pipeline files, ignore ORAS artifacts
