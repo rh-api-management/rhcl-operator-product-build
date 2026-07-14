@@ -263,13 +263,13 @@ arches:
     name: go-srpm-macros
     evr: 3.8.1-1.el9
     sourcerpm: go-rpm-macros-3.8.1-1.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-headers-5.14.0-687.23.1.el9_8.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-headers-5.14.0-687.25.1.el9_8.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 2890677
-    checksum: sha256:1861444d417af370a6fdd8d0ff28c3bbd6b6f4ebe5764edd5d3d21aebbc2bd6a
+    size: 2892221
+    checksum: sha256:245c3f6d940b8a2f96882fbb9a756d25d7fb04270a6da88cb7461f6d6fa2518e
     name: kernel-headers
-    evr: 5.14.0-687.23.1.el9_8
-    sourcerpm: kernel-5.14.0-687.23.1.el9_8.src.rpm
+    evr: 5.14.0-687.25.1.el9_8
+    sourcerpm: kernel-5.14.0-687.25.1.el9_8.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/k/kernel-srpm-macros-1.0-14.el9.noarch.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
     size: 14098
@@ -2524,13 +2524,13 @@ arches:
     name: unzip
     evr: 6.0-60.el9
     sourcerpm: unzip-6.0-60.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/v/vim-filesystem-8.2.2637-26.el9_8.6.noarch.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/v/vim-filesystem-8.2.2637-26.el9_8.10.noarch.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
-    size: 21672
-    checksum: sha256:6265b9c4594654a232787509228d2ef6eb3a6a217879379e295da3656534cfbb
+    size: 22399
+    checksum: sha256:9fc9ef3ba0b22a599b2a7b34bd0b025afd5f2623e9132b4ead19e98f9c62e97d
     name: vim-filesystem
-    evr: 2:8.2.2637-26.el9_8.6
-    sourcerpm: vim-8.2.2637-26.el9_8.6.src.rpm
+    evr: 2:8.2.2637-26.el9_8.10
+    sourcerpm: vim-8.2.2637-26.el9_8.10.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/z/zip-3.0-35.el9.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
     size: 276200
@@ -3781,12 +3781,12 @@ arches:
     checksum: sha256:2f745809f67389b9cb4bc051a16a8e1b3049253632a0c34943695b2330717c48
     name: unzip
     evr: 6.0-60.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/v/vim-8.2.2637-26.el9_8.6.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/v/vim-8.2.2637-26.el9_8.10.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
-    size: 12839624
-    checksum: sha256:a519da11b3d3409234ea9579986ed87f0ca40ac92cec465fd3dd19f6fa2cbe74
+    size: 12848850
+    checksum: sha256:7a02f9551582771701da423b81e70efb372f4540448f5712ba8c45a604c05160
     name: vim
-    evr: 2:8.2.2637-26.el9_8.6
+    evr: 2:8.2.2637-26.el9_8.10
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/z/zip-3.0-35.el9.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
     size: 1137410
