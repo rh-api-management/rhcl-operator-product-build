@@ -242,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.4.1
+  name: rhcl-operator.v1.4.2
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -942,4 +942,4 @@ spec:
       name: console-plugin-latest
     - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
       name: console-plugin-pf5
-  version: 1.4.1
+  version: 1.4.2
