@@ -224,7 +224,7 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
-    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:0b77e4a874b620095a0300877aea53e78559a601ce62b194537ed21c2743bbf3
+    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:ca5e415cefac0573a2f002ac5ecb94ac3c6ed0b551d9fae95fa6a1d263c752e3
     createdAt: "2026-06-26T14:14:32Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
@@ -772,18 +772,18 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:0b66985689d907f2f9dad2841e03ab94f06e117e1a93ef120a18e9e0a1220231
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:5fe421d8686b7d1adf5fe210eec62bc2d07ab831bfbf3e0e0f4688ec81deda77
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:e3d18c5cb3ceb182933e2ca3a2b40bf17a9cb5e22f3b882a8f32dabf9afa9882
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:0b77e4a874b620095a0300877aea53e78559a601ce62b194537ed21c2743bbf3
+                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:ca5e415cefac0573a2f002ac5ecb94ac3c6ed0b551d9fae95fa6a1d263c752e3
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -936,10 +936,10 @@ spec:
   relatedImages:
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:0b66985689d907f2f9dad2841e03ab94f06e117e1a93ef120a18e9e0a1220231
       name: wasmshim
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:5fe421d8686b7d1adf5fe210eec62bc2d07ab831bfbf3e0e0f4688ec81deda77
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:e3d18c5cb3ceb182933e2ca3a2b40bf17a9cb5e22f3b882a8f32dabf9afa9882
       name: developerportal
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
       name: console-plugin-latest
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
       name: console-plugin-pf5
   version: 1.4.1
