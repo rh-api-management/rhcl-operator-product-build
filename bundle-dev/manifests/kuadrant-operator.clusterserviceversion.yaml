@@ -776,7 +776,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -940,6 +940,6 @@ spec:
       name: developerportal
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:6e69f41d3d70b0afa7691a5d2400065d3bcdec2ea82830cf2992b8e69ba06e2a
       name: console-plugin-latest
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:cb4ae73530916789ea9b2e1aa3706c82c6ca39dd0869cd4854b66759f1597a07
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
       name: console-plugin-pf5
   version: 1.4.1
