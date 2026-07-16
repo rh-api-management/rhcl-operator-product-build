@@ -23,17 +23,17 @@ ARG TARGETARCH
 # Build arguments aligned with upstream
 ARG GIT_SHA
 ARG DIRTY
-ARG RHCL_VERSION
+ARG KUADRANT_VERSION
 ARG WITH_EXTENSIONS=true
 
 ENV GIT_SHA=${GIT_SHA:-unknown}
 ENV DIRTY=${DIRTY:-unknown}
-ENV RHCL_VERSION=${RHCL_VERSION:-unknown}
+ENV KUADRANT_VERSION=${KUADRANT_VERSION:-unknown}
 
 # Build RHCL Operator
-RUN echo "Building with RHCL_VERSION=${RHCL_VERSION}, GIT_SHA=${GIT_SHA}, DIRTY=${DIRTY}" && \
+RUN echo "Building with KUADRANT_VERSION=${KUADRANT_VERSION}, GIT_SHA=${GIT_SHA}, DIRTY=${DIRTY}" && \
     CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a \
-    -ldflags "-X main.version=${RHCL_VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}" \
+    -ldflags "-X main.version=${KUADRANT_VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}" \
     -o manager cmd/main.go
 
 # Conditionally build extensions
@@ -51,9 +51,9 @@ RUN if [ "$WITH_EXTENSIONS" = "true" ]; then \
     fi
 
 FROM registry.redhat.io/ubi9/ubi-minimal:latest
-ARG RHCL_VERSION
-ENV RHCL_VERSION=${RHCL_VERSION:-unknown}
-LABEL version="${RHCL_VERSION}" \
+ARG KUADRANT_VERSION
+ENV KUADRANT_VERSION=${KUADRANT_VERSION:-unknown}
+LABEL version="${KUADRANT_VERSION}" \
       summary="Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments" \
       name="rhcl-1/rhcl-rhel9-operator" \
       cpe="cpe:/a:redhat:connectivity_link:1::el9" \
