@@ -494,13 +494,13 @@ arches:
     name: perl-Algorithm-Diff
     evr: 1.2010-4.el9
     sourcerpm: perl-Algorithm-Diff-1.2010-4.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/p/perl-Archive-Tar-2.38-6.el9_8.1.noarch.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/p/perl-Archive-Tar-2.38-6.el9_8.2.noarch.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 79514
-    checksum: sha256:055ff5f8f75550512c9dc8f27a8fcb891a84790279b83f69556fbfb193f32e49
+    size: 79997
+    checksum: sha256:515f68fef457561da45ed0d1e524c1e81ce22f9ace7aded1f1febd57a05fc79b
     name: perl-Archive-Tar
-    evr: 2.38-6.el9_8.1
-    sourcerpm: perl-Archive-Tar-2.38-6.el9_8.1.src.rpm
+    evr: 2.38-6.el9_8.2
+    sourcerpm: perl-Archive-Tar-2.38-6.el9_8.2.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/p/perl-Archive-Zip-1.68-6.el9.noarch.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
     size: 118766
@@ -2719,12 +2719,12 @@ arches:
     checksum: sha256:5bdfea020bfb4ee04c5fd3a5552724f21af7df49d8bf9b774060f1dd47c6b972
     name: perl-Algorithm-Diff
     evr: 1.2010-4.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/p/perl-Archive-Tar-2.38-6.el9_8.1.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/p/perl-Archive-Tar-2.38-6.el9_8.2.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
-    size: 85475
-    checksum: sha256:f69ae39dd88bdd2d83f0a15f1dda9cd4335cc61ce48da41c9d9fd8ed52625b08
+    size: 87081
+    checksum: sha256:bf9288210afdd9836da7d89503d146c4657fb1eaefdeae1a013f28a987005904
     name: perl-Archive-Tar
-    evr: 2.38-6.el9_8.1
+    evr: 2.38-6.el9_8.2
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/p/perl-Archive-Zip-1.68-6.el9.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
     size: 177506
