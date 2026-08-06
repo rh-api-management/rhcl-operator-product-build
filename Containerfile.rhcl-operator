@@ -39,7 +39,8 @@ ENV KUADRANT_VERSION=${KUADRANT_VERSION:-unknown}
 
 # Build RHCL Operator
 RUN echo "Building with KUADRANT_VERSION=${KUADRANT_VERSION}, GIT_SHA=${GIT_SHA}, DIRTY=${DIRTY}" && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a \
+    CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a \
+    -tags strictfipsruntime \
     -ldflags "-X main.version=${KUADRANT_VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}" \
     -o manager cmd/main.go
 
@@ -48,11 +49,11 @@ RUN mkdir -p extensions
 RUN if [ "$WITH_EXTENSIONS" = "true" ]; then \
     echo "Building extensions..." && \
     mkdir -p extensions/oidc-policy && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -o extensions/oidc-policy/oidc-policy cmd/extensions/oidc-policy/main.go && \
+    CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -tags strictfipsruntime -o extensions/oidc-policy/oidc-policy cmd/extensions/oidc-policy/main.go && \
     mkdir -p extensions/plan-policy && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -o extensions/plan-policy/plan-policy cmd/extensions/plan-policy/main.go && \
+    CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -tags strictfipsruntime -o extensions/plan-policy/plan-policy cmd/extensions/plan-policy/main.go && \
     mkdir -p extensions/telemetry-policy && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -o extensions/telemetry-policy/telemetry-policy cmd/extensions/telemetry-policy/main.go; \
+    CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -a -tags strictfipsruntime -o extensions/telemetry-policy/telemetry-policy cmd/extensions/telemetry-policy/main.go; \
     else \
     echo "Skipping extensions build"; \
     fi
@@ -70,7 +71,7 @@ LABEL version="${KUADRANT_VERSION}" \
       io.openshift.expose-services="" \
       io.openshift.tags="api" \
       url="redhat.com" \
-      com.redhat.component="" \
+      com.redhat.component="rhcl-operator" \
       vendor="Red Hat, Inc."
 
 ENV OPERATOR_BINARY_NAME="manager" \
