@@ -26,7 +26,7 @@ validSubscription: Red Hat Connectivity Link
 # OpenShift operator feature annotations
 features:
   disconnected: "true"
-  fips-compliant: "false"
+  fips-compliant: "true"
   proxy-aware: "false"
   tls-profiles: "false"
   token-auth-aws: "false"
