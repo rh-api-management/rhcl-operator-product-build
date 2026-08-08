@@ -756,7 +756,7 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-developer-portal-controller@sha256:1446ac58a230a94309baf7c631a3540fe376ab64a54c92f25b77801fb290c8d2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin@sha256:7b91ed74be258ed5d4a74a89bdfb7a0e064ce75bf34d48be887d751c65c32ff0
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin@sha256:cd23fe49f3b2708138d1fc7db9f1a2ffa40f24774bc5cfb9b680f884a2cd42f7
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin-0-1-5@sha256:9901b78b5c7c3170357c1ebb00590561e3b16f20df6163ee7fc45c53a1393c15
                       - name: OPERATOR_NAMESPACE
@@ -914,7 +914,7 @@ spec:
       name: wasmshim
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-developer-portal-controller@sha256:1446ac58a230a94309baf7c631a3540fe376ab64a54c92f25b77801fb290c8d2
       name: developerportal
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin@sha256:7b91ed74be258ed5d4a74a89bdfb7a0e064ce75bf34d48be887d751c65c32ff0
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin@sha256:cd23fe49f3b2708138d1fc7db9f1a2ffa40f24774bc5cfb9b680f884a2cd42f7
       name: console-plugin-latest
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-console-plugin-0-1-5@sha256:9901b78b5c7c3170357c1ebb00590561e3b16f20df6163ee7fc45c53a1393c15
       name: console-plugin-pf5
