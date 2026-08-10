@@ -1,0 +1,18 @@
+apiVersion: config.openshift.io/v1
+kind: ImageDigestMirrorSet
+metadata:
+  name: rhcl-operator-mirrors
+spec:
+  imageDigestMirrors:
+    - source: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator
+    - source: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim
+    - source: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller
+    - source: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin
