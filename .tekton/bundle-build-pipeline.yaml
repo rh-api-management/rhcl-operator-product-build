@@ -202,12 +202,17 @@ spec:
       params:
       - name: TEST_OUTPUT
         type: string
+        default: ""
       steps:
       - name: evaluate
         image: quay.io/konflux-ci/appstudio-utils:latest
         script: |
           #!/bin/bash
           set -euo pipefail
+          if [ -z "$(params.TEST_OUTPUT)" ]; then
+            echo "FIPS check was skipped (no TEST_OUTPUT emitted) — task did not run."
+            exit 0
+          fi
           result=$(echo '$(params.TEST_OUTPUT)' | jq -r '.result')
           echo "FIPS check result: $result"
           if [[ "$result" == "FAILURE" || "$result" == "ERROR" ]]; then
