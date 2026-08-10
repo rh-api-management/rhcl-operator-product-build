@@ -225,14 +225,14 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:8c2d9a84169e86454e4fb3df6f4846c5c5495d19b01137b6e78e113161981e47
-    createdAt: "2026-07-15T16:02:35Z"
+    createdAt: "2026-07-23T11:42:43Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
     repository: https://github.com/Kuadrant/kuadrant-operator
     support: kuadrant
     features.operators.openshift.io/disconnected: "true"
-    features.operators.openshift.io/fips-compliant: "true"
+    features.operators.openshift.io/fips-compliant: "false"
     features.operators.openshift.io/proxy-aware: "false"
     features.operators.openshift.io/tls-profiles: "false"
     features.operators.openshift.io/token-auth-aws: "false"
@@ -772,7 +772,7 @@ spec:
                       - name: RELATED_IMAGE_WASMSHIM
                         value: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:0b66985689d907f2f9dad2841e03ab94f06e117e1a93ef120a18e9e0a1220231
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
-                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:e3d18c5cb3ceb182933e2ca3a2b40bf17a9cb5e22f3b882a8f32dabf9afa9882
+                        value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
@@ -936,7 +936,7 @@ spec:
   relatedImages:
     - image: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:0b66985689d907f2f9dad2841e03ab94f06e117e1a93ef120a18e9e0a1220231
       name: wasmshim
-    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:e3d18c5cb3ceb182933e2ca3a2b40bf17a9cb5e22f3b882a8f32dabf9afa9882
+    - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
       name: developerportal
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
       name: console-plugin-latest
