@@ -16,6 +16,7 @@ spec:
     - source: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5
     - source: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator
@@ -28,3 +29,4 @@ spec:
     - source: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5
