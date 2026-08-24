@@ -45,6 +45,7 @@ WASM_SHIM_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/wasm-shim.yaml")
 CONSOLE_PLUGIN_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin.yaml")
 CONSOLE_PLUGIN_0_1_5_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin-0.1.5.yaml")
 DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/developer-portal-controller.yaml")
+DNS_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/dns-operator.yaml")
 
 echo ""
 echo "Image pullspecs:"
@@ -59,6 +60,7 @@ WASM_SHIM_SHA="${WASM_SHIM_IMAGE##*@}"
 CONSOLE_PLUGIN_SHA="${CONSOLE_PLUGIN_IMAGE##*@}"
 CONSOLE_PLUGIN_0_1_5_SHA="${CONSOLE_PLUGIN_0_1_5_IMAGE##*@}"
 DEVELOPER_PORTAL_CONTROLLER_SHA="${DEVELOPER_PORTAL_CONTROLLER_IMAGE##*@}"
+DNS_OPERATOR_SHA="${DNS_OPERATOR_IMAGE##*@}"
 # Read RHCL configuration values
 CSV_NAME=$(yq '.csv.name' "$RHCL_CONFIG")
 CSV_VERSION=$(yq '.csv.version' "$RHCL_CONFIG")
@@ -128,6 +130,16 @@ get_developer_portal_controller_image() {
     fi
 }
 
+get_dns_operator_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$DNS_OPERATOR_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.dns_operator" "$RHCL_CONFIG")
+        echo "${registry}@${DNS_OPERATOR_SHA}"
+    fi
+}
+
 # Generate bundle for each environment
 for env in dev stage prod; do
     output_dir="${PROJECT_ROOT}/$(yq ".outputDirs.${env}" "$RHCL_CONFIG")"
@@ -160,11 +172,13 @@ for env in dev stage prod; do
     console_plugin_image=$(get_console_plugin_image "$env")
     console_plugin_0_1_5_image=$(get_console_plugin_0_1_5_image "$env")
     developer_portal_controller_image=$(get_developer_portal_controller_image "$env")
+    dns_operator_image=$(get_dns_operator_image "$env")
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
     echo "  Console Plugin:       ${console_plugin_image}"
     echo "  Console Plugin 0.1.5:      ${console_plugin_0_1_5_image}"
+    echo "  DNS Operator:      ${dns_operator_image}"
 
     # Update CSV: operator container image
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .image) = "'"${operator_image}"'"' "${CSV_FILE}"
@@ -195,6 +209,14 @@ for env in dev stage prod; do
 
     # Update CSV: wasm-shim in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "developerportal") | .image) = "'"${developer_portal_controller_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: DNS Operator in RELATED_IMAGE_DNS_OPERATOR env var
+    # The operator uses this to override the dns-operator image in the Helm chart
+    # baked into the operator image (see internal/controlplane/deployer.go).
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_DNS_OPERATOR") | .value) = "'"${dns_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: dns-operator in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "dns-operator") | .image) = "'"${dns_operator_image}"'"' "${CSV_FILE}"
 
     # Update CSV: Add RHCL-specific feature annotations from config
     yq -i '.metadata.annotations["features.operators.openshift.io/disconnected"] = "'"$(yq '.features.disconnected' "$RHCL_CONFIG")"'"' "${CSV_FILE}"

@@ -71,11 +71,13 @@ registries:
     wasm_shim: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9
     console_plugin: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
     developer_portal_controller: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9
+    dns_operator: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator
   prod:
     operator: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
     wasm_shim: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
     console_plugin: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
     developer_portal_controller: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9
+    dns_operator: registry.redhat.io/rhcl-1/dns-rhel9-operator
 
 # Output directory mapping
 outputDirs:
@@ -84,7 +86,10 @@ outputDirs:
   prod: bundle
 
 # OLM package dependencies (downstream versions differ from upstream)
+# NOTE: dns-operator is no longer a separate OLM package dependency. It was
+# consolidated into the kuadrant-operator (see upstream "feat: consolidate
+# dns-operator into kuadrant-operator") and is now shipped as a Helm chart
+# baked into the operator image via component-charts/.
 dependencies:
   authorino-operator: "1.4.3"
   limitador-operator: "1.4.2"
-  dns-operator: "1.4.2"
