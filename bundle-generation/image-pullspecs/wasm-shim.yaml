@@ -1,3 +1,3 @@
 # WASM Shim image pullspec
 # This file is updated automatically by Konflux
-image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-wasm-shim@sha256:ed34543a7a226b3f0d9382e21a81db6d60e0240154a6632a303bf4bff6ed8bd0
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-wasm-shim@sha256:3233a9458ced1806a9770056ec14e73ac0729f58ade537f06c2619df086640aa
