@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:0e20ad95a5b04d8ea9d670de14c8cb6f9a3aab70fc1153c3a979b75dcb327643
-    createdAt: "2026-07-24T07:45:23Z"
+    createdAt: "2026-08-05T11:59:09Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -752,7 +752,7 @@ spec:
                       - name: EXTENSIONS_DIR
                         value: /extensions
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:ed34543a7a226b3f0d9382e21a81db6d60e0240154a6632a303bf4bff6ed8bd0
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:3233a9458ced1806a9770056ec14e73ac0729f58ade537f06c2619df086640aa
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:1446ac58a230a94309baf7c631a3540fe376ab64a54c92f25b77801fb290c8d2
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
@@ -910,7 +910,7 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:ed34543a7a226b3f0d9382e21a81db6d60e0240154a6632a303bf4bff6ed8bd0
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:3233a9458ced1806a9770056ec14e73ac0729f58ade537f06c2619df086640aa
       name: wasmshim
     - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:1446ac58a230a94309baf7c631a3540fe376ab64a54c92f25b77801fb290c8d2
       name: developerportal
