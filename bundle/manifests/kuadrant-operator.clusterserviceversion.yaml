@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:6065a6fdd5720d43c8beaca4dff5b2d7b42fa7ce1ae9e81d507c9596dc112ced
-    createdAt: "2026-07-23T11:42:43Z"
+    createdAt: "2026-08-28T07:23:35Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -774,7 +774,7 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
                       - name: OPERATOR_NAMESPACE
@@ -938,7 +938,7 @@ spec:
       name: wasmshim
     - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
       name: developerportal
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
       name: console-plugin-latest
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
       name: console-plugin-pf5
