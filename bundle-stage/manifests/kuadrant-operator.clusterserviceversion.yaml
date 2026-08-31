@@ -774,9 +774,9 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -938,8 +938,8 @@ spec:
       name: wasmshim
     - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:f4df9ea96c5afe310bec970beb5b5166e96866de65ab062c1c5c8bf3e1136891
       name: developerportal
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1162c282e762d89acccbfb5ce9fad561fd3f807bd1929db154af3135ccc87f34
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
       name: console-plugin-latest
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:c3c7029a7ef0d607211d6330d7ff5e1988ed8508d17957efa80b35c78eff8336
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
       name: console-plugin-pf5
   version: 1.4.2
