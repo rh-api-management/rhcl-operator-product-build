@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:43f73626ee3d3fd26e327bb686c0c5200c90659a6d106894b65a60e248de2c59
-    createdAt: "2026-07-24T07:45:23Z"
+    createdAt: "2026-08-31T13:47:35Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
