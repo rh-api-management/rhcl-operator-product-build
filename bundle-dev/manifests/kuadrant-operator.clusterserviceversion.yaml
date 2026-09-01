@@ -224,7 +224,7 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
-    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:0e20ad95a5b04d8ea9d670de14c8cb6f9a3aab70fc1153c3a979b75dcb327643
+    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:f1ff333c19d150caf754c330ff46d25eeec920015d51a1e8f8b6e7d820afc644
     createdAt: "2026-08-31T13:47:35Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
@@ -765,7 +765,7 @@ spec:
                             fieldPath: metadata.namespace
                       - name: ISTIO_GATEWAY_CONTROLLER_NAMES
                         value: openshift.io/gateway-controller/v1
-                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:0e20ad95a5b04d8ea9d670de14c8cb6f9a3aab70fc1153c3a979b75dcb327643
+                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-3-rhcl-operator@sha256:f1ff333c19d150caf754c330ff46d25eeec920015d51a1e8f8b6e7d820afc644
                     livenessProbe:
                       httpGet:
                         path: /healthz
