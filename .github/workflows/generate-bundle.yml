@@ -3,14 +3,14 @@ name: Generate Bundle
 on:
   pull_request:
     paths:
-      - 'image-pullspecs.yaml'
+      - 'bundle-generation/image-pullspecs/**'
       - 'bundle-generation/**'
       - 'kuadrant-operator/bundle'
     branches:
       - 'rhcl-*'
   push:
     paths:
-      - 'image-pullspecs.yaml'
+      - 'bundle-generation/image-pullspecs/**'
       - 'bundle-generation/**'
       - 'kuadrant-operator/bundle'
     branches:
@@ -51,7 +51,7 @@ jobs:
         if: steps.changes.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Generate Bundles after change to image-pullspecs.yaml or rhcl-operator.yaml
+          commit_message: Generate Bundles after change to image-pullspecs or rhcl-operator.yaml
 
       - name: Validate bundles
         run: make validate-bundle

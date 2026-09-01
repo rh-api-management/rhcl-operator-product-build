@@ -27,7 +27,7 @@ This is the **RHCL (Red Hat Connectivity Link) Operator Product Build** reposito
   - `generate-bundle.sh` - Generates RHCL bundles for dev/stage/prod environments using `yq`
   - `rhcl-operator.yaml` - RHCL-specific configuration (CSV metadata, registry mappings, features)
 
-- **`image-pullspecs.yaml`** - Image references automatically updated by Konflux
+- **`bundle-generation/image-pullspecs/`** - Per-component image references automatically updated by Konflux
 
 - **`config/`** - Konflux configuration
   - `policy.yaml` - Policy configurations
@@ -77,13 +77,13 @@ The bundle generation script in `bundle-generation/` transforms upstream bundles
 ```
 
 This script:
-- Reads image pullspecs from `image-pullspecs.yaml` (auto-updated by Konflux)
+- Reads image pullspecs from `bundle-generation/image-pullspecs/` (auto-updated by Konflux)
 - Reads RHCL configuration from `bundle-generation/rhcl-operator.yaml`
 - Generates bundles for all three environments in a single run
 - Outputs to `bundle/` (prod), `bundle-dev/`, and `bundle-stage/`
 
 **Key configuration files**:
-- `image-pullspecs.yaml` - Image references (auto-updated by Konflux)
+- `bundle-generation/image-pullspecs/` - Per-component image references (auto-updated by Konflux)
 - `bundle-generation/rhcl-operator.yaml` - RHCL metadata, registry mappings, and feature flags
 
 ### Building Container Images Locally
@@ -132,7 +132,7 @@ Since this is build infrastructure, testing typically involves:
 
 The bundle generation script replaces image references based on environment. Registry mappings are defined in `bundle-generation/rhcl-operator.yaml`:
 
-**Development** (from `image-pullspecs.yaml`):
+**Development** (from `bundle-generation/image-pullspecs/`):
 - Uses Quay.io images directly with SHA digests
 
 **Production registry** (`registries.prod` in config):
@@ -195,9 +195,9 @@ The `generate-bundle.sh` script applies these RHCL-specific customizations:
 
 The build process **modifies the upstream CSV at build time** rather than maintaining a separate downstream CSV:
 
-1. **Image pullspecs** are stored in `image-pullspecs.yaml` (project root)
+1. **Image pullspecs** are stored in `bundle-generation/image-pullspecs/`
    - Konflux automatically updates this file with new image references
-   - Contains operator, wasm-shim, and console plugin images
+   - Contains separate files for operator, wasm-shim, and console plugin images
    - Kept separate from other configuration for easy automation
 
 2. **RHCL configuration** is in `bundle-generation/rhcl-operator.yaml`
@@ -210,7 +210,7 @@ The build process **modifies the upstream CSV at build time** rather than mainta
 
 3. **Generation process** (`generate-bundle.sh`):
    - Reads configuration from `bundle-generation/rhcl-operator.yaml`
-   - Reads image pullspecs from `image-pullspecs.yaml`
+   - Reads image pullspecs from `bundle-generation/image-pullspecs/`
    - Copies upstream bundle from `kuadrant-operator/bundle/`
    - Applies RHCL-specific transformations using `yq`
    - Replaces image references based on environment (dev/stage/prod)
