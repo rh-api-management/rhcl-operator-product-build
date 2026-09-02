@@ -6,33 +6,33 @@ spec:
   imageDigestMirrors:
     - source: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-operator
     - source: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim
     - source: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-developer-portal-controller
     - source: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5
     - source: registry.redhat.io/rhcl-1/dns-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-dns-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-dns-operator
     - source: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-operator
     - source: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim
     - source: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-developer-portal-controller
     - source: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5
     - source: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-dns-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-dns-operator
