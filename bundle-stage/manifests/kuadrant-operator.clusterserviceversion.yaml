@@ -242,7 +242,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: rhcl-operator.v1.4.3
+  name: rhcl-operator.v1.5.0
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -1043,4 +1043,4 @@ spec:
       name: console-plugin-pf5
     - image: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:3494c511064227b9763551bbb4550ea499d1740702ca293b674a16172adb1ba9
       name: dns-operator
-  version: 1.4.3
+  version: 1.5.0
