@@ -857,7 +857,7 @@ spec:
                       - name: EXTENSIONS_SERVICE_PORT
                         value: "50052"
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:738a17e54ca166b9d6a2cbfaa44e310ee3cee51451b9c5dfb566c6416c6430e1
+                        value: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:8ec517d70f1c2d6f91323f97234d48d29169dde9e78e88ec8912e450f1c9bda3
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:46de78bb50a64e320451f235b406bbee7f180872aa3688e4196e42dccbbb62df
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
@@ -1031,7 +1031,7 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:738a17e54ca166b9d6a2cbfaa44e310ee3cee51451b9c5dfb566c6416c6430e1
+    - image: registry.access.stage.redhat.com/rhcl-1/wasm-shim-rhel9@sha256:8ec517d70f1c2d6f91323f97234d48d29169dde9e78e88ec8912e450f1c9bda3
       name: wasmshim
     - image: registry.stage.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:46de78bb50a64e320451f235b406bbee7f180872aa3688e4196e42dccbbb62df
       name: developerportal
