@@ -865,7 +865,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_SDK1
                         value: quay.io/kuadrant/console-plugin:v0.6.0
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5@sha256:7c2d4b5f0e8cf6ca10c0269fcac48e3a578640237273b351233e58cbb54b2b21
                       - name: RELATED_IMAGE_DNS_OPERATOR
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-dns-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
                       - name: OPERATOR_NAMESPACE
@@ -1039,7 +1039,7 @@ spec:
       name: console-plugin-latest
     - image: quay.io/kuadrant/console-plugin:v0.6.0
       name: console-plugin-sdk1
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-console-plugin-0-1-5@sha256:7c2d4b5f0e8cf6ca10c0269fcac48e3a578640237273b351233e58cbb54b2b21
       name: console-plugin-pf5
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-dns-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
       name: dns-operator
