@@ -2,7 +2,7 @@
 # This default value is automatically updated by bundle-generation/generate-bundle.sh
 # which reads the current image from bundle-generation/image-pullspecs/wasm-shim.yaml
 # The WASM_SHIM_IMAGE can be overridden via build args if needed
-ARG WASM_SHIM_IMAGE=quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:738a17e54ca166b9d6a2cbfaa44e310ee3cee51451b9c5dfb566c6416c6430e1
+ARG WASM_SHIM_IMAGE=quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:8ec517d70f1c2d6f91323f97234d48d29169dde9e78e88ec8912e450f1c9bda3
 FROM ${WASM_SHIM_IMAGE} AS wasm-shim
 
 # Build the manager binary
