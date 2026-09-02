@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-operator@sha256:4ef2af4ce45f43a9211c06f0713aeba05c29c8ea500d6731badc7a620ec3676f
-    createdAt: "2026-08-28T07:23:35Z"
+    createdAt: "2026-08-27T13:56:33Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -276,6 +276,9 @@ spec:
         kind: DNSPolicy
         name: dnspolicies.kuadrant.io
         version: v1
+      - kind: KuadrantControlPlane
+        name: kuadrantcontrolplanes.kuadrant.io
+        version: v1alpha1
       - description: Kuadrant configures installations of Kuadrant Service Protection components
         displayName: Kuadrant
         kind: Kuadrant
@@ -424,17 +427,39 @@ spec:
             - apiGroups:
                 - ""
               resources:
+                - namespaces
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ""
+                - events.k8s.io
+              resources:
                 - events
               verbs:
                 - create
                 - patch
             - apiGroups:
-                - ""
+                - apiextensions.k8s.io
               resources:
-                - namespaces
+                - customresourcedefinitions
+              verbs:
+                - create
+                - list
+                - watch
+            - apiGroups:
+                - apiextensions.k8s.io
+              resourceNames:
+                - dnshealthcheckprobes.kuadrant.io
+                - dnsrecords.kuadrant.io
+              resources:
+                - customresourcedefinitions
               verbs:
                 - get
                 - list
+                - patch
+                - update
                 - watch
             - apiGroups:
                 - apps
@@ -449,6 +474,12 @@ spec:
                 - update
                 - watch
             - apiGroups:
+                - authentication.k8s.io
+              resources:
+                - tokenreviews
+              verbs:
+                - create
+            - apiGroups:
                 - authorino.kuadrant.io
               resources:
                 - authconfigs
@@ -460,6 +491,12 @@ spec:
                 - patch
                 - update
                 - watch
+            - apiGroups:
+                - authorization.k8s.io
+              resources:
+                - subjectaccessreviews
+              verbs:
+                - create
             - apiGroups:
                 - cert-manager.io
               resources:
@@ -484,6 +521,7 @@ spec:
             - apiGroups:
                 - config.openshift.io
               resources:
+                - apiservers
                 - clusterversions
               verbs:
                 - get
@@ -616,6 +654,7 @@ spec:
                 - kuadrant.io
               resources:
                 - authpolicies
+                - kuadrantcontrolplanes
               verbs:
                 - create
                 - get
@@ -639,6 +678,7 @@ spec:
               resources:
                 - authpolicies/status
                 - dnspolicies/status
+                - kuadrantcontrolplanes/status
                 - kuadrants/status
                 - ratelimitpolicies/status
                 - tlspolicies/status
@@ -729,6 +769,51 @@ spec:
                 - update
                 - watch
             - apiGroups:
+                - rbac.authorization.k8s.io
+              resourceNames:
+                - dns-operator-manager-rolebinding
+                - dns-operator-remote-cluster-rolebinding
+              resources:
+                - clusterrolebindings
+              verbs:
+                - delete
+                - get
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - clusterrolebindings
+                - clusterroles
+              verbs:
+                - create
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resourceNames:
+                - dns-operator-manager-role
+                - dns-operator-remote-cluster-role
+              resources:
+                - clusterroles
+              verbs:
+                - bind
+                - escalate
+                - get
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+                - roles
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
                 - security.istio.io
               resources:
                 - peerauthentications
@@ -769,14 +854,20 @@ spec:
                         value: /extensions
                       - name: EXTENSIONS_DESCRIPTOR_SERVICE_PORT
                         value: "50051"
+                      - name: EXTENSIONS_SERVICE_PORT
+                        value: "50052"
                       - name: RELATED_IMAGE_WASMSHIM
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-wasm-shim@sha256:328bbf41cb318978b64c482598252c107c666832a12f2b07c410731606760911
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:472cf0151143b4133e2ff18180f86bbfbdc3d5ea3450e7be9ed289207c598e7a
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
+                      - name: RELATED_IMAGE_CONSOLE_PLUGIN_SDK1
+                        value: quay.io/kuadrant/console-plugin:v0.6.0
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
+                      - name: RELATED_IMAGE_DNS_OPERATOR
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-dns-operator@sha256:3494c511064227b9763551bbb4550ea499d1740702ca293b674a16172adb1ba9
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -796,6 +887,9 @@ spec:
                         name: metrics
                       - containerPort: 50051
                         name: grpc
+                        protocol: TCP
+                      - containerPort: 50052
+                        name: extensions
                         protocol: TCP
                       - containerPort: 8082
                         name: wasm
@@ -819,16 +913,10 @@ spec:
                         drop:
                           - ALL
                       readOnlyRootFilesystem: true
-                    volumeMounts:
-                      - mountPath: /tmp/kuadrant
-                        name: extensions-socket-volume
                 securityContext:
                   runAsNonRoot: true
                 serviceAccountName: kuadrant-operator-controller-manager
                 terminationGracePeriodSeconds: 10
-                volumes:
-                  - emptyDir: {}
-                    name: extensions-socket-volume
       permissions:
         - rules:
             - apiGroups:
@@ -895,6 +983,15 @@ spec:
               verbs:
                 - create
                 - patch
+            - apiGroups:
+                - operators.coreos.com
+              resources:
+                - subscriptions
+                - clusterserviceversions
+              verbs:
+                - get
+                - list
+                - delete
           serviceAccountName: kuadrant-operator-controller-manager
     strategy: deployment
   installModes:
@@ -929,7 +1026,7 @@ spec:
     - email: didier@redhat.com
       name: Didier Di Cesare
   maturity: alpha
-  minKubeVersion: 1.19.0
+  minKubeVersion: 1.25.0
   provider:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
@@ -940,6 +1037,10 @@ spec:
       name: developerportal
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin@sha256:82f5e9b44150a4060aaaa7d3c69a3f22fc5abd414e4ab140b77128481e72d29b
       name: console-plugin-latest
+    - image: quay.io/kuadrant/console-plugin:v0.6.0
+      name: console-plugin-sdk1
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-rhcl-console-plugin-0-1-5@sha256:41d50c20ea33d9008835d68c32fbc090b252a12b2dcda11ff2ced928b20be6fe
       name: console-plugin-pf5
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-dns-operator@sha256:3494c511064227b9763551bbb4550ea499d1740702ca293b674a16172adb1ba9
+      name: dns-operator
   version: 1.4.3
