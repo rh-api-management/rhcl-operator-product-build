@@ -861,7 +861,7 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6e3920072cdc26e635e62ddfb39eb50daece67e7b0dac83e529f39bf1245f80d
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:sha256:48891a8d3bdc3ddbd67488e35a48924c98ce9a49334c4cffbdff0b9470c998d6
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:48891a8d3bdc3ddbd67488e35a48924c98ce9a49334c4cffbdff0b9470c998d6
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_SDK1
                         value: quay.io/kuadrant/console-plugin:v0.6.0
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
@@ -1035,7 +1035,7 @@ spec:
       name: wasmshim
     - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:6e3920072cdc26e635e62ddfb39eb50daece67e7b0dac83e529f39bf1245f80d
       name: developerportal
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:sha256:48891a8d3bdc3ddbd67488e35a48924c98ce9a49334c4cffbdff0b9470c998d6
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:48891a8d3bdc3ddbd67488e35a48924c98ce9a49334c4cffbdff0b9470c998d6
       name: console-plugin-latest
     - image: quay.io/kuadrant/console-plugin:v0.6.0
       name: console-plugin-sdk1
