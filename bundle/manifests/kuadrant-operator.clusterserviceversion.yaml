@@ -867,7 +867,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
                       - name: RELATED_IMAGE_DNS_OPERATOR
-                        value: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:b52c46c2d7deb8293c8034fd0ecfc597e8e4685ec29c055f53ffe1d8072bbc68
+                        value: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -1041,6 +1041,6 @@ spec:
       name: console-plugin-sdk1
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
       name: console-plugin-pf5
-    - image: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:b52c46c2d7deb8293c8034fd0ecfc597e8e4685ec29c055f53ffe1d8072bbc68
+    - image: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
       name: dns-operator
   version: 1.5.0
