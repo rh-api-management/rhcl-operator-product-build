@@ -929,7 +929,7 @@ spec:
         envFrom:
         - configMapRef:
             name: dns-operator-controller-env
-        image: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:6dacac4500b166d21adfb7b6130d9babbc0657b35fef83936edd5bd82e02a064
+        image: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:ccacd9c697c960ef9fa5e17807a533c6642171d1d06f6c363fe118077d69b9bd
         livenessProbe:
           httpGet:
             path: /healthz
