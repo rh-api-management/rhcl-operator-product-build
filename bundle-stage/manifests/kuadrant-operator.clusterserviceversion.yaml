@@ -865,7 +865,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_SDK1
                         value: quay.io/kuadrant/console-plugin:v0.6.0
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
+                        value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7c2d4b5f0e8cf6ca10c0269fcac48e3a578640237273b351233e58cbb54b2b21
                       - name: RELATED_IMAGE_DNS_OPERATOR
                         value: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:ccacd9c697c960ef9fa5e17807a533c6642171d1d06f6c363fe118077d69b9bd
                       - name: OPERATOR_NAMESPACE
@@ -1039,7 +1039,7 @@ spec:
       name: console-plugin-latest
     - image: quay.io/kuadrant/console-plugin:v0.6.0
       name: console-plugin-sdk1
-    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7ab279939c6d638e7fec87c3ea1e5dbb78d1ea8dfe2e47acd71d953e4be8b174
+    - image: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7c2d4b5f0e8cf6ca10c0269fcac48e3a578640237273b351233e58cbb54b2b21
       name: console-plugin-pf5
     - image: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:ccacd9c697c960ef9fa5e17807a533c6642171d1d06f6c363fe118077d69b9bd
       name: dns-operator
