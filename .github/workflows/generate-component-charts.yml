@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'bundle-generation/image-pullspecs/dns-operator.yaml'
+      - 'bundle-generation/image-pullspecs/mcp-gateway-operator.yaml'
+      - 'bundle-generation/image-pullspecs/mcp-gateway.yaml'
       - 'bundle-generation/rhcl-operator.yaml'
       - 'component-charts-generation/**'
       - 'kuadrant-operator'
@@ -13,6 +15,8 @@ on:
   push:
     paths:
       - 'bundle-generation/image-pullspecs/dns-operator.yaml'
+      - 'bundle-generation/image-pullspecs/mcp-gateway-operator.yaml'
+      - 'bundle-generation/image-pullspecs/mcp-gateway.yaml'
       - 'bundle-generation/rhcl-operator.yaml'
       - 'component-charts-generation/**'
       - 'kuadrant-operator'
