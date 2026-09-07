@@ -897,9 +897,9 @@ spec:
                       - name: RELATED_IMAGE_DNS_OPERATOR
                         value: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
                       - name: RELATED_IMAGE_MCP_GATEWAY
-                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:0000000000000000000000000000000000000000000000000000000000000000
+                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
                       - name: RELATED_IMAGE_MCP_GATEWAY_BROKER
-                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:1111111111111111111111111111111111111111111111111111111111111111
+                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -1075,8 +1075,8 @@ spec:
       name: console-plugin-pf5
     - image: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
       name: dns-operator
-    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:0000000000000000000000000000000000000000000000000000000000000000
+    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
       name: mcp-gateway
-    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:1111111111111111111111111111111111111111111111111111111111111111
+    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
       name: mcp-gateway-broker
   version: 1.5.0
