@@ -26,10 +26,10 @@ This is the **RHCL (Red Hat Connectivity Link) Operator Product Build** reposito
 - **`bundle-generation/`** - Bundle generation scripts and configuration
   - `generate-bundle.sh` - Generates RHCL bundles for dev/stage/prod environments using `yq`
   - `rhcl-operator.yaml` - RHCL-specific configuration (CSV metadata, registry mappings, features)
-  - `image-pullspecs/` - Per-image pullspec files (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator) automatically updated by Konflux
+  - `image-pullspecs/` - Per-image pullspec files (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway) automatically updated by Konflux
 
 - **`component-charts-generation/`** - Component Helm chart generation
-  - `generate-component-charts.sh` - Generates the downstream copy of the component Helm charts (e.g. dns-operator) that are baked into the operator image, rewriting image references to Red Hat registries
+  - `generate-component-charts.sh` - Generates the downstream copy of the component Helm charts (e.g. dns-operator, mcp-gateway) that are baked into the operator image, rewriting image references to Red Hat registries
 
 - **`component-charts/`** - Generated downstream copy of the upstream component Helm charts, copied into the operator image at `/charts/` (do not edit by hand - regenerate with `make component-charts`)
 
@@ -56,7 +56,7 @@ The RHCL build process takes the upstream Kuadrant operator and:
      - `WITH_EXTENSIONS` - Build with policy extensions (default: true)
    - Version info embedded in binary via ldflags: `-X main.version=${VERSION} -X main.gitSHA=${GIT_SHA} -X main.dirty=${DIRTY}`
    - VERSION also used in image LABEL for metadata
-   - Bakes the downstream component Helm charts into the image via `COPY component-charts/ /charts/`. The operator renders these charts at runtime to deploy consolidated components (e.g. dns-operator), overriding each chart's image via a `RELATED_IMAGE_*` env var from the CSV.
+   - Bakes the downstream component Helm charts into the image via `COPY component-charts/ /charts/`. The operator renders these charts at runtime to deploy consolidated components (e.g. dns-operator, mcp-gateway), overriding each chart's image via a `RELATED_IMAGE_*` env var from the CSV.
 
 2. **Generates component charts** using `component-charts-generation/generate-component-charts.sh`
    - Copies upstream component charts from `kuadrant-operator/component-charts/`
@@ -71,7 +71,7 @@ The RHCL build process takes the upstream Kuadrant operator and:
    - Injects RHCL branding, descriptions, and icons
    - Sets OpenShift-specific features and valid subscription metadata
    - Configures Istio gateway controller names for OpenShift
-   - Sets per-environment `RELATED_IMAGE_*` env vars and `relatedImages` entries (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator) so the operator resolves the correct registry per environment
+   - Sets per-environment `RELATED_IMAGE_*` env vars and `relatedImages` entries (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway) so the operator resolves the correct registry per environment
    - Outputs to `bundle/`, `bundle-dev/`, and `bundle-stage/` directories
 
 4. **Builds bundle images** for three environments:
@@ -102,7 +102,7 @@ This script:
 
 ### Working with Component Chart Generation
 
-Some upstream components (e.g. dns-operator) are consolidated into the kuadrant-operator and shipped as Helm charts baked into the operator image rather than as separate OLM operators. The generation script in `component-charts-generation/` produces the downstream copy of these charts:
+Some upstream components (e.g. dns-operator, mcp-gateway) are consolidated into the kuadrant-operator and shipped as Helm charts baked into the operator image rather than as separate OLM operators. The generation script in `component-charts-generation/` produces the downstream copy of these charts:
 
 ```bash
 # Generate the downstream component charts

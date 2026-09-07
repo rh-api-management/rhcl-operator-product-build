@@ -46,6 +46,8 @@ CONSOLE_PLUGIN_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin.yaml")
 CONSOLE_PLUGIN_0_1_5_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/console-plugin-0.1.5.yaml")
 DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/developer-portal-controller.yaml")
 DNS_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/dns-operator.yaml")
+MCP_GATEWAY_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/mcp-gateway-operator.yaml")
+MCP_GATEWAY_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/mcp-gateway.yaml")
 
 echo ""
 echo "Image pullspecs:"
@@ -61,6 +63,8 @@ CONSOLE_PLUGIN_SHA="${CONSOLE_PLUGIN_IMAGE##*@}"
 CONSOLE_PLUGIN_0_1_5_SHA="${CONSOLE_PLUGIN_0_1_5_IMAGE##*@}"
 DEVELOPER_PORTAL_CONTROLLER_SHA="${DEVELOPER_PORTAL_CONTROLLER_IMAGE##*@}"
 DNS_OPERATOR_SHA="${DNS_OPERATOR_IMAGE##*@}"
+MCP_GATEWAY_OPERATOR_SHA="${MCP_GATEWAY_OPERATOR_IMAGE##*@}"
+MCP_GATEWAY_SHA="${MCP_GATEWAY_IMAGE##*@}"
 # Read RHCL configuration values
 CSV_NAME=$(yq '.csv.name' "$RHCL_CONFIG")
 CSV_VERSION=$(yq '.csv.version' "$RHCL_CONFIG")
@@ -140,6 +144,26 @@ get_dns_operator_image() {
     fi
 }
 
+get_mcp_gateway_operator_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$MCP_GATEWAY_OPERATOR_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.mcp_gateway_operator" "$RHCL_CONFIG")
+        echo "${registry}@${MCP_GATEWAY_OPERATOR_SHA}"
+    fi
+}
+
+get_mcp_gateway_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$MCP_GATEWAY_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.mcp_gateway" "$RHCL_CONFIG")
+        echo "${registry}@${MCP_GATEWAY_SHA}"
+    fi
+}
+
 # Generate bundle for each environment
 for env in dev stage prod; do
     output_dir="${PROJECT_ROOT}/$(yq ".outputDirs.${env}" "$RHCL_CONFIG")"
@@ -173,12 +197,16 @@ for env in dev stage prod; do
     console_plugin_0_1_5_image=$(get_console_plugin_0_1_5_image "$env")
     developer_portal_controller_image=$(get_developer_portal_controller_image "$env")
     dns_operator_image=$(get_dns_operator_image "$env")
+    mcp_gateway_operator_image=$(get_mcp_gateway_operator_image "$env")
+    mcp_gateway_image=$(get_mcp_gateway_image "$env")
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
     echo "  Console Plugin:       ${console_plugin_image}"
     echo "  Console Plugin 0.1.5:      ${console_plugin_0_1_5_image}"
     echo "  DNS Operator:      ${dns_operator_image}"
+    echo "  MCP Gateway Operator:       ${mcp_gateway_operator_image}"
+    echo "  MCP Gateway (broker):       ${mcp_gateway_image}"
 
     # Update CSV: operator container image
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .image) = "'"${operator_image}"'"' "${CSV_FILE}"
@@ -217,6 +245,22 @@ for env in dev stage prod; do
 
     # Update CSV: dns-operator in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "dns-operator") | .image) = "'"${dns_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: MCP Gateway Operator (controller) in RELATED_IMAGE_MCP_GATEWAY env var
+    # The operator uses this to override the mcp-controller image in the Helm chart
+    # baked into the operator image (see internal/controlplane/deployer.go).
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_MCP_GATEWAY") | .value) = "'"${mcp_gateway_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: MCP Gateway Operator in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "mcp-gateway") | .image) = "'"${mcp_gateway_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: MCP Gateway broker/router in RELATED_IMAGE_MCP_GATEWAY_BROKER env var
+    # The operator uses this to override the broker image in the Helm chart
+    # baked into the operator image (see internal/controlplane/deployer.go).
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_MCP_GATEWAY_BROKER") | .value) = "'"${mcp_gateway_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: MCP Gateway broker/router in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "mcp-gateway-broker") | .image) = "'"${mcp_gateway_image}"'"' "${CSV_FILE}"
 
     # Update CSV: Add RHCL-specific feature annotations from config
     yq -i '.metadata.annotations["features.operators.openshift.io/disconnected"] = "'"$(yq '.features.disconnected' "$RHCL_CONFIG")"'"' "${CSV_FILE}"

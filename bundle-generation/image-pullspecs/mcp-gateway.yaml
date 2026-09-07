@@ -1,0 +1,3 @@
+# MCP Gateway broker/router (upstream mcp-gateway) image pullspec
+# This file is updated automatically by Konflux
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-mcp-gateway@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19

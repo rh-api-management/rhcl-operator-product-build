@@ -225,9 +225,9 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:c6e9bbba2b4accad2585f312c0d06084eab3b0a148dd2b54fbebef48064e5c3a
-    createdAt: "2026-09-01T10:29:19Z"
+    createdAt: "2026-09-07T08:58:50Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
-    operators.operatorframework.io/builder: operator-sdk-v1.33.0
+    operators.operatorframework.io/builder: operator-sdk-v1.42.3
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
     repository: https://github.com/Kuadrant/kuadrant-operator
     support: kuadrant
@@ -464,6 +464,9 @@ spec:
               resourceNames:
                 - dnshealthcheckprobes.kuadrant.io
                 - dnsrecords.kuadrant.io
+                - mcpgatewayextensions.mcp.kuadrant.io
+                - mcpserverregistrations.mcp.kuadrant.io
+                - mcpvirtualservers.mcp.kuadrant.io
               resources:
                 - customresourcedefinitions
               verbs:
@@ -796,6 +799,7 @@ spec:
               resourceNames:
                 - dns-operator-manager-rolebinding
                 - dns-operator-remote-cluster-rolebinding
+                - mcp-gateway-controller
               resources:
                 - clusterrolebindings
               verbs:
@@ -815,6 +819,7 @@ spec:
               resourceNames:
                 - dns-operator-manager-role
                 - dns-operator-remote-cluster-role
+                - mcp-gateway-controller
               resources:
                 - clusterroles
               verbs:
@@ -891,6 +896,10 @@ spec:
                         value: registry.stage.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:7c2d4b5f0e8cf6ca10c0269fcac48e3a578640237273b351233e58cbb54b2b21
                       - name: RELATED_IMAGE_DNS_OPERATOR
                         value: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
+                      - name: RELATED_IMAGE_MCP_GATEWAY
+                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
+                      - name: RELATED_IMAGE_MCP_GATEWAY_BROKER
+                        value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -1066,4 +1075,8 @@ spec:
       name: console-plugin-pf5
     - image: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
       name: dns-operator
+    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
+      name: mcp-gateway
+    - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
+      name: mcp-gateway-broker
   version: 1.5.0
