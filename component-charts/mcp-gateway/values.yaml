@@ -3,12 +3,12 @@
 
 # Image configuration for mcp-gateway broker-router (deployed by controller)
 image:
-  repository: registry.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:1111111111111111111111111111111111111111111111111111111111111111
+  repository: registry.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
   # tag defaults to Chart.appVersion if empty
   tag: ""
 # Image configuration for mcp-controller
 imageController:
-  repository: registry.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:0000000000000000000000000000000000000000000000000000000000000000
+  repository: registry.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
   # tag defaults to Chart.appVersion if empty
   tag: ""
   pullPolicy: IfNotPresent
