@@ -106,10 +106,58 @@ rewrite_chart_image() {
     fi
 }
 
+# rewrite_chart_values_image <chart-subdir> <values-key> <pullspec-file> <registry-config-key>
+#
+# For charts that reference their image through values.yaml (rather than a
+# hardcoded reference in a template), set the chart's `<values-key>.repository`
+# to the downstream prod registry image (by digest) and clear `<values-key>.tag`.
+#
+# The digest is carried whole in `repository`; the chart's image helper detects
+# the `@` and uses `repository` as-is (see the chart's _helpers.tpl). The empty
+# tag mirrors how the operator injects digest refs at runtime via ImageSplitValue.
+rewrite_chart_values_image() {
+    local chart_dir="$1"
+    local values_key="$2"
+    local pullspec_file="$3"
+    local registry_key="$4"
+
+    local values_file="${OUTPUT_DIR}/${chart_dir}/values.yaml"
+    if [[ ! -f "$values_file" ]]; then
+        echo "Error: values.yaml not found for ${chart_dir} at ${values_file}"
+        exit 1
+    fi
+
+    local pullspec="${IMAGE_PULLSPECS_DIR}/${pullspec_file}"
+    if [[ ! -f "$pullspec" ]]; then
+        echo "Error: pullspec not found at $pullspec"
+        exit 1
+    fi
+
+    local image sha registry downstream_image
+    image=$(yq '.image' "$pullspec")
+    sha="${image##*@}"
+    registry=$(yq ".registries.prod.${registry_key}" "$RHCL_CONFIG")
+    downstream_image="${registry}@${sha}"
+
+    echo ""
+    echo "Rewriting values image for chart '${chart_dir}' (key '${values_key}'):"
+    echo "  downstream:     ${downstream_image}"
+
+    yq -i "(.${values_key}.repository) = \"${downstream_image}\" | (.${values_key}.tag) = \"\"" "$values_file"
+    echo "  ✓ updated"
+}
+
 # --- Per-component image rewrites -------------------------------------------
-# Add a rewrite_chart_image call here for each component chart that ships an
-# image needing downstream mapping.
+# Add a rewrite_chart_image (template-based) or rewrite_chart_values_image
+# (values.yaml-based) call here for each component chart that ships an image
+# needing downstream mapping.
 rewrite_chart_image "dns-operator" "quay.io/kuadrant/dns-operator" "dns-operator.yaml" "dns_operator"
+
+# mcp-gateway references its images through values.yaml:
+#   imageController -> the controller (upstream mcp-controller, downstream mcp-gateway-operator)
+#   image          -> the broker/router (upstream & downstream mcp-gateway)
+rewrite_chart_values_image "mcp-gateway" "imageController" "mcp-gateway-operator.yaml" "mcp_gateway_operator"
+rewrite_chart_values_image "mcp-gateway" "image" "mcp-gateway.yaml" "mcp_gateway"
 
 echo ""
 echo "========================================"
