@@ -1,0 +1,4 @@
+# MCP Gateway Operator (upstream mcp-controller) image pullspec
+# This file is updated automatically by Konflux
+# NOTE: placeholder digest until the Konflux component is created
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-mcp-gateway-operator@sha256:0000000000000000000000000000000000000000000000000000000000000000
