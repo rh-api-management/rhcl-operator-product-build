@@ -824,6 +824,7 @@ spec:
                 - clusterroles
               verbs:
                 - bind
+                - delete
                 - escalate
                 - get
                 - patch
