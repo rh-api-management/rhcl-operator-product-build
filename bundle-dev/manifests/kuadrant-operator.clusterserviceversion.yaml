@@ -886,7 +886,7 @@ spec:
                       - name: EXTENSIONS_SERVICE_PORT
                         value: "50052"
                       - name: RELATED_IMAGE_WASMSHIM
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:9d4e068773e8b421eb5fafc1e5a337806354638fe13278ba78ed73ac7273fa02
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:7f73bb3812c419fcfe3c5792a82068f2a344f08a29ffa54c7ab3b035dfe42246
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-developer-portal-controller@sha256:b9e93348a445363417cf660769a4feda91018d1d9d5c2e7fe6dce375863f008e
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
@@ -1064,7 +1064,7 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/kuadrant-operator
   relatedImages:
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:9d4e068773e8b421eb5fafc1e5a337806354638fe13278ba78ed73ac7273fa02
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-wasm-shim@sha256:7f73bb3812c419fcfe3c5792a82068f2a344f08a29ffa54c7ab3b035dfe42246
       name: wasmshim
     - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-developer-portal-controller@sha256:b9e93348a445363417cf660769a4feda91018d1d9d5c2e7fe6dce375863f008e
       name: developerportal
