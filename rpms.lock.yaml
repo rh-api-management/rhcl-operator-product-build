@@ -396,27 +396,27 @@ arches:
     name: lua-srpm-macros
     evr: 1-6.el9
     sourcerpm: lua-rpm-macros-1-6.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-1.20.1-28.el9_8.5.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-1.20.1-28.el9_8.6.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 45914
-    checksum: sha256:4434134fe86e0bb445beaa624661cf3d25d14e30fe0c8b9af78a0d2c2a042777
+    size: 46072
+    checksum: sha256:b578313ca4e91efdba71acd8694c2abbdc2324772d91493f325b506bbb465cd2
     name: nginx
-    evr: 2:1.20.1-28.el9_8.5
-    sourcerpm: nginx-1.20.1-28.el9_8.5.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-core-1.20.1-28.el9_8.5.x86_64.rpm
+    evr: 2:1.20.1-28.el9_8.6
+    sourcerpm: nginx-1.20.1-28.el9_8.6.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-core-1.20.1-28.el9_8.6.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 593526
-    checksum: sha256:f3b57f41db3765603f2b195aed9b2410a3803e20a31d84bd4b22f820a38f9955
+    size: 595771
+    checksum: sha256:c4f0b6160dd764a8507ae8a7bf4b725a3c0cd288a41fc7f6103fd298dcac30e0
     name: nginx-core
-    evr: 2:1.20.1-28.el9_8.5
-    sourcerpm: nginx-1.20.1-28.el9_8.5.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-filesystem-1.20.1-28.el9_8.5.noarch.rpm
+    evr: 2:1.20.1-28.el9_8.6
+    sourcerpm: nginx-1.20.1-28.el9_8.6.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nginx-filesystem-1.20.1-28.el9_8.6.noarch.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
-    size: 17539
-    checksum: sha256:dd719c68fb0a659400ba0a82f460ecc60bc287ee587776b548899d3a9f78b723
+    size: 17708
+    checksum: sha256:855287d121559addddae5d3581d56e8df37d6ba5bbb93bafcfe7c20ceab4f9e4
     name: nginx-filesystem
-    evr: 2:1.20.1-28.el9_8.5
-    sourcerpm: nginx-1.20.1-28.el9_8.5.src.rpm
+    evr: 2:1.20.1-28.el9_8.6
+    sourcerpm: nginx-1.20.1-28.el9_8.6.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/n/nodejs-16.20.2-8.el9_4.x86_64.rpm
     repoid: ubi-9-for-x86_64-appstream-rpms
     size: 119244
@@ -2524,13 +2524,13 @@ arches:
     name: unzip
     evr: 6.0-60.el9
     sourcerpm: unzip-6.0-60.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/v/vim-filesystem-8.2.2637-26.el9_8.13.noarch.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/v/vim-filesystem-8.2.2637-26.el9_8.21.noarch.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
-    size: 22931
-    checksum: sha256:7758bbb54a85bb53aecdbb9c740c4981b2b42cac6df9580414838c6bdbab8dbd
+    size: 24156
+    checksum: sha256:4362190912229b1a670e20a7e46d1f20fb2d1d30e80ec22342bba1318784f742
     name: vim-filesystem
-    evr: 2:8.2.2637-26.el9_8.13
-    sourcerpm: vim-8.2.2637-26.el9_8.13.src.rpm
+    evr: 2:8.2.2637-26.el9_8.21
+    sourcerpm: vim-8.2.2637-26.el9_8.21.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/z/zip-3.0-35.el9.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
     size: 276200
@@ -2677,12 +2677,12 @@ arches:
     checksum: sha256:19fdee3aa469d583a7f48dce71513da47c5046018bc35bfbe57c818b7aae21d0
     name: lua-rpm-macros
     evr: 1-6.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/n/nginx-1.20.1-28.el9_8.5.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/n/nginx-1.20.1-28.el9_8.6.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
-    size: 1142712
-    checksum: sha256:73fad54a25ddd764b93d9c28403aefe8cad3e274cc0d9a7c74a0861374e373ea
+    size: 1152675
+    checksum: sha256:eb6314a74de561c09f3afa6fae140b684022100f710896fdc74d8a213436c091
     name: nginx
-    evr: 2:1.20.1-28.el9_8.5
+    evr: 2:1.20.1-28.el9_8.6
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/n/nodejs-16.20.2-8.el9_4.src.rpm
     repoid: ubi-9-for-x86_64-appstream-source-rpms
     size: 74210810
@@ -3781,12 +3781,12 @@ arches:
     checksum: sha256:2f745809f67389b9cb4bc051a16a8e1b3049253632a0c34943695b2330717c48
     name: unzip
     evr: 6.0-60.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/v/vim-8.2.2637-26.el9_8.13.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/v/vim-8.2.2637-26.el9_8.21.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
-    size: 12856678
-    checksum: sha256:c35d0483fd594ed202397aafa4b97e8321ba99d8d2386e1b5bff53e23b046d95
+    size: 12871596
+    checksum: sha256:a45265b0b68234bce69498fec26c9db8672e9ada0b32ce0cb3498f5f7f1ad885
     name: vim
-    evr: 2:8.2.2637-26.el9_8.13
+    evr: 2:8.2.2637-26.el9_8.21
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/z/zip-3.0-35.el9.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
     size: 1137410
