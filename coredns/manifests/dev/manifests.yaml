@@ -1,0 +1,223 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  - services
+  - pods
+  - namespaces
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - kuadrant.io
+  resources:
+  - dnsrecords
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kuadrant-coredns
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: kuadrant-coredns
+---
+apiVersion: v1
+data:
+  Corefile: |
+    . {
+        health
+        ready
+    }
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+  namespace: kuadrant-coredns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+  namespace: kuadrant-coredns
+spec:
+  ports:
+  - name: udp-53
+    port: 53
+    protocol: UDP
+    targetPort: 53
+  - name: tcp-53
+    port: 53
+    protocol: TCP
+    targetPort: 53
+  selector:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/port: "9153"
+    prometheus.io/scrape: "true"
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns-metrics
+  namespace: kuadrant-coredns
+spec:
+  ports:
+  - name: metrics
+    port: 9153
+    targetPort: 9153
+  selector:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: rhcl
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/version: rhcl-1.3
+  name: kuadrant-coredns
+  namespace: kuadrant-coredns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rhcl
+      app.kubernetes.io/name: coredns
+      app.kubernetes.io/version: rhcl-1.3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+      labels:
+        app.kubernetes.io/instance: rhcl
+        app.kubernetes.io/name: coredns
+        app.kubernetes.io/version: rhcl-1.3
+    spec:
+      containers:
+      - args:
+        - -conf
+        - /etc/coredns/Corefile
+        env:
+        - name: WATCH_NAMESPACES
+          value: ""
+        image: image-rbac-proxy.apps.stone-prd-rh01.pg1f.p1.openshiftapps.com/redhat-user-workloads/api-management-tenant/rhcl-1-4-coredns@sha256:f667a314e0ef54a0c5c95e4d28e108b75721c9d3618de91a92626df5539dfef2
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: coredns
+        ports:
+        - containerPort: 53
+          name: udp-53
+          protocol: UDP
+        - containerPort: 53
+          name: tcp-53
+          protocol: TCP
+        - containerPort: 9153
+          name: tcp-9153
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /ready
+            port: 8181
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /etc/coredns
+          name: config-volume
+      securityContext:
+        runAsNonRoot: true
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          items:
+          - key: Corefile
+            path: Corefile
+          name: kuadrant-coredns
+        name: config-volume

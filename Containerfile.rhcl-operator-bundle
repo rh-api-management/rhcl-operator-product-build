@@ -37,3 +37,4 @@ LABEL version="1.4.3" \
 COPY /bundle/manifests /manifests/
 COPY /bundle/metadata /metadata/
 COPY kuadrant-operator/bundle/tests/scorecard /tests/scorecard/
+COPY coredns/manifests/prod/ /coredns/
