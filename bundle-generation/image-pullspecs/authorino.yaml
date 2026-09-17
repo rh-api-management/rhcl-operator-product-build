@@ -1,0 +1,3 @@
+# Authorino (authentication service) image pullspec
+# This file is updated automatically by Konflux
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-authorino@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
