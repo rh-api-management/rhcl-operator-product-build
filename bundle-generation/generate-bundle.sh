@@ -48,6 +48,10 @@ DEVELOPER_PORTAL_CONTROLLER_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/develope
 DNS_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/dns-operator.yaml")
 MCP_GATEWAY_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/mcp-gateway-operator.yaml")
 MCP_GATEWAY_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/mcp-gateway.yaml")
+AUTHORINO_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/authorino-operator.yaml")
+AUTHORINO_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/authorino.yaml")
+LIMITADOR_OPERATOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/limitador-operator.yaml")
+LIMITADOR_IMAGE=$(yq '.image' "${IMAGE_PULLSPECS_DIR}/limitador.yaml")
 
 echo ""
 echo "Image pullspecs:"
@@ -65,6 +69,10 @@ DEVELOPER_PORTAL_CONTROLLER_SHA="${DEVELOPER_PORTAL_CONTROLLER_IMAGE##*@}"
 DNS_OPERATOR_SHA="${DNS_OPERATOR_IMAGE##*@}"
 MCP_GATEWAY_OPERATOR_SHA="${MCP_GATEWAY_OPERATOR_IMAGE##*@}"
 MCP_GATEWAY_SHA="${MCP_GATEWAY_IMAGE##*@}"
+AUTHORINO_OPERATOR_SHA="${AUTHORINO_OPERATOR_IMAGE##*@}"
+AUTHORINO_SHA="${AUTHORINO_IMAGE##*@}"
+LIMITADOR_OPERATOR_SHA="${LIMITADOR_OPERATOR_IMAGE##*@}"
+LIMITADOR_SHA="${LIMITADOR_IMAGE##*@}"
 # Read RHCL configuration values
 CSV_NAME=$(yq '.csv.name' "$RHCL_CONFIG")
 CSV_VERSION=$(yq '.csv.version' "$RHCL_CONFIG")
@@ -164,6 +172,46 @@ get_mcp_gateway_image() {
     fi
 }
 
+get_authorino_operator_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$AUTHORINO_OPERATOR_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.authorino_operator" "$RHCL_CONFIG")
+        echo "${registry}@${AUTHORINO_OPERATOR_SHA}"
+    fi
+}
+
+get_authorino_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$AUTHORINO_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.authorino" "$RHCL_CONFIG")
+        echo "${registry}@${AUTHORINO_SHA}"
+    fi
+}
+
+get_limitador_operator_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$LIMITADOR_OPERATOR_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.limitador_operator" "$RHCL_CONFIG")
+        echo "${registry}@${LIMITADOR_OPERATOR_SHA}"
+    fi
+}
+
+get_limitador_image() {
+    local env=$1
+    if [[ "$env" == "dev" ]]; then
+        echo "$LIMITADOR_IMAGE"
+    else
+        local registry=$(yq ".registries.${env}.limitador" "$RHCL_CONFIG")
+        echo "${registry}@${LIMITADOR_SHA}"
+    fi
+}
+
 # Generate bundle for each environment
 for env in dev stage prod; do
     output_dir="${PROJECT_ROOT}/$(yq ".outputDirs.${env}" "$RHCL_CONFIG")"
@@ -199,6 +247,10 @@ for env in dev stage prod; do
     dns_operator_image=$(get_dns_operator_image "$env")
     mcp_gateway_operator_image=$(get_mcp_gateway_operator_image "$env")
     mcp_gateway_image=$(get_mcp_gateway_image "$env")
+    authorino_operator_image=$(get_authorino_operator_image "$env")
+    authorino_image=$(get_authorino_image "$env")
+    limitador_operator_image=$(get_limitador_operator_image "$env")
+    limitador_image=$(get_limitador_image "$env")
 
     echo "  Operator:       ${operator_image}"
     echo "  Wasm-shim:      ${wasm_shim_image}"
@@ -207,6 +259,10 @@ for env in dev stage prod; do
     echo "  DNS Operator:      ${dns_operator_image}"
     echo "  MCP Gateway Operator:       ${mcp_gateway_operator_image}"
     echo "  MCP Gateway (broker):       ${mcp_gateway_image}"
+    echo "  Authorino Operator:      ${authorino_operator_image}"
+    echo "  Authorino:      ${authorino_image}"
+    echo "  Limitador Operator:      ${limitador_operator_image}"
+    echo "  Limitador:      ${limitador_image}"
 
     # Update CSV: operator container image
     yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .image) = "'"${operator_image}"'"' "${CSV_FILE}"
@@ -261,6 +317,34 @@ for env in dev stage prod; do
 
     # Update CSV: MCP Gateway broker/router in relatedImages
     yq -i '(.spec.relatedImages[] | select(.name == "mcp-gateway-broker") | .image) = "'"${mcp_gateway_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Authorino Operator in RELATED_IMAGE_AUTHORINO_OPERATOR env var
+    # The operator uses this to override the authorino-operator image in the Helm
+    # chart baked into the operator image (see internal/controlplane/deployer.go).
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_AUTHORINO_OPERATOR") | .value) = "'"${authorino_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Authorino Operator in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "authorino-operator") | .image) = "'"${authorino_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Authorino (auth service) in RELATED_IMAGE_AUTHORINO env var
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_AUTHORINO") | .value) = "'"${authorino_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Authorino in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "authorino") | .image) = "'"${authorino_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Limitador Operator in RELATED_IMAGE_LIMITADOR_OPERATOR env var
+    # The operator uses this to override the limitador-operator image in the Helm
+    # chart baked into the operator image (see internal/controlplane/deployer.go).
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_LIMITADOR_OPERATOR") | .value) = "'"${limitador_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Limitador Operator in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "limitador-operator") | .image) = "'"${limitador_operator_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Limitador (rate-limiting service) in RELATED_IMAGE_LIMITADOR env var
+    yq -i '(.spec.install.spec.deployments[] | select(.name == "kuadrant-operator-controller-manager") | .spec.template.spec.containers[] | select(.name == "manager") | .env[] | select(.name == "RELATED_IMAGE_LIMITADOR") | .value) = "'"${limitador_image}"'"' "${CSV_FILE}"
+
+    # Update CSV: Limitador in relatedImages
+    yq -i '(.spec.relatedImages[] | select(.name == "limitador") | .image) = "'"${limitador_image}"'"' "${CSV_FILE}"
 
     # Update CSV: Add RHCL-specific feature annotations from config
     yq -i '.metadata.annotations["features.operators.openshift.io/disconnected"] = "'"$(yq '.features.disconnected' "$RHCL_CONFIG")"'"' "${CSV_FILE}"

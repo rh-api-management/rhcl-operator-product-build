@@ -915,13 +915,13 @@ spec:
                       - name: RELATED_IMAGE_MCP_GATEWAY_BROKER
                         value: registry.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
                       - name: RELATED_IMAGE_AUTHORINO_OPERATOR
-                        value: quay.io/kuadrant/authorino-operator:latest
+                        value: registry.redhat.io/rhcl-1/authorino-rhel9-operator@sha256:ac9ef795db91ca37b3c45bbd4d2866237bcf447a63830eb654670962d12ab208
                       - name: RELATED_IMAGE_LIMITADOR_OPERATOR
-                        value: quay.io/kuadrant/limitador-operator:latest
+                        value: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
                       - name: RELATED_IMAGE_AUTHORINO
-                        value: quay.io/kuadrant/authorino:latest
+                        value: registry.redhat.io/rhcl-1/authorino-rhel9@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: quay.io/kuadrant/limitador:latest
+                        value: registry.redhat.io/rhcl-1/limitador-rhel9@sha256:f9ec9f9efd71fff6d1b5e312e8df16f04b64f7973268a4e90af5a23924a0f501
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -1101,12 +1101,12 @@ spec:
       name: mcp-gateway
     - image: registry.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
       name: mcp-gateway-broker
-    - image: quay.io/kuadrant/authorino-operator:latest
+    - image: registry.redhat.io/rhcl-1/authorino-rhel9-operator@sha256:ac9ef795db91ca37b3c45bbd4d2866237bcf447a63830eb654670962d12ab208
       name: authorino-operator
-    - image: quay.io/kuadrant/limitador-operator:latest
+    - image: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
       name: limitador-operator
-    - image: quay.io/kuadrant/authorino:latest
+    - image: registry.redhat.io/rhcl-1/authorino-rhel9@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
       name: authorino
-    - image: quay.io/kuadrant/limitador:latest
+    - image: registry.redhat.io/rhcl-1/limitador-rhel9@sha256:f9ec9f9efd71fff6d1b5e312e8df16f04b64f7973268a4e90af5a23924a0f501
       name: limitador
   version: 1.5.0
