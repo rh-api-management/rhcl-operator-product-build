@@ -3821,8 +3821,8 @@ spec:
         - /manager
         env:
         - name: RELATED_IMAGE_AUTHORINO
-          value: quay.io/kuadrant/authorino:latest
-        image: quay.io/kuadrant/authorino-operator:latest
+          value: registry.redhat.io/rhcl-1/authorino-rhel9@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
+        image: registry.redhat.io/rhcl-1/authorino-rhel9-operator@sha256:ac9ef795db91ca37b3c45bbd4d2866237bcf447a63830eb654670962d12ab208
         livenessProbe:
           httpGet:
             path: /healthz

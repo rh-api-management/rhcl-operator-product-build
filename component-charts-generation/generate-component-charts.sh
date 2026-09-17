@@ -159,6 +159,20 @@ rewrite_chart_image "dns-operator" "quay.io/kuadrant/dns-operator" "dns-operator
 rewrite_chart_values_image "mcp-gateway" "imageController" "mcp-gateway-operator.yaml" "mcp_gateway_operator"
 rewrite_chart_values_image "mcp-gateway" "image" "mcp-gateway.yaml" "mcp_gateway"
 
+# authorino-operator references two images in its templates:
+#   the operator itself (quay.io/kuadrant/authorino-operator) and the authorino
+#   auth service it deploys (quay.io/kuadrant/authorino, via RELATED_IMAGE_AUTHORINO).
+# Rewrite the operator first so the shorter "authorino" match cannot touch it.
+rewrite_chart_image "authorino-operator" "quay.io/kuadrant/authorino-operator" "authorino-operator.yaml" "authorino_operator"
+rewrite_chart_image "authorino-operator" "quay.io/kuadrant/authorino" "authorino.yaml" "authorino"
+
+# limitador-operator references two images in its templates:
+#   the operator itself (quay.io/kuadrant/limitador-operator) and the limitador
+#   rate-limiting service it deploys (quay.io/kuadrant/limitador, via RELATED_IMAGE_LIMITADOR).
+# Rewrite the operator first so the shorter "limitador" match cannot touch it.
+rewrite_chart_image "limitador-operator" "quay.io/kuadrant/limitador-operator" "limitador-operator.yaml" "limitador_operator"
+rewrite_chart_image "limitador-operator" "quay.io/kuadrant/limitador" "limitador.yaml" "limitador"
+
 echo ""
 echo "========================================"
 echo "Downstream component charts generated"

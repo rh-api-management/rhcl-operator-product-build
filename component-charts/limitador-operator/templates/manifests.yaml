@@ -1564,8 +1564,8 @@ spec:
         - /manager
         env:
         - name: RELATED_IMAGE_LIMITADOR
-          value: quay.io/kuadrant/limitador:latest
-        image: quay.io/kuadrant/limitador-operator:latest
+          value: registry.redhat.io/rhcl-1/limitador-rhel9@sha256:f9ec9f9efd71fff6d1b5e312e8df16f04b64f7973268a4e90af5a23924a0f501
+        image: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
         livenessProbe:
           httpGet:
             path: /healthz
