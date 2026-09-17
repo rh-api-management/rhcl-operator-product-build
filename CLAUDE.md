@@ -26,7 +26,7 @@ This is the **RHCL (Red Hat Connectivity Link) Operator Product Build** reposito
 - **`bundle-generation/`** - Bundle generation scripts and configuration
   - `generate-bundle.sh` - Generates RHCL bundles for dev/stage/prod environments using `yq`
   - `rhcl-operator.yaml` - RHCL-specific configuration (CSV metadata, registry mappings, features)
-  - `image-pullspecs/` - Per-image pullspec files (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway) automatically updated by Konflux
+  - `image-pullspecs/` - Per-image pullspec files (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway, authorino-operator, authorino, limitador-operator, limitador) automatically updated by Konflux
 
 - **`component-charts-generation/`** - Component Helm chart generation
   - `generate-component-charts.sh` - Generates the downstream copy of the component Helm charts (e.g. dns-operator, mcp-gateway) that are baked into the operator image, rewriting image references to Red Hat registries
@@ -71,7 +71,7 @@ The RHCL build process takes the upstream Kuadrant operator and:
    - Injects RHCL branding, descriptions, and icons
    - Sets OpenShift-specific features and valid subscription metadata
    - Configures Istio gateway controller names for OpenShift
-   - Sets per-environment `RELATED_IMAGE_*` env vars and `relatedImages` entries (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway) so the operator resolves the correct registry per environment
+   - Sets per-environment `RELATED_IMAGE_*` env vars and `relatedImages` entries (operator, wasm-shim, console-plugin, developer-portal-controller, dns-operator, mcp-gateway-operator, mcp-gateway, authorino-operator, authorino, limitador-operator, limitador) so the operator resolves the correct registry per environment
    - Outputs to `bundle/`, `bundle-dev/`, and `bundle-stage/` directories
 
 4. **Builds bundle images** for three environments:
