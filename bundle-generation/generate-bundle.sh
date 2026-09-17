@@ -229,8 +229,9 @@ for env in dev stage prod; do
     mkdir -p "${manifests_dir}" "${metadata_dir}"
 
     # Copy all manifests from upstream, and downstream metadata
+    # (dependencies.yaml is handled separately below - it is optional and only
+    # written when there are dependencies to declare.)
     cp "${UPSTREAM_BUNDLE}/manifests/"*.yaml "${manifests_dir}/"
-    cp "${UPSTREAM_BUNDLE}/metadata/dependencies.yaml" "${metadata_dir}/"
     cp "${ANNOTATIONS_FILE}" "${metadata_dir}/"
 
     # Use downstream annotations.yaml instead of upstream
@@ -394,14 +395,25 @@ for env in dev stage prod; do
         yq -i '.spec.install.spec.clusterPermissions[0].rules += (load("'"${RHCL_CONFIG}"'") | .additionalClusterPermissionRules)' "${CSV_FILE}"
     fi
 
-    # Update dependencies.yaml with downstream versions
+    # Write dependencies.yaml only when upstream declares dependencies.
+    # dependencies.yaml is an optional OLM bundle metadata file, so rather than
+    # shipping an empty `dependencies: []` we omit it entirely when there is
+    # nothing to declare. (authorino-operator and limitador-operator used to be
+    # listed here but are now consolidated into the operator.) When upstream does
+    # declare dependencies, copy them and apply the downstream version overrides.
+    UPSTREAM_DEPENDENCIES="${UPSTREAM_BUNDLE}/metadata/dependencies.yaml"
     DEPENDENCIES_FILE="${metadata_dir}/dependencies.yaml"
-    echo "  Updating dependencies.yaml..."
-    for package in $(yq '.dependencies | keys | .[]' "$RHCL_CONFIG"); do
-        version=$(yq ".dependencies.\"${package}\"" "$RHCL_CONFIG")
-        yq -i '(.dependencies[] | select(.value.packageName == "'"${package}"'") | .value.version) = "'"${version}"'"' "${DEPENDENCIES_FILE}"
-        echo "    ${package}: ${version}"
-    done
+    if [[ -f "$UPSTREAM_DEPENDENCIES" ]] && [[ "$(yq '.dependencies | length' "$UPSTREAM_DEPENDENCIES")" -gt 0 ]]; then
+        echo "  Writing dependencies.yaml with downstream versions..."
+        cp "$UPSTREAM_DEPENDENCIES" "$DEPENDENCIES_FILE"
+        for package in $(yq '.dependencies | keys | .[]' "$RHCL_CONFIG"); do
+            version=$(yq ".dependencies.\"${package}\"" "$RHCL_CONFIG")
+            yq -i '(.dependencies[] | select(.value.packageName == "'"${package}"'") | .value.version) = "'"${version}"'"' "${DEPENDENCIES_FILE}"
+            echo "    ${package}: ${version}"
+        done
+    else
+        echo "  No upstream dependencies; skipping optional dependencies.yaml"
+    fi
 
     echo "  Done!"
 done
