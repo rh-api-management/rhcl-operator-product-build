@@ -225,9 +225,9 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:3818c3df61093929d7306d16a5553b45bec125d024e3730550ef5b0ea5516eb5
-    createdAt: "2026-09-04T15:43:03Z"
+    createdAt: "2026-09-11T07:04:59Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
-    operators.operatorframework.io/builder: operator-sdk-v1.33.0
+    operators.operatorframework.io/builder: operator-sdk-v1.42.3
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
     repository: https://github.com/Kuadrant/kuadrant-operator
     support: kuadrant
@@ -462,8 +462,11 @@ spec:
             - apiGroups:
                 - apiextensions.k8s.io
               resourceNames:
+                - authconfigs.authorino.kuadrant.io
+                - authorinos.operator.authorino.kuadrant.io
                 - dnshealthcheckprobes.kuadrant.io
                 - dnsrecords.kuadrant.io
+                - limitadors.limitador.kuadrant.io
                 - mcpgatewayextensions.mcp.kuadrant.io
                 - mcpserverregistrations.mcp.kuadrant.io
                 - mcpvirtualservers.mcp.kuadrant.io
@@ -797,8 +800,10 @@ spec:
             - apiGroups:
                 - rbac.authorization.k8s.io
               resourceNames:
+                - authorino-operator-manager
                 - dns-operator-manager-rolebinding
                 - dns-operator-remote-cluster-rolebinding
+                - limitador-operator-manager-rolebinding
                 - mcp-gateway-controller
               resources:
                 - clusterrolebindings
@@ -817,8 +822,16 @@ spec:
             - apiGroups:
                 - rbac.authorization.k8s.io
               resourceNames:
+                - authorino-authconfig-editor-role
+                - authorino-authconfig-viewer-role
+                - authorino-manager-k8s-auth-role
+                - authorino-manager-role
+                - authorino-operator
+                - authorino-operator-manager
                 - dns-operator-manager-role
                 - dns-operator-remote-cluster-role
+                - limitador-operator-controller-manager
+                - limitador-operator-manager-role
                 - mcp-gateway-controller
               resources:
                 - clusterroles
@@ -901,6 +914,14 @@ spec:
                         value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator@sha256:4bcb90aa991b430ccdf5da77b5152df2026045c6a758c8031bc06889022c9375
                       - name: RELATED_IMAGE_MCP_GATEWAY_BROKER
                         value: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
+                      - name: RELATED_IMAGE_AUTHORINO_OPERATOR
+                        value: registry.stage.redhat.io/rhcl-1/authorino-rhel9-operator@sha256:ac9ef795db91ca37b3c45bbd4d2866237bcf447a63830eb654670962d12ab208
+                      - name: RELATED_IMAGE_LIMITADOR_OPERATOR
+                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
+                      - name: RELATED_IMAGE_AUTHORINO
+                        value: registry.stage.redhat.io/rhcl-1/authorino-rhel9@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
+                      - name: RELATED_IMAGE_LIMITADOR
+                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:f9ec9f9efd71fff6d1b5e312e8df16f04b64f7973268a4e90af5a23924a0f501
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -1080,4 +1101,12 @@ spec:
       name: mcp-gateway
     - image: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9@sha256:a655d80f6a152f2fd67043a599ff7598598d9d3c5dd07fa6eaef5f27e1579f19
       name: mcp-gateway-broker
+    - image: registry.stage.redhat.io/rhcl-1/authorino-rhel9-operator@sha256:ac9ef795db91ca37b3c45bbd4d2866237bcf447a63830eb654670962d12ab208
+      name: authorino-operator
+    - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
+      name: limitador-operator
+    - image: registry.stage.redhat.io/rhcl-1/authorino-rhel9@sha256:97767de5af9e234afd08aff06c55716987d867d577560c67a5fc74a0b7a89637
+      name: authorino
+    - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:f9ec9f9efd71fff6d1b5e312e8df16f04b64f7973268a4e90af5a23924a0f501
+      name: limitador
   version: 1.5.0

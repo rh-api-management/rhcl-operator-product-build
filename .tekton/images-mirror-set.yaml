@@ -26,6 +26,18 @@ spec:
     - source: registry.redhat.io/rhcl-1/mcp-gateway-rhel9
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-mcp-gateway
+    - source: registry.redhat.io/rhcl-1/authorino-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-authorino-operator
+    - source: registry.redhat.io/rhcl-1/authorino-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-authorino
+    - source: registry.redhat.io/rhcl-1/limitador-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator
+    - source: registry.redhat.io/rhcl-1/limitador-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador
     - source: registry.stage.redhat.io/rhcl-1/rhcl-rhel9-operator
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-rhcl-operator
@@ -48,3 +60,15 @@ spec:
     - source: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9
       mirrors:
         - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-mcp-gateway
+    - source: registry.stage.redhat.io/rhcl-1/authorino-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-authorino-operator
+    - source: registry.stage.redhat.io/rhcl-1/authorino-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-authorino
+    - source: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator
+    - source: registry.stage.redhat.io/rhcl-1/limitador-rhel9
+      mirrors:
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador

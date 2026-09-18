@@ -74,6 +74,10 @@ registries:
     dns_operator: registry.stage.redhat.io/rhcl-1/dns-rhel9-operator
     mcp_gateway_operator: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9-operator
     mcp_gateway: registry.stage.redhat.io/rhcl-1/mcp-gateway-rhel9
+    authorino_operator: registry.stage.redhat.io/rhcl-1/authorino-rhel9-operator
+    authorino: registry.stage.redhat.io/rhcl-1/authorino-rhel9
+    limitador_operator: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator
+    limitador: registry.stage.redhat.io/rhcl-1/limitador-rhel9
   prod:
     operator: registry.redhat.io/rhcl-1/rhcl-rhel9-operator
     wasm_shim: registry.access.redhat.com/rhcl-1/wasm-shim-rhel9
@@ -82,6 +86,10 @@ registries:
     dns_operator: registry.redhat.io/rhcl-1/dns-rhel9-operator
     mcp_gateway_operator: registry.redhat.io/rhcl-1/mcp-gateway-rhel9-operator
     mcp_gateway: registry.redhat.io/rhcl-1/mcp-gateway-rhel9
+    authorino_operator: registry.redhat.io/rhcl-1/authorino-rhel9-operator
+    authorino: registry.redhat.io/rhcl-1/authorino-rhel9
+    limitador_operator: registry.redhat.io/rhcl-1/limitador-rhel9-operator
+    limitador: registry.redhat.io/rhcl-1/limitador-rhel9
 
 # Output directory mapping
 outputDirs:
@@ -105,11 +113,13 @@ additionalClusterPermissionRules:
       - update
 
 # OLM package dependencies (downstream versions differ from upstream)
-# NOTE: dns-operator and mcp-gateway are no longer separate OLM package
-# dependencies. They were consolidated into the kuadrant-operator (see upstream
-# "feat: consolidate dns-operator into kuadrant-operator" and the equivalent
-# mcp-gateway consolidation) and are now shipped as Helm charts baked into the
-# operator image via component-charts/.
-dependencies:
-  authorino-operator: "1.4.3"
-  limitador-operator: "1.4.2"
+# NOTE: dns-operator, mcp-gateway, authorino-operator and limitador-operator are
+# no longer separate OLM package dependencies. They were consolidated into the
+# kuadrant-operator upstream and are now shipped as Helm charts baked into the
+# operator image via component-charts/. The operator resolves each component's
+# image at runtime from the RELATED_IMAGE_* env vars set on the CSV (see
+# generate-bundle.sh) rather than from a subscription to a separate operator.
+#
+# This map matches upstream bundle/metadata/dependencies.yaml (currently empty).
+# Add an entry here only if a genuine OLM package dependency is reintroduced.
+dependencies: {}
