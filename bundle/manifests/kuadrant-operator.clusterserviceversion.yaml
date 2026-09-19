@@ -903,11 +903,11 @@ spec:
                       - name: RELATED_IMAGE_DEVELOPERPORTAL
                         value: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:b9e93348a445363417cf660769a4feda91018d1d9d5c2e7fe6dce375863f008e
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1159f2385c43823511900ce7d15e2ac99519e201bd4f5bc71ebc902b3f5679a6
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:31126b5729430d7c73401d0c65885e71a0986108c749ce2a216049e642c0e33f
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_SDK1
                         value: quay.io/kuadrant/console-plugin:v0.6.0
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:6bce10dcf6a198bdb20de778aa1299c2ad989d32e75ecb2ecab71dd1469fb6c9
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:31126b5729430d7c73401d0c65885e71a0986108c749ce2a216049e642c0e33f
                       - name: RELATED_IMAGE_DNS_OPERATOR
                         value: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
                       - name: RELATED_IMAGE_MCP_GATEWAY
@@ -1089,11 +1089,11 @@ spec:
       name: wasmshim
     - image: registry.redhat.io/rhcl-1/developer-portal-controller-rhel9@sha256:b9e93348a445363417cf660769a4feda91018d1d9d5c2e7fe6dce375863f008e
       name: developerportal
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:1159f2385c43823511900ce7d15e2ac99519e201bd4f5bc71ebc902b3f5679a6
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:31126b5729430d7c73401d0c65885e71a0986108c749ce2a216049e642c0e33f
       name: console-plugin-latest
     - image: quay.io/kuadrant/console-plugin:v0.6.0
       name: console-plugin-sdk1
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:6bce10dcf6a198bdb20de778aa1299c2ad989d32e75ecb2ecab71dd1469fb6c9
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:31126b5729430d7c73401d0c65885e71a0986108c749ce2a216049e642c0e33f
       name: console-plugin-pf5
     - image: registry.redhat.io/rhcl-1/dns-rhel9-operator@sha256:e8fa2ed3deed89600e308d60e9c9796791eed2d46a121897e4343f01b6121b2f
       name: dns-operator
