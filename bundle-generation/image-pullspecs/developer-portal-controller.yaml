@@ -1,4 +1,4 @@
 # Developer Portal Controller image pullspec
 # This file is updated automatically by Konflux
-image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:b21df6569e5ae5e1fa97ba68750ad7cd6eeea25a631084663eaa8a03a41d7495
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-developer-portal-controller@sha256:3ae9969f1ab63febbfd54d1cdca675400800c3a740356be1190b168ff24dba3e
 
