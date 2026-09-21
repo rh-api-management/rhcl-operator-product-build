@@ -1,0 +1,6 @@
+# Image pull secrets for the operator Deployment.
+# The referenced secrets must already exist in the release namespace.
+# Example:
+#   imagePullSecrets:
+#     - name: registry-pull-secret
+imagePullSecrets: []

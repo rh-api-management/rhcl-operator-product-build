@@ -1,0 +1,21 @@
+apiVersion: v2
+name: rhcl-operator
+description: Red Hat Connectivity Link enables you to secure, protect, and connect your APIs and applications in multicluster, multicloud, and hybrid cloud environments.
+home: https://docs.redhat.com/en/documentation/red_hat_connectivity_link
+keywords:
+  - kuadrant
+  - authorino
+  - authn
+  - authz
+  - authorization
+  - authentication
+  - service protection
+  - limitador
+  - rate limiting
+  - dns
+  - kubernetes
+kubeVersion: ">=1.25.0-0"
+type: application
+# The chart version and dependencies will be properly set when the chart is released matching the operator version
+version: "1.5.0"
+appVersion: "1.5.0"
