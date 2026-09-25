@@ -1,4 +1,4 @@
-.PHONY: bundle validate-bundle component-charts validate-component-charts
+.PHONY: bundle validate-bundle component-charts validate-component-charts helm-chart validate-helm-chart
 
 ##@ Bundle Generation
 
@@ -29,5 +29,21 @@ validate-component-charts: ## Validate that the committed component-charts match
 	else \
 		echo "ERROR: Component charts are out of sync. Run 'make component-charts' and commit the changes."; \
 		git diff --stat ./component-charts; \
+		exit 1; \
+	fi
+
+##@ Helm Chart Generation
+
+helm-chart: ## Generate the downstream RHCL helm charts (prod, dev, stage).
+	@./helm-chart-generation/generate-helm-chart.sh
+
+validate-helm-chart: ## Validate that committed helm charts match what would be generated.
+	@./helm-chart-generation/generate-helm-chart.sh
+	@if git diff --quiet ./helm-chart ./helm-chart-dev ./helm-chart-stage && \
+		[ -z "$$(git ls-files --other --exclude-standard --directory --no-empty-directory ./helm-chart ./helm-chart-dev ./helm-chart-stage)" ]; then \
+		echo "Helm charts are valid and up to date"; \
+	else \
+		echo "ERROR: Helm charts are out of sync. Run 'make helm-chart' and commit the changes."; \
+		git diff --stat ./helm-chart ./helm-chart-dev ./helm-chart-stage; \
 		exit 1; \
 	fi
