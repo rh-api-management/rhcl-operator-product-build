@@ -225,7 +225,7 @@ metadata:
     categories: Integration & Delivery
     console.openshift.io/plugins: '["kuadrant-console-plugin"]'
     containerImage: registry.redhat.io/rhcl-1/rhcl-rhel9-operator@sha256:cc2471e083a549afb80327aa87e1d32f05e40561c3f82275b0cdb88af5ee5e8e
-    createdAt: "2026-08-28T09:40:12Z"
+    createdAt: "2026-09-25T14:48:47Z"
     description: A Kubernetes Operator to manage the lifecycle of the Kuadrant system
     operators.operatorframework.io/builder: operator-sdk-v1.33.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
@@ -776,7 +776,7 @@ spec:
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_LATEST
                         value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98f8b0359d409125d4c8f23e8da134b104a4543d18fd9f597ab9bca2066609bf
                       - name: RELATED_IMAGE_CONSOLE_PLUGIN_PF5
-                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98f8b0359d409125d4c8f23e8da134b104a4543d18fd9f597ab9bca2066609bf
+                        value: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:807a65ca558c3cf9ad5234f62ee085fcda364ff5c2b1e6c63ac9b8368a542529
                       - name: OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -940,6 +940,6 @@ spec:
       name: developerportal
     - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98f8b0359d409125d4c8f23e8da134b104a4543d18fd9f597ab9bca2066609bf
       name: console-plugin-latest
-    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:98f8b0359d409125d4c8f23e8da134b104a4543d18fd9f597ab9bca2066609bf
+    - image: registry.redhat.io/rhcl-1/rhcl-console-plugin-rhel9@sha256:807a65ca558c3cf9ad5234f62ee085fcda364ff5c2b1e6c63ac9b8368a542529
       name: console-plugin-pf5
   version: 1.4.3
